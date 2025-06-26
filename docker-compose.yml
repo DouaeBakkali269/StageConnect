@@ -1,0 +1,56 @@
+services:
+  app-frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: app-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app-backend
+    networks:
+      - app-network   
+
+  app-backend:
+    build:
+      context: ./Backend/stage
+      dockerfile: Dockerfile
+    container_name: app-backend 
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/myapp
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword  
+    depends_on:
+      postgres:
+        condition: service_healthy # This is the crucial part
+    networks:
+      - app-network     
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck: # This is the healthcheck configuration
+      test: ["CMD-SHELL", "pg_isready -U myuser -d myapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5  
+    networks:
+      - app-network  
+
+volumes:
+  postgres_data:
+networks:
+  app-network:
+    driver: bridge  
