@@ -1,0 +1,141 @@
+# This file defines the CI/CD pipeline for the Stageconnect application.
+# It automates testing, building, and publishing Docker images for both the
+# Spring Boot backend and the Next.js frontend.
+
+# Define the stages of the pipeline. Jobs in earlier stages run before jobs in later stages.
+stages:
+  - test
+  - build
+  - publish
+  - deploy
+
+# ======================================================================================
+# BACKEND JOBS (Spring Boot Application)
+# ======================================================================================
+
+# Job to run backend tests using Maven.
+# This runs in the 'test' stage.
+backend-test:
+  stage: test
+  image: eclipse-temurin:17-jdk-jammy # Use a Java 17 image
+  services:
+    # This starts a temporary PostgreSQL database just for this job.
+    - name: postgres:15-alpine
+      alias: postgres_db # The hostname your app will use to connect
+  variables:
+    # These variables are passed to the Spring Boot application during the test run.
+    # They tell the app how to connect to the temporary database service.
+    SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres_db:5432/myapp"
+    SPRING_DATASOURCE_USERNAME: "myuser"
+    SPRING_DATASOURCE_PASSWORD: "mypassword"
+    POSTGRES_DB: "myapp" # Variables for the postgres service itself
+    POSTGRES_USER: "myuser"
+    POSTGRES_PASSWORD: "mypassword"
+  script:
+    - cd Backend/stage # Navigate to the backend directory
+    - ./mvnw test # Run Maven tests
+  cache: # Cache Maven dependencies to speed up subsequent runs
+    key: "$CI_COMMIT_REF_SLUG-maven-backend"
+    paths:
+      - Backend/stage/.m2/repository
+
+# Job to build the backend JAR file.
+# This runs in the 'build' stage.
+backend-build:
+  stage: build
+  image: eclipse-temurin:17-jdk-jammy # Use a Java 17 image
+  needs: [backend-test] # This job runs only if backend-test succeeds
+  script:
+    - cd Backend/stage
+    # The 'package' command creates the JAR file. We skip tests because they ran in the 'test' stage.
+    - ./mvnw package -DskipTests
+  artifacts:
+    # This tells GitLab to save the 'target' folder after the job is done.
+    # The JAR file inside will be available to later stages.
+    paths:
+      - Backend/stage/target/*.jar
+    expire_in: 1 hour # Keep artifacts for 1 hour
+  cache: # Use the same cache as the test job
+    key: "$CI_COMMIT_REF_SLUG-maven-backend"
+    paths:
+      - Backend/stage/.m2/repository
+    policy: pull # Only pull the cache, don't push, as the build job doesn't add new dependencies
+
+# Job to build and publish the backend Docker image to the GitLab Container Registry.
+# This runs in the 'publish' stage.
+backend-publish:
+  stage: publish
+  image: docker:20.10.16 # Use a Docker image to run Docker commands
+  services:
+    - docker:20.10.16-dind # Use the Docker-in-Docker service
+  needs: [backend-build] # This job runs only if backend-build succeeds
+  before_script:
+    # Log in to the GitLab Container Registry using predefined CI/CD variables.
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    # Build the Docker image. We tag it with the project's registry path and the commit SHA for versioning.
+    # The Dockerfile for the backend is in the 'Backend/stage' directory.
+    - docker build -t "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" -f Backend/stage/Dockerfile Backend/stage
+    # Push the built image to the GitLab Container Registry.
+    - docker push "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA"
+    # Also tag it as 'latest' for easy access.
+    - docker tag "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/backend:latest"
+    - docker push "$CI_REGISTRY_IMAGE/backend:latest"
+
+# ======================================================================================
+# FRONTEND JOBS (Next.js Application)
+# ======================================================================================
+
+# Job to run linting checks on the frontend code.
+# This runs in the 'test' stage.
+frontend-lint:
+  stage: test
+  image: node:18-alpine # Use a Node.js image
+  script:
+    - cd Frontend # Navigate to the frontend directory
+    - npm install
+    - npm run lint # Run the lint command defined in package.json
+  cache: # Cache node_modules to speed up subsequent runs
+    key: "$CI_COMMIT_REF_SLUG-npm-frontend"
+    paths:
+      - Frontend/node_modules/
+
+# Job to build the frontend application.
+# This runs in the 'build' stage.
+frontend-build:
+  stage: build
+  image: node:18-alpine
+  needs: [frontend-lint] # This job runs only if frontend-lint succeeds
+  script:
+    - cd Frontend
+    - npm install
+    - npm run build # Build the Next.js application
+  artifacts:
+    # Save the build output to be used by the publish job.
+    paths:
+      - Frontend/.next/
+    expire_in: 1 hour
+  cache: # Use the same cache as the lint job
+    key: "$CI_COMMIT_REF_SLUG-npm-frontend"
+    paths:
+      - Frontend/node_modules/
+    policy: pull
+
+# Job to build and publish the frontend Docker image to the GitLab Container Registry.
+# This runs in the 'publish' stage.
+frontend-publish:
+  stage: publish
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  needs: [frontend-build] # This job runs only if frontend-build succeeds
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    # Build the Docker image for the frontend.
+    - docker build -t "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" -f Frontend/Dockerfile Frontend
+    # Push the built image to the GitLab Container Registry.
+    - docker push "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA"
+    # Also tag it as 'latest'.
+    - docker tag "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/frontend:latest"
+    - docker push "$CI_REGISTRY_IMAGE/frontend:latest"
