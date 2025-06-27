@@ -56,7 +56,7 @@ backend-test:
 frontend-lint:
   stage: test
   extends: .frontend-base
-  image: node:18-alpine # Use a Node.js image
+  image: node:20-alpine # Use a Node.js image
   script:
     - npm install
     - npm run lint # Run the lint command defined in package.json
