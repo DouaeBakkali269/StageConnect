@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import axiosInstance from '@/axiosInstance/axiosInstance';
 import FormComponent from '@/components/FormComponent';
 import Table from '@/components/Table';
+import Image from 'next/image';
 
 export default function CompteEcoleProfile() {
   const router = useRouter();
@@ -131,7 +132,7 @@ export default function CompteEcoleProfile() {
   return (
     <Layout role="university">
       <div className="p-4 font-roboto">
-        <h1 className="text-2xl font-bold mb-6 text-black">Profil du gestionnaire de l'université</h1>
+        <h1 className="text-2xl font-bold mb-6 text-black">Profil du gestionnaire de l&apos;université</h1>
 
         {/* CompteEcole and Ecole Information Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -155,21 +156,21 @@ export default function CompteEcoleProfile() {
 
           {/* Ecole Information Card */}
           <div className="bg-white shadow-lg rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-black">Informations de l'école</h2>
+            <h2 className="text-xl font-semibold mb-4 text-black">Informations de l&apos;école</h2>
             {ecole && (
               <div className="space-y-2 text-black">
                 {logoUrl && (
                   <div className="mb-4">
-                    <img src={logoUrl} alt="Logo de l'école" className="w-32 h-32 object-cover rounded-full" />
+                    <Image src={logoUrl} alt="Logo de l&apos;école" width={128} height={128} className="object-cover rounded-full" />
                   </div>
                 )}
-                <p><strong>Nom de l'école :</strong> {ecole.nomEcole}</p>
+                <p><strong>Nom de l&apos;école :</strong> {ecole.nomEcole}</p>
                 <p><strong>Ville :</strong> {ecole.villeEcole}</p>
                 <p><strong>Adresse :</strong> {ecole.adresseEcole}</p>
                 <p><strong>Description :</strong> {ecole.description}</p>
                 <p><strong>Téléphone fixe :</strong> {ecole.telephoneFix}</p>
-                <p><strong>Type d'école :</strong> {ecole.typeEcole}</p>
-                <p><strong>Domaine de l'école :</strong> {ecole.domaineEcole}</p>
+                <p><strong>Type d&apos;école :</strong> {ecole.typeEcole}</p>
+                <p><strong>Domaine de l&apos;école :</strong> {ecole.domaineEcole}</p>
                 <div className="flex justify-end mt-4">
                   <button
                     onClick={() => setIsEditingEcole(true)}
@@ -242,15 +243,15 @@ export default function CompteEcoleProfile() {
             onClose={() => setIsEditingEcole(false)}
             onSubmit={handleSaveEcole}
             fields={[
-              { name: 'nomEcole', placeholder: 'Nom de l\'école', type: 'text' },
+              { name: 'nomEcole', placeholder: 'Nom de l&apos;école', type: 'text' },
               { name: 'villeEcole', placeholder: 'Ville', type: 'text' },
               { name: 'adresseEcole', placeholder: 'Adresse', type: 'text' },
               { name: 'description', placeholder: 'Description', type: 'text' },
               { name: 'telephoneFix', placeholder: 'Téléphone fixe', type: 'text' },
-              { name: 'typeEcole', placeholder: 'Type d\'école', type: 'text' },
-              { name: 'domaineEcole', placeholder: 'Domaine de l\'école', type: 'text' },
+              { name: 'typeEcole', placeholder: 'Type d&apos;école', type: 'text' },
+              { name: 'domaineEcole', placeholder: 'Domaine de l&apos;école', type: 'text' },
             ]}
-            title="Modifier l'école"
+            title="Modifier l&apos;école"
             submitButtonText="Enregistrer"
             prefillData={ecole}
           />

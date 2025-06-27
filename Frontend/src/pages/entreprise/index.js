@@ -88,7 +88,7 @@ export default function CompanyDashboard() {
   return (
     <Layout role="company">
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold mb-6">Tableau de bord de l'entreprise</h1>
+        <h1 className="text-2xl font-bold mb-6">Tableau de bord de l&apos;entreprise</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {stats.map((stat, index) => (
             <motion.div

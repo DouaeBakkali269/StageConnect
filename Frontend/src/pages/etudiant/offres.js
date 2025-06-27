@@ -206,7 +206,7 @@ export default function StudentOffers() {
         {/* Modal for CV and Lettre de Motivation upload */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <div className="p-6">
-            <h2 className="text-xl font-bold mb-4">Postuler à l'offre</h2>
+            <h2 className="text-xl font-bold mb-4">Postuler à l&apos;offre</h2>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">CV (PDF)</label>

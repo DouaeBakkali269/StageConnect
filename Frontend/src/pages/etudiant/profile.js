@@ -109,7 +109,7 @@ export default function EtudiantProfile() {
   return (
     <Layout role="student">
       <div className="p-6 font-roboto">
-        <h1 className="text-2xl font-bold mb-6 text-black">Profil de l'étudiant</h1>
+        <h1 className="text-2xl font-bold mb-6 text-black">Profil de l&apos;étudiant</h1>
 
         {/* Cover Picture */}
         {coverPictureUrl && (
@@ -134,7 +134,7 @@ export default function EtudiantProfile() {
               />
             )}
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-black">Informations de l'étudiant</h2>
+              <h2 className="text-xl font-semibold mb-4 text-black">Informations de l&apos;étudiant</h2>
               {etudiant && (
                 <div className="space-y-2 text-black">
                   <p><strong>Nom :</strong> {etudiant.nom} {etudiant.prenom}</p>
@@ -173,7 +173,7 @@ export default function EtudiantProfile() {
               { name: 'tel', placeholder: 'Téléphone', type: 'text' },
               { name: 'motDePasse', placeholder: 'Mot de passe', type: 'password', required: true },
             ]}
-            title="Modifier le profil de l'étudiant"
+            title="Modifier le profil de l&apos;étudiant"
             submitButtonText="Enregistrer"
             prefillData={etudiant}
           />

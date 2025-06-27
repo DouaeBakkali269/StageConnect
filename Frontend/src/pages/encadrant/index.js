@@ -91,7 +91,7 @@ export default function SupervisorDashboard() {
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold mb-4">Statistiques de l'entreprise</h2>
+          <h2 className="text-xl font-semibold mb-4">Statistiques de l&apos;entreprise</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {stats.slice(2).map((stat, index) => (
               <motion.div

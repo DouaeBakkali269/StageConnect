@@ -125,7 +125,7 @@ export default function Table({ columns, columnKeys, items, buttons, actions, id
           <TableBody>
             {filteredItems.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, itemIndex) => (
               <TableRow
-                key={itemIndex}
+                key={item[idParam] || itemIndex}
                 className="hover:bg-gray-100"
               >
                 {buttons && buttons.length > 0 && (
@@ -151,7 +151,6 @@ export default function Table({ columns, columnKeys, items, buttons, actions, id
                         }[buttonText] || 'Effectuer une action';
 
                         const commonProps = {
-                          key: button,
                           onClick: () => actions[buttonIndex](item[idParam]),
                           title: tooltipText,
                           'data-tooltip-delay': '0' // Make the title pop up faster
@@ -159,79 +158,79 @@ export default function Table({ columns, columnKeys, items, buttons, actions, id
 
                         if (buttonText === 'modifier') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-modifier`} {...commonProps} color="primary">
                               <Edit />
                             </IconButton>
                           );
                         } else if (buttonText === 'désactiver') {
                           return (
-                            <IconButton {...commonProps} color="secondary">
+                            <IconButton key={`${item[idParam]}-desactiver`} {...commonProps} color="secondary">
                               <Delete />
                             </IconButton>
                           );
                         } else if (buttonText === 'déposer convention') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-deposer-convention`} {...commonProps} color="primary">
                               <Upload />
                             </IconButton>
                           );
                         } else if (buttonText === 'télécharger attestation' && item["attestationDeStage"] != null) {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-telecharger-attestation`} {...commonProps} color="primary">
                               <Download />
                             </IconButton>
                           );
                         } else if (buttonText === 'fiche descriptive') {
                           return (
-                            <IconButton {...commonProps} color="primary" onClick={() => getFicheDescriptiveDeStage(item)}>
+                            <IconButton key={`${item[idParam]}-fiche-descriptive`} {...commonProps} color="primary" onClick={() => getFicheDescriptiveDeStage(item)}>
                               <Description />
                             </IconButton>
                           );
                         } else if (buttonText === "fiche d'évaluation") {
                           return (
-                            <IconButton {...commonProps} color="primary" onClick={() => getFicheEvaluation(item)}>
+                            <IconButton key={`${item[idParam]}-fiche-evaluation`} {...commonProps} color="primary" onClick={() => getFicheEvaluation(item)}>
                               <Assessment />
                             </IconButton>
                           );
                         } else if (buttonText === 'télecharger convention' && item["conventionDeStage"] != null) {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-telecharger-convention`} {...commonProps} color="primary">
                               <Download />
                             </IconButton>
                           );
                         } else if (buttonText === 'déposer attéstation') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-deposer-attestation`} {...commonProps} color="primary">
                               <Upload />
                             </IconButton>
                           );
                         } else if (buttonText === 'déposer convention') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-deposer-convention-2`} {...commonProps} color="primary">
                               <Upload />
                             </IconButton>
                           );
                         } else if (buttonText === 'supprimer') {
                           return (
-                            <IconButton {...commonProps} color="secondary">
+                            <IconButton key={`${item[idParam]}-supprimer`} {...commonProps} color="secondary">
                               <Delete />
                             </IconButton>
                           );
                         } else if (buttonText === 'accepter') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-accepter`} {...commonProps} color="primary">
                               <CheckCircle />
                             </IconButton>
                           );
                         } else if (buttonText === 'refuser') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-refuser`} {...commonProps} color="primary">
                               <Cancel />
                             </IconButton>
                           );
                         } else if (buttonText === 'postulations') {
                           return (
-                            <IconButton {...commonProps} color="primary">
+                            <IconButton key={`${item[idParam]}-postulations`} {...commonProps} color="primary">
                               <Assignment />
                             </IconButton>
                           );
@@ -240,6 +239,7 @@ export default function Table({ columns, columnKeys, items, buttons, actions, id
                           // Default button for any other button text
                           return (
                             <button
+                              key={`${item[idParam]}-${button}`}
                               {...commonProps}
                               className={`${
                                 buttonIndex < buttons.length - 1 ? 'mr-4' : ''
@@ -257,7 +257,7 @@ export default function Table({ columns, columnKeys, items, buttons, actions, id
                   const key = columnKeys[colIndex]; // Get the property key for the column
                   return (
                     <TableCell
-                      key={column}
+                      key={`${item[idParam]}-${key}`}
                       className="px-6 py-4 whitespace-nowrap text-center"
                     >
                       {item[key]}

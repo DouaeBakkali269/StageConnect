@@ -180,7 +180,7 @@ export default function HRInterviews() {
         {error && <p className="text-red-500">{error}</p>}
 
         <Table
-          columns={["Nom", "Prénom", "Email", "Téléphone", "Objet de l'offre", "ID de l'offre", "Date"]}
+          columns={["Nom", "Prénom", "Email", "Téléphone", "Objet de l&apos;offre", "ID de l&apos;offre", "Date"]}
           columnKeys={[
             "etudiantNom",
             "etudiantPrenom",

@@ -119,7 +119,7 @@ export default function ComSupervisorManagement() {
   return (
     <Layout role="company">
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Gestion des superviseurs de l'entreprise</h1>
+        <h1 className="text-2xl font-bold">Gestion des superviseurs de l&apos;entreprise</h1>
 
         <div className="flex justify-end items-center">
           <button

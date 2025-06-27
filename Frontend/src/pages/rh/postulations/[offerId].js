@@ -140,9 +140,9 @@ export default function HRApplicationManagement() {
           onClose={() => setIsInterviewFormOpen(false)}
           onSubmit={handleCreateInterview}
           fields={[
-            { name: 'date', type: 'date', placeholder: "Date de l'entretien", required: true },
-            { name: 'time', type: 'time', placeholder: "Heure de l'entretien", required: true },
-            { name: 'location', placeholder: 'Lieu de l\'entretien', required: true },
+            { name: 'date', type: 'date', placeholder: "Date de l&apos;entretien", required: true },
+            { name: 'time', type: 'time', placeholder: "Heure de l&apos;entretien", required: true },
+            { name: 'location', placeholder: 'Lieu de l&apos;entretien', required: true },
             { name: 'duration', placeholder: 'Durée', required: true },
             { name: 'link', placeholder: 'Lien de la réunion', required: true },
           ]}

@@ -338,7 +338,7 @@ export default function StudentsManagement() {
         }}
         onSubmit={editStudentId ? handleSaveEdit : handleCreateStudent}
         fields={studentFields}
-        title={editStudentId ? "Modifier l'étudiant" : "Créer un nouvel étudiant"}
+        title={editStudentId ? "Modifier l&apos;étudiant" : "Créer un nouvel étudiant"}
         submitButtonText={editStudentId ? "Enregistrer" : "Créer"}
         prefillData={formData}
       />

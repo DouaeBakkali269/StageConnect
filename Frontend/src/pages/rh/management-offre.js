@@ -152,7 +152,7 @@ export default function HROfferManagement() {
   return (
     <Layout role="hr">
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Offres de l'entreprise</h1>
+        <h1 className="text-2xl font-bold">Offres de l&apos;entreprise</h1>
 
         <div className="flex justify-end items-center">
           <button
@@ -215,7 +215,7 @@ export default function HROfferManagement() {
           }}
           onSubmit={isEditMode ? handleEditOffer : handleCreateOffer}
           fields={formFields}
-          title={isEditMode ? "Modifier l'offre" : "Créer une nouvelle offre"}
+          title={isEditMode ? "Modifier l&apos;offre" : "Créer une nouvelle offre"}
           submitButtonText={isEditMode ? "Enregistrer" : "Créer"}
           prefillData={selectedOffer}
         />
