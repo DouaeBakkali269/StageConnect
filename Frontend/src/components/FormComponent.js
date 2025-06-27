@@ -15,7 +15,7 @@ export default function FormComponent({ isOpen, onClose, onSubmit, fields, title
       acc[field.name] = prefillData[field.name] || '';
       return acc;
     }, {});
-  }, [prefillData]); // Only recompute when prefillData changes
+  }, [prefillData, fields]); // Recompute when prefillData or fields change
 
   // Initialize formData state with initialFormData
   const [formData, setFormData] = useState(initialFormData);

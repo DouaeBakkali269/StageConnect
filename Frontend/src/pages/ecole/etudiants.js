@@ -3,7 +3,7 @@ import SearchBar from '@/components/university/SearchBar';
 import FormComponent from '@/components/FormComponent';
 import Table from '@/components/Table';
 import axiosInstance from '@/axiosInstance/axiosInstance';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import * as XLSX from 'xlsx';
 
@@ -34,15 +34,29 @@ export default function StudentsManagement() {
     }
   }, [router]);
 
-  useEffect(() => {
-    if (compteEcoleId) {
-      fetchEcoleId();
-    }
-  }, [compteEcoleId]);
-
-  const fetchEcoleId = async () => {
+  const fetchStudentsByEcoleId = useCallback(async (ecoleId) => {
     try {
-      
+      const response = await axiosInstance.get(`/api/etudiants/ecole/${ecoleId}`);
+      setStudents(response.data);
+      setFilteredStudents(response.data);
+    } catch (error) {
+      console.error('Error fetching students:', error);
+      setError('Erreur lors de la récupération des étudiants. Veuillez réessayer.');
+    }
+  }, []);
+
+  const fetchFilieresByEcoleId = useCallback(async (ecoleId) => {
+    try {
+      const response = await axiosInstance.get(`/api/filieres/ecole/${ecoleId}`);
+      setFilieres(response.data);
+    } catch (error) {
+      console.error('Error fetching filieres:', error);
+      setError('Erreur lors de la récupération des filières. Veuillez réessayer.');
+    }
+  }, []);
+
+  const fetchEcoleId = useCallback(async () => {
+    try {
       const response = await axiosInstance.get(`/compte-ecoles/${compteEcoleId}`);
       const ecoleId = response.data.ecoleId;
       setEcoleId(ecoleId);
@@ -52,28 +66,13 @@ export default function StudentsManagement() {
       console.error('Error fetching Ecole ID:', error);
       setError('Erreur lors de la récupération de l\'ID de l\'école. Veuillez réessayer.');
     }
-  };
+  }, [compteEcoleId, fetchStudentsByEcoleId, fetchFilieresByEcoleId]);
 
-  const fetchStudentsByEcoleId = async (ecoleId) => {
-    try {
-      const response = await axiosInstance.get(`/api/etudiants/ecole/${ecoleId}`);
-      setStudents(response.data);
-      setFilteredStudents(response.data);
-    } catch (error) {
-      console.error('Error fetching students:', error);
-      setError('Erreur lors de la récupération des étudiants. Veuillez réessayer.');
+  useEffect(() => {
+    if (compteEcoleId) {
+      fetchEcoleId();
     }
-  };
-
-  const fetchFilieresByEcoleId = async (ecoleId) => {
-    try {
-      const response = await axiosInstance.get(`/api/filieres/ecole/${ecoleId}`);
-      setFilieres(response.data);
-    } catch (error) {
-      console.error('Error fetching filieres:', error);
-      setError('Erreur lors de la récupération des filières. Veuillez réessayer.');
-    }
-  };
+  }, [compteEcoleId, fetchEcoleId]);
 
   const handleSearch = (query) => {
     if (query.trim() === '') {

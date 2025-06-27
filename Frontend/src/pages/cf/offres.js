@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import SearchBar from '@/components/university/SearchBar';
 import Card from '@/components/Card';
@@ -18,6 +18,43 @@ export default function CFOffers() {
   const [searchQuery, setSearchQuery] = useState(''); // Search query state
   const [logoUrls, setLogoUrls] = useState({}); // State to store logo URLs for each offer
 
+  const fetchVisibleOffers = useCallback(async (filiereId) => {
+    try {
+      const response = await axiosInstance.get(`/visible-offres/${filiereId}/visible-offres`);
+      setVisibleOffers(response.data);
+    } catch (err) {
+      setError('Échec de la récupération des offres visibles');
+    }
+  }, []);
+
+  const fetchAllOffers = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get('/api/offres');
+      setOffersList(response.data);
+    } catch (err) {
+      setError('Échec de la récupération de toutes les offres');
+    }
+  }, []);
+
+  const fetchChefDeFiliere = useCallback(async () => {
+    try {
+      const id = localStorage.getItem('id');
+      if (!id) {
+        throw new Error('Aucun ID trouvé dans le localStorage');
+      }
+
+      const response = await axiosInstance.get(`/chefs-de-filiere/${id}`);
+      const newFiliereId = response.data.filiereId;
+      setFiliereId(newFiliereId);
+      fetchVisibleOffers(newFiliereId);
+      fetchAllOffers();
+    } catch (err) {
+      setError(err.message || 'Échec de la récupération des données du ChefDeFiliere');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [fetchAllOffers, fetchVisibleOffers]);
+
   // Set authorization token and fetch ChefDeFiliere data
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -31,7 +68,7 @@ export default function CFOffers() {
     } else {
       router.push('/');
     }
-  }, [router]);
+  }, [router, fetchChefDeFiliere]);
 
   // Fetch logo URLs for all offers
   useEffect(() => {
@@ -49,45 +86,6 @@ export default function CFOffers() {
       fetchLogoUrls();
     }
   }, [offersList]);
-
-  // Fetch ChefDeFiliere data and set filiereId
-  const fetchChefDeFiliere = async () => {
-    try {
-      const id = localStorage.getItem('id');
-      if (!id) {
-        throw new Error('Aucun ID trouvé dans le localStorage');
-      }
-
-      const response = await axiosInstance.get(`/chefs-de-filiere/${id}`);
-      setFiliereId(response.data.filiereId); // Corrected: use response.data.filiereId
-      fetchVisibleOffers(response.data.filiereId);
-      fetchAllOffers();
-    } catch (err) {
-      setError(err.message || 'Échec de la récupération des données du ChefDeFiliere');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Fetch visible offers by filiereId
-  const fetchVisibleOffers = async (filiereId) => {
-    try {
-      const response = await axiosInstance.get(`/visible-offres/${filiereId}/visible-offres`);
-      setVisibleOffers(response.data);
-    } catch (err) {
-      setError('Échec de la récupération des offres visibles');
-    }
-  };
-
-  // Fetch all offers
-  const fetchAllOffers = async () => {
-    try {
-      const response = await axiosInstance.get('/api/offres');
-      setOffersList(response.data);
-    } catch (err) {
-      setError('Échec de la récupération de toutes les offres');
-    }
-  };
 
   // Handle deleting a visible offer
   const handleDeleteOffer = async (offreId) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const Card = ({ title, specifications, buttons, extraContent, imageSrc }) => {
   const getButtonColor = (label) => {
@@ -15,11 +16,12 @@ const Card = ({ title, specifications, buttons, extraContent, imageSrc }) => {
         {/* Image container */}
         {imageSrc && (
           <div className="flex justify-center items-center mb-4">
-            <div className="w-16 h-16 rounded-full overflow-hidden">
-              <img
+            <div className="w-16 h-16 rounded-full overflow-hidden relative">
+              <Image
                 src={imageSrc}
-                alt="Card"
-                className="w-full h-full object-cover"
+                alt={title || 'Card image'}
+                layout="fill"
+                objectFit="cover"
               />
             </div>
           </div>

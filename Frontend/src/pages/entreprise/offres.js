@@ -50,7 +50,7 @@ export default function ComOffers() {
   return (
     <Layout role="company">
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Offres de l'entreprise</h1>
+        <h1 className="text-2xl font-bold">Offres de l&apos;entreprise</h1>
 
         <Table
           columns={["ID Offre", "Titre", "Poste", "Date de début"]}

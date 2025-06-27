@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '@/axiosInstance/axiosInstance';
 import FormComponent from '@/components/FormComponent';
+import Image from 'next/image';
 
 export default function CompteEntrepriseProfile() {
   const router = useRouter();
@@ -92,7 +93,7 @@ export default function CompteEntrepriseProfile() {
   return (
     <Layout role="company">
       <div className="p-6 font-roboto">
-        <h1 className="text-2xl font-bold mb-6 text-black">Profil du gestionnaire de l'entreprise</h1>
+        <h1 className="text-2xl font-bold mb-6 text-black">Profil du gestionnaire de l&apos;entreprise</h1>
 
         {/* CompteEntreprise and Entreprise Information Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -116,15 +117,15 @@ export default function CompteEntrepriseProfile() {
 
           {/* Entreprise Information Card */}
           <div className="bg-white shadow-lg rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-black">Informations de l'entreprise</h2>
+            <h2 className="text-xl font-semibold mb-4 text-black">Informations de l&apos;entreprise</h2>
             {entreprise && (
               <div className="space-y-2 text-black">
                 {logoUrl && (
                   <div className="mb-4">
-                    <img src={logoUrl} alt="Logo de l'entreprise" className="w-32 h-32 object-cover rounded-full" />
+                    <Image src={logoUrl} alt="Logo de l&apos;entreprise" width={128} height={128} className="w-32 h-32 object-cover rounded-full" />
                   </div>
                 )}
-                <p><strong>Nom de l'entreprise :</strong> {entreprise.nomEntreprise}</p>
+                <p><strong>Nom de l&apos;entreprise :</strong> {entreprise.nomEntreprise}</p>
                 <p><strong>Ville :</strong> {entreprise.villeEntreprise}</p>
                 <p><strong>Adresse :</strong> {entreprise.adresseEntreprise}</p>
                 <button
@@ -175,11 +176,11 @@ export default function CompteEntrepriseProfile() {
             onClose={() => setIsEditingEntreprise(false)}
             onSubmit={handleSaveEntreprise}
             fields={[
-              { name: 'nomEntreprise', placeholder: 'Nom de l\'entreprise', type: 'text', required: true },
+              { name: 'nomEntreprise', placeholder: 'Nom de l&apos;entreprise', type: 'text', required: true },
               { name: 'villeEntreprise', placeholder: 'Ville', type: 'text', required: true },
               { name: 'adresseEntreprise', placeholder: 'Adresse', type: 'text', required: true },
             ]}
-            title="Modifier l'entreprise"
+            title="Modifier l&apos;entreprise"
             submitButtonText="Enregistrer"
             prefillData={entreprise}
           />

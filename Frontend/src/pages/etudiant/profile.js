@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '@/axiosInstance/axiosInstance';
 import FormComponent from '@/components/FormComponent';
+import Image from 'next/image';
 
 export default function EtudiantProfile() {
   const router = useRouter();
@@ -113,11 +114,12 @@ export default function EtudiantProfile() {
 
         {/* Cover Picture */}
         {coverPictureUrl && (
-          <div className="mb-6">
-            <img
+          <div className="mb-6 relative w-full h-48 rounded-lg overflow-hidden">
+            <Image
               src={coverPictureUrl}
               alt="Photo de couverture"
-              className="w-full h-48 object-cover rounded-lg"
+              layout="fill"
+              objectFit="cover"
             />
           </div>
         )}
@@ -127,11 +129,14 @@ export default function EtudiantProfile() {
           <div className="flex items-center space-x-4">
             {/* Profile Picture */}
             {profilePictureUrl && (
-              <img
-                src={profilePictureUrl}
-                alt="Photo de profil"
-                className="w-24 h-24 rounded-full object-cover"
-              />
+              <div className="relative w-32 h-32 rounded-full overflow-hidden">
+                <Image
+                  src={profilePictureUrl}
+                  alt="Photo de profil"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
             )}
             <div>
               <h2 className="text-xl font-semibold mb-4 text-black">Informations de l&apos;étudiant</h2>
@@ -190,11 +195,14 @@ export default function EtudiantProfile() {
                   {profilePictureUrl && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Photo de profil actuelle</label>
-                      <img
-                        src={profilePictureUrl}
-                        alt="Photo de profil actuelle"
-                        className="w-24 h-24 rounded-full object-cover"
-                      />
+                      <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                        <Image
+                          src={profilePictureUrl}
+                          alt="Photo de profil actuelle"
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
                     </div>
                   )}
                   <div>
@@ -211,11 +219,14 @@ export default function EtudiantProfile() {
                   {coverPictureUrl && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Photo de couverture actuelle</label>
-                      <img
-                        src={coverPictureUrl}
-                        alt="Photo de couverture actuelle"
-                        className="w-full h-24 object-cover rounded-lg"
-                      />
+                      <div className="relative w-full h-24 rounded-lg overflow-hidden">
+                        <Image
+                          src={coverPictureUrl}
+                          alt="Photo de couverture actuelle"
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
                     </div>
                   )}
                   <div>

@@ -115,7 +115,7 @@ export default function ComHRManagement() {
   return (
     <Layout role="company">
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Gestion des comptes de l'entreprise</h1>
+        <h1 className="text-2xl font-bold">Gestion des comptes de l&apos;entreprise</h1>
 
         <div className="flex justify-end items-center">
           <button
@@ -131,7 +131,7 @@ export default function ComHRManagement() {
         </div>
 
         <Table
-          columns={["Nom d'utilisateur", "Prénom", "Nom"]}
+          columns={["Nom d&apos;utilisateur", "Prénom", "Nom"]}
           columnKeys={["email", "nom", "prenom"]}
           items={accounts}
           buttons={["Modifier", "Supprimer"]}
