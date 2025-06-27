@@ -17,7 +17,8 @@ default:
 
 .backend-base:
   before_script:
-    - cd Backend/stage  
+    - cd Backend/stage
+    - chmod +x mvnw  
   after_script:
     - cd ..
 .frontend-base:
