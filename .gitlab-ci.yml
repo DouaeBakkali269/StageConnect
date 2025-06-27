@@ -47,7 +47,9 @@ backend-test:
   script:
     - ./mvnw test
   cache: # Cache Maven dependencies to speed up subsequent runs
-    key: "$CI_COMMIT_REF_SLUG-maven-backend"
+    key: "
+      files:
+        - Backend/stage/pom.xml
     paths:
       - Backend/stage/.m2/repository
     policy: pull-push 
@@ -61,7 +63,9 @@ frontend-lint:
     - npm install
     - npm run lint # Run the lint command defined in package.json
   cache: # Cache node_modules to speed up subsequent runs
-    key: "$CI_COMMIT_REF_SLUG-npm-frontend"
+    key: 
+      files:
+        - Frontend/package-lock.json
     paths:
       - Frontend/node_modules/
     policy: pull-push
@@ -88,10 +92,7 @@ frontend-lint:
     # Tag and push 'latest' ONLY if we are on the default branch (e.g., 'main')
     - |
       if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
-        /kaniko/executor
-        --context "${CONTEXT_DIR}"
-        --dockerfile "${DOCKERFILE_PATH}"
-        --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
+        /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}" --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
       fi
 
 backend-publish:
@@ -101,9 +102,7 @@ backend-publish:
     CONTEXT_DIR: "$CI_PROJECT_DIR/Backend/stage"
     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Backend/stage/Dockerfile"
     IMAGE_NAME: "backend"
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH # Run on main branch
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' # Run for MRs to build but not push 'latest'
+
 
 frontend-publish:
   extends: .publish-kaniko-template
@@ -112,10 +111,6 @@ frontend-publish:
     CONTEXT_DIR: "$CI_PROJECT_DIR/Frontend"
     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Frontend/Dockerfile"
     IMAGE_NAME: "frontend"
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
 
 
 # ==============================================
