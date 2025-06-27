@@ -68,43 +68,96 @@ frontend-lint:
 
 
 
-# Jobs to build and publish the backend and frontend Docker images to the GitLab Container Registry.
+# --- PUBLISH STAGE ---
+
+# Template for publishing Docker images using Kaniko (secure & daemonless)
+.publish-kaniko-template:
+  stage: publish
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
+  script:
+    # Create the Kaniko config file for authentication
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    # Build and push the image with the commit SHA tag
+    - >-
+      /kaniko/executor
+      --context "${CONTEXT_DIR}"
+      --dockerfile "${DOCKERFILE_PATH}"
+      --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+    # Tag and push 'latest' ONLY if we are on the default branch (e.g., 'main')
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
+        /kaniko/executor
+        --context "${CONTEXT_DIR}"
+        --dockerfile "${DOCKERFILE_PATH}"
+        --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
+      fi
 
 backend-publish:
-  stage: publish
-  image: docker:20.10.16 # Use a Docker image to run Docker commands
-  services:
-    - docker:20.10.16-dind # Use the Docker-in-Docker service
-  needs: [backend-test] 
-  before_script:
-    # Log in to the GitLab Container Registry using predefined CI/CD variables.
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    # Build the Docker image. We tag it with the project's registry path and the commit SHA for versioning.
-    - docker build -t "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" -f Backend/stage/Dockerfile Backend/stage
-    - docker push "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA"
-    - docker tag "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/backend:latest"
-    - docker push "$CI_REGISTRY_IMAGE/backend:latest"
-
-
+  extends: .publish-kaniko-template
+  needs: [backend-test]
+  variables:
+    CONTEXT_DIR: "$CI_PROJECT_DIR/Backend/stage"
+    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Backend/stage/Dockerfile"
+    IMAGE_NAME: "backend"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH # Run on main branch
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' # Run for MRs to build but not push 'latest'
 
 frontend-publish:
-  stage: publish
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
+  extends: .publish-kaniko-template
   needs: [frontend-lint]
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    - docker build -t "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" -f Frontend/Dockerfile Frontend
-    - docker push "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA"
-    - docker tag "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/frontend:latest"
-    - docker push "$CI_REGISTRY_IMAGE/frontend:latest"
+  variables:
+    CONTEXT_DIR: "$CI_PROJECT_DIR/Frontend"
+    DOCKERFILE_PATH: "$CI_PROJECT_DIR/Frontend/Dockerfile"
+    IMAGE_NAME: "frontend"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 
 
- 
+# ==============================================
+# = Publish docker images using dind service =
+# ==============================================
+
+#backend-publish:
+#  stage: publish
+#  image: docker:20.10.16 
+#  services:
+#    - docker:20.10.16-dind 
+#  needs: [backend-test] 
+#  before_script:
+#    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#  script:
+#    - docker build -t "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" -f Backend/stage/Dockerfile Backend/stage
+#    - docker push "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA"
+#    - docker tag "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/backend:latest"
+#    - docker push "$CI_REGISTRY_IMAGE/backend:latest"
+
+
+
+#frontend-publish:
+#  stage: publish
+#  image: docker:20.10.16
+#  services:
+#    - docker:20.10.16-dind
+#  needs: [frontend-lint]
+#  before_script:
+#    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+#  script:
+#    - docker build -t "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" -f Frontend/Dockerfile Frontend
+#    - docker push "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA"
+#    - docker tag "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/frontend:latest"
+#    - docker push "$CI_REGISTRY_IMAGE/frontend:latest"
+
+
+# ==============================================
+# = We removed the build stage as it is not needed 
+#thanks to the multi stage build used in dockerfile
+# ==============================================
+
 # Job to build the frontend application.
 # This runs in the 'build' stage.
 # frontend-build:
