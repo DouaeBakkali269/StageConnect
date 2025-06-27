@@ -47,7 +47,7 @@ backend-test:
   script:
     - ./mvnw test
   cache: # Cache Maven dependencies to speed up subsequent runs
-    key: "
+    key: 
       files:
         - Backend/stage/pom.xml
     paths:
