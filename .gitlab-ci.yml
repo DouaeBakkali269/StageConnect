@@ -80,20 +80,7 @@ frontend-lint:
   image:
     name: gcr.io/kaniko-project/executor:v1.9.0-debug
     entrypoint: [""]
-  script:
-    # Create the Kaniko config file for authentication
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    # Build and push the image with the commit SHA tag
-    - >-
-      /kaniko/executor
-      --context "${CONTEXT_DIR}"
-      --dockerfile "${DOCKERFILE_PATH}"
-      --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
-    # Tag and push 'latest' ONLY if we are on the default branch (e.g., 'main')
-    - |
-      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
-        /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}" --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
-      fi
+git remote -v
 
 backend-publish:
   extends: .publish-kaniko-template
