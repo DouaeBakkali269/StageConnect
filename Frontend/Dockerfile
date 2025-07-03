@@ -1,35 +1,16 @@
-# Use official Node image as the build environment
-FROM node:18-alpine AS builder
-
-# Set working directory
+FROM node:18-alpine
 WORKDIR /app
-
-# Copy package files first for better caching
-COPY package*.json ./
-
-# Install dependencies with legacy peer deps to handle React 19 compatibility
-RUN npm install 
-
-# Copy only necessary files for the build
-COPY . .
-
-# Build the Next.js app with standalone output
-RUN npm run build
-
-# Production image, copy standalone directory
-FROM node:18-alpine AS runner
-
-WORKDIR /app
-
 ENV NODE_ENV=production
 
-# Copy only necessary files from builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# Copy the pre-built artifacts from GitLab CI
+COPY .next/standalone ./
+COPY .next/static ./.next/static
+COPY public ./public
 
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
 
-# Expose port 3000
 EXPOSE 3000
-
 CMD ["node", "server.js"]
