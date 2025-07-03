@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Production image, copy standalone directory
-FROM node:18-alpine AS runner
+FROM node:18-alpine
 
 WORKDIR /app
 

@@ -80,7 +80,21 @@ frontend-lint:
   image:
     name: gcr.io/kaniko-project/executor:v1.9.0-debug
     entrypoint: [""]
-git remote -v
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    
+    # --- THIS IS THE CRITICAL CHANGE ---
+    # We will build a list of destination tags first.
+    - |
+      DESTINATIONS="--destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
+        DESTINATIONS="${DESTINATIONS} --destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
+      fi
+      echo "Publishing to: ${DESTINATIONS}"
+
+    # Now, run Kaniko only ONCE with all the destinations.
+    - /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}" ${DESTINATIONS}
+
 
 backend-publish:
   extends: .publish-kaniko-template
