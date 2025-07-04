@@ -5,138 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="792f2a51-929e-4dd8-8eb9-661d7dec2490" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitlab-ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/JacksonConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/JacksonConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/StageApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/StageApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/AuthentificationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/AuthentificationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/ChefDeFiliereController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/ChefDeFiliereController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/CompteEcoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/CompteEcoleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/CompteEntrepriseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/CompteEntrepriseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/CoordinateurDeStageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/CoordinateurDeStageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/DateConversionUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/DateConversionUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EcoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EcoleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EncadrantController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EncadrantController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EntrepriseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EntrepriseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EntretienController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EntretienController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EtudiantController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EtudiantController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EvaluationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/EvaluationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/FiliereController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/FiliereController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/OffreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/OffreController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/PostulationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/PostulationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/RHController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/RHController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/StageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/StageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/VisibleOffreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/controllers/VisibleOffreController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/AdminDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/AdminDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/ChefDeFiliereDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/ChefDeFiliereDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/CompteEcoleDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/CompteEcoleDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/CompteEntrepriseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/CompteEntrepriseDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/CoordinateurDeStageDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/CoordinateurDeStageDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EcoleDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EcoleDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EncadrantDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EncadrantDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EntrepriseDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EntrepriseDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EntretienDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EntretienDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EtudiantDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EtudiantDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EvaluationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/EvaluationDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/FiliereDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/FiliereDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/OffreDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/OffreDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/PostulationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/PostulationDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/RHDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/RHDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/StageDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/dtos/StageDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/exception/NoContentException.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/exception/NoContentException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/exception/UserNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/exception/UserNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/mappers/EntityMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/mappers/EntityMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/mappers/EntityMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/mappers/EntityMapperImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/ChefDeFiliere.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/ChefDeFiliere.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/CompteEcole.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/CompteEcole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/CompteEntreprise.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/CompteEntreprise.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/CoordinateurDeStage.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/CoordinateurDeStage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Ecole.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Ecole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Encadrant.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Encadrant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Entreprise.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Entreprise.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Entretien.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Entretien.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Etudiant.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Etudiant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Filiere.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Filiere.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Offre.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Offre.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Postulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Postulation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/RH.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/RH.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Stage.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Stage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Utilisateur.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/Utilisateur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/VisibleOffre.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/models/VisibleOffre.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadRequest/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadRequest/LoginRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadRequest/SignupRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadRequest/SignupRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadResponse/JwtResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadResponse/JwtResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadResponse/MessageResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/payloadResponse/MessageResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/AdminRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/AdminRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/ChefDeFiliereRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/ChefDeFiliereRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/CompteEcoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/CompteEcoleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/CompteEntrepriseRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/CompteEntrepriseRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/CoordinateurDeStageRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/CoordinateurDeStageRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EcoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EcoleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EncadrantRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EncadrantRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EntrepriseRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EntrepriseRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EntretienRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EntretienRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EtudiantRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EtudiantRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EvaluationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/EvaluationRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/FiliereRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/FiliereRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/OffreRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/OffreRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/PostulationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/PostulationRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/RHRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/RHRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/StageRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/StageRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/VisibleOffreRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/repositories/VisibleOffreRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/UserDetailsImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/UserDetailsImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/UserDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/UserDetailsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/jwt/AuthEntryPointJwt.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/jwt/AuthEntryPointJwt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/jwt/AuthTokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/jwt/AuthTokenFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/jwt/JwtUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/security/jwt/JwtUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/AdminService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/ChefDeFiliereService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/ChefDeFiliereService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CompteEcoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CompteEcoleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CompteEntrepriseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CompteEntrepriseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CoordinateurDeDStageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CoordinateurDeDStageService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CorsConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/CorsConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EcoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EcoleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EncadrantService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EncadrantService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EntrepriseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EntrepriseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EntretienService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EntretienService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EtudiantService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EtudiantService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EvaluationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/EvaluationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/FiliereService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/FiliereService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/OffreService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/OffreService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/PostulationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/PostulationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/RHService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/RHService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/StageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/StageService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/StatisticsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/StatisticsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/AdminServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/AdminServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/ChefDeFiliereServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/ChefDeFiliereServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/CompteEcoleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/CompteEcoleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/CompteEntrepriseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/CompteEntrepriseServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/CoordinateurDeStageImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/CoordinateurDeStageImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EcoleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EcoleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EncadrantServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EncadrantServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EntrepriseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EntrepriseServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EntretienServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EntretienServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EtudiantServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EtudiantServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EvaluationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/EvaluationServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/FiliereServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/FiliereServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/OffreServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/OffreServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/PostulationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/PostulationServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/RHServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/RHServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/StageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/StageServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/StatisticsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/StatisticsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/VisibleOffreService.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/classes/STAGE/stage/services/implementation/VisibleOffreService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/generated-sources/annotations/STAGE/stage/mappers/EntityMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/generated-sources/annotations/STAGE/stage/mappers/EntityMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/surefire-reports/STAGE.stage.StageApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/surefire-reports/STAGE.stage.StageApplicationTests.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/surefire-reports/TEST-STAGE.stage.StageApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/surefire-reports/TEST-STAGE.stage.StageApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stage/target/test-classes/STAGE/stage/StageApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/test-classes/STAGE/stage/StageApplicationTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stage/src/test/java/STAGE/stage/controllers/EtudiantControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/stage/src/test/java/STAGE/stage/controllers/EtudiantControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stage/src/test/java/STAGE/stage/services/EtudiantServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/stage/src/test/java/STAGE/stage/services/EtudiantServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stage/target/test-classes/STAGE/stage/controllers/EtudiantControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/test-classes/STAGE/stage/controllers/EtudiantControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stage/target/test-classes/STAGE/stage/services/EtudiantServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/stage/target/test-classes/STAGE/stage/services/EtudiantServiceTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,31 +46,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.stage [clean].executor": "Run",
-    "Maven.stage [install].executor": "Run",
-    "Maven.stage [verify].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.StageApplication.executor": "Run",
-    "git-widget-placeholder": "staging",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Usuario/OneDrive/Desktop/Stageconnect/Backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.stage [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.stage [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.stage [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.StageApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;staging&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/OneDrive/Desktop/Stageconnect/Backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="StageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -228,6 +101,7 @@
       <workItem from="1750792447769" duration="4163000" />
       <workItem from="1750874815223" duration="14041000" />
       <workItem from="1751637712859" duration="384000" />
+      <workItem from="1751638163108" duration="2458000" />
     </task>
     <servers />
   </component>

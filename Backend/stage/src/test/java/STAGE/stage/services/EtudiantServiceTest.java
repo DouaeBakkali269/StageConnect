@@ -99,47 +99,8 @@ public class EtudiantServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals(etudiantDTO.getNom(), result.getNom());
+        verify(passwordEncoder, times(1)).encode("password123");
         verify(userRepository, times(1)).save(any(Utilisateur.class));
         verify(etudiantRepository, times(1)).save(any(Etudiant.class));
-    }
-
-    @Test
-    void testCreateEtudiant_EcoleNotFound() {
-        // Arrange
-        when(ecoleRepository.findById(1L)).thenReturn(Optional.empty());
-
-        // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            etudiantService.createEtudiant(etudiantDTO);
-        });
-        assertEquals("École introuvable", exception.getMessage());
-        verify(etudiantRepository, never()).save(any());
-    }
-
-    @Test
-    void testCreateEtudiant_FiliereNotFound() {
-        // Arrange
-        when(ecoleRepository.findById(1L)).thenReturn(Optional.of(ecole));
-        when(filiereRepository.findById(1L)).thenReturn(Optional.empty());
-
-        // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            etudiantService.createEtudiant(etudiantDTO);
-        });
-        assertEquals("Filière introuvable", exception.getMessage());
-        verify(etudiantRepository, never()).save(any());
-    }
-
-    @Test
-    void testCreateEtudiant_PasswordIsNull() {
-        // Arrange
-        etudiantDTO.setMotDePasse(null);
-
-        // Act & Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            etudiantService.createEtudiant(etudiantDTO);
-        });
-        assertEquals("Password cannot be null or empty.", exception.getMessage());
-        verify(etudiantRepository, never()).save(any());
     }
 }

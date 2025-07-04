@@ -9,26 +9,22 @@ import STAGE.stage.services.StatisticsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(EtudiantController.class)
 public class EtudiantControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
     private ObjectMapper objectMapper;
 
     @Mock
@@ -46,11 +42,17 @@ public class EtudiantControllerTest {
     @Mock
     private EntityMapper entityMapper;
 
+    @InjectMocks
+    private EtudiantController etudiantController;
+
     private EtudiantDTO etudiantDTO;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this); // init mocks
+
+        objectMapper = new ObjectMapper();
+        mockMvc = MockMvcBuilders.standaloneSetup(etudiantController).build();
 
         etudiantDTO = new EtudiantDTO();
         etudiantDTO.setIdEtu(1L);
@@ -70,7 +72,7 @@ public class EtudiantControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(etudiantDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.idEtu").value(1L))
                 .andExpect(jsonPath("$.nom").value("Jane"))
                 .andExpect(jsonPath("$.email").value("jane.doe@example.com"));
     }
