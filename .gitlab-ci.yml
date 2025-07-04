@@ -1,6 +1,7 @@
 # Define the stages of the pipeline. Jobs in earlier stages run before jobs in later stages.
 stages:
   - test
+  - build
   - publish
   - deploy
 
@@ -71,129 +72,71 @@ frontend-lint:
     policy: pull-push
 
 
-
-# --- PUBLISH STAGE ---
-
-# Template for publishing Docker images using Kaniko (secure & daemonless)
-.publish-kaniko-template:
-  stage: publish
+# --- BUILD STAGE ---
+# Template for building Docker images using Kaniko (secure & daemonless)
+.build-kaniko-template:
+  stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.9.0-debug
     entrypoint: [""]
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    
-    # --- THIS IS THE CRITICAL CHANGE ---
-    # We will build a list of destination tags first.
     - |
-      DESTINATIONS="--destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
-      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
-        DESTINATIONS="${DESTINATIONS} --destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
-      fi
-      echo "Publishing to: ${DESTINATIONS}"
+      echo "Building Docker image: ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+    - /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}" --no-push --tarPath "${IMAGE_NAME}.tar"     # ONLY BUILD the Docker image - DON'T push to registry yet!
+  artifacts:
+    paths:
+      - "*.tar"  # Save the Docker image as a file
+    expire_in: 1 hour
 
-    # Now, run Kaniko only ONCE with all the destinations.
-    - /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}" ${DESTINATIONS}
-
-
-backend-publish:
-  extends: .publish-kaniko-template
+backend-build:
+  extends: .build-kaniko-template
   needs: [backend-test]
   variables:
     CONTEXT_DIR: "$CI_PROJECT_DIR/Backend/stage"
     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Backend/stage/Dockerfile"
     IMAGE_NAME: "backend"
 
-
-frontend-publish:
-  extends: .publish-kaniko-template
+frontend-build:
+  extends: .build-kaniko-template
   needs: [frontend-lint]
   variables:
     CONTEXT_DIR: "$CI_PROJECT_DIR/Frontend"
     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Frontend/Dockerfile"
     IMAGE_NAME: "frontend"
 
+# --- PUBLISH STAGE ---
+# Template for publishing Docker images to GitLab registry
+.publish-template:
+  stage: publish
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - |
+      # Load the Docker image from the tar file and push to registry
+      DESTINATIONS="--destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
+        DESTINATIONS="${DESTINATIONS} --destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
+      fi
+      echo "Publishing to GitLab registry: ${DESTINATIONS}"
+    # Push the pre-built image to GitLab registry
+    - /kaniko/executor --tarPath "${IMAGE_NAME}.tar" ${DESTINATIONS}
 
-# ==============================================
-# = Publish docker images using dind service =
-# ==============================================
+backend-publish:
+  extends: .publish-template
+  needs: 
+    - job: backend-build
+      artifacts: true
+  variables:
+    IMAGE_NAME: "backend"
 
-#backend-publish:
-#  stage: publish
-#  image: docker:20.10.16 
-#  services:
-#    - docker:20.10.16-dind 
-#  needs: [backend-test] 
-#  before_script:
-#    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-#  script:
-#    - docker build -t "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" -f Backend/stage/Dockerfile Backend/stage
-#    - docker push "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA"
-#    - docker tag "$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/backend:latest"
-#    - docker push "$CI_REGISTRY_IMAGE/backend:latest"
+frontend-publish:
+  extends: .publish-template
+  needs: 
+    - job: frontend-build
+      artifacts: true
+  variables:
+    IMAGE_NAME: "frontend"
 
-
-
-#frontend-publish:
-#  stage: publish
-#  image: docker:20.10.16
-#  services:
-#    - docker:20.10.16-dind
-#  needs: [frontend-lint]
-#  before_script:
-#    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-#  script:
-#    - docker build -t "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" -f Frontend/Dockerfile Frontend
-#    - docker push "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA"
-#    - docker tag "$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/frontend:latest"
-#    - docker push "$CI_REGISTRY_IMAGE/frontend:latest"
-
-
-# ==============================================
-# = We removed the build stage as it is not needed 
-#thanks to the multi stage build used in dockerfile
-# ==============================================
-
-# Job to build the frontend application.
-# This runs in the 'build' stage.
-# frontend-build:
-#   stage: build
-#   image: node:18-alpine
-#   needs: [frontend-lint] # This job runs only if frontend-lint succeeds
-#   script:
-#     - cd Frontend
-#     - npm install
-#     - npm run build # Build the Next.js application
-#   artifacts:
-#     # Save the build output to be used by the publish job.
-#     paths:
-#       - Frontend/.next/
-#     expire_in: 1 hour
-#   cache: # Use the same cache as the lint job
-#     key: "$CI_COMMIT_REF_SLUG-npm-frontend"
-#     paths:
-#       - Frontend/node_modules/
-#     policy: pull
-   
-
-# Job to build the backend JAR file.
-# This runs in the 'build' stage.
-#backend-build:
-#  stage: build
-#  image: eclipse-temurin:17-jdk-jammy # Use a Java 17 image
-#  needs: [backend-test] # This job runs only if backend-test succeeds
-#  script:
-#    - cd Backend/stage
-#    # The 'package' command creates the JAR file. We skip tests because they ran in the 'test' stage.
-#    - ./mvnw package -DskipTests
-#  artifacts:
-#    # This tells GitLab to save the 'target' folder after the job is done.
-#    # The JAR file inside will be available to later stages.
-#    paths:
-#      - Backend/stage/target/*.jar
-#    expire_in: 1 hour # Keep artifacts for 1 hour
-#  cache: # Use the same cache as the test job
-#    key: "$CI_COMMIT_REF_SLUG-maven-backend"
-#    paths:
-#      - Backend/stage/.m2/repository
-#    policy: pull # Only pull the cache, don't push, as the build job doesn't add new dependencies   
