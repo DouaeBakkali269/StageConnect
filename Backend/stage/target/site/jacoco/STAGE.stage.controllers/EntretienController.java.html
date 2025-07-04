@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EntretienController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.controllers</a> &gt; <span class="el_source">EntretienController.java</span></div><h1>EntretienController.java</h1><pre class="source lang-java linenums">package STAGE.stage.controllers;
+
+import STAGE.stage.dtos.EntretienDTO;
+import STAGE.stage.services.EntretienService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/entretiens&quot;)
+<span class="fc" id="L13">public class EntretienController {</span>
+
+    @Autowired
+    private EntretienService entretienService;
+
+    @PostMapping
+    public EntretienDTO createEntretien(@RequestBody EntretienDTO entretienDTO) {
+<span class="nc" id="L20">        return entretienService.createEntretien(entretienDTO);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public EntretienDTO updateEntretien(@PathVariable Long id, @RequestBody EntretienDTO entretienDTO) {
+<span class="nc" id="L25">        return entretienService.updateEntretien(id, entretienDTO);</span>
+    }
+
+    @GetMapping
+    public List&lt;EntretienDTO&gt; getAllEntretiens() {
+<span class="nc" id="L30">        return entretienService.getAllEntretiens();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public EntretienDTO getEntretienById(@PathVariable Long id) {
+<span class="nc" id="L35">        return entretienService.getEntretienById(id);</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public void deleteEntretien(@PathVariable Long id) {
+<span class="nc" id="L40">        entretienService.deleteEntretien(id);</span>
+<span class="nc" id="L41">    }</span>
+    @GetMapping(&quot;/by-entreprise/{entrepriseId}&quot;)
+    public List&lt;EntretienDTO&gt; getEntretiensByEntrepriseId(@PathVariable Long entrepriseId) {
+<span class="nc" id="L44">        return entretienService.getEntretiensByEntrepriseId(entrepriseId);</span>
+    }
+
+    @GetMapping(&quot;/etudiant/{etudiantId}&quot;)
+    public ResponseEntity&lt;List&lt;EntretienDTO&gt;&gt; getEntretiensByEtudiant(@PathVariable Long etudiantId) {
+<span class="nc" id="L49">        List&lt;EntretienDTO&gt; entretiens = entretienService.getEntretiensByEtudiant(etudiantId);</span>
+<span class="nc" id="L50">        return ResponseEntity.ok(entretiens);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

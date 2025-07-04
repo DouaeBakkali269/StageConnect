@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: STAGE.stage.controllers.EtudiantControllerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.164 s -- in STAGE.stage.controllers.EtudiantControllerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.749 s -- in STAGE.stage.controllers.EtudiantControllerTest

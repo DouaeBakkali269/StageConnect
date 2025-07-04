@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RHServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.services.implementation</a> &gt; <span class="el_source">RHServiceImpl.java</span></div><h1>RHServiceImpl.java</h1><pre class="source lang-java linenums">package STAGE.stage.services.implementation;
+
+import STAGE.stage.models.Utilisateur;
+import STAGE.stage.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import STAGE.stage.dtos.RHDTO;
+import STAGE.stage.mappers.EntityMapper;
+import STAGE.stage.models.Entreprise;
+import STAGE.stage.models.RH;
+import STAGE.stage.repositories.EntrepriseRepository;
+import STAGE.stage.repositories.RHRepository;
+import STAGE.stage.services.RHService;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class RHServiceImpl implements RHService {
+
+    private final RHRepository rhRepository;
+    private final EntrepriseRepository entrepriseRepository;
+    private final EntityMapper entityMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userrepository;
+
+    @Override
+    public RHDTO createRH(RHDTO dto) {
+<span class="nc bnc" id="L36" title="All 4 branches missed.">        if (dto.getMotDePasse() == null || dto.getMotDePasse().isEmpty()) {</span>
+<span class="nc" id="L37">            throw new IllegalArgumentException(&quot;Password cannot be null or empty.&quot;);</span>
+        }
+
+<span class="nc" id="L40">        Utilisateur user = new Utilisateur();</span>
+<span class="nc" id="L41">        user.setRole(&quot;RH&quot;);</span>
+<span class="nc" id="L42">        user.setEmail(dto.getEmail());</span>
+<span class="nc" id="L43">        user.setPassword(passwordEncoder.encode(dto.getMotDePasse()));</span>
+<span class="nc" id="L44">        userrepository.save(user);</span>
+
+<span class="nc" id="L46">        RH rh = new RH();</span>
+<span class="nc" id="L47">        rh.setNom(dto.getNom());</span>
+<span class="nc" id="L48">        rh.setPrenom(dto.getPrenom());</span>
+<span class="nc" id="L49">        rh.setEmail(dto.getEmail());</span>
+<span class="nc" id="L50">        rh.setTelephone(dto.getTelephone());</span>
+<span class="nc" id="L51">        rh.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));</span>
+<span class="nc" id="L52">        rh.setEntreprise(entrepriseRepository.findById(dto.getEntrepriseId())</span>
+<span class="nc" id="L53">                .orElseThrow(() -&gt; new RuntimeException(&quot;Entreprise introuvable&quot;))); // Associate Entreprise</span>
+<span class="nc" id="L54">        rh.setUser(user); // Associate User</span>
+
+<span class="nc" id="L56">        return entityMapper.toDto(rhRepository.save(rh));</span>
+    }
+
+    @Override
+    public RHDTO getRHById(Long id) {
+<span class="nc" id="L61">        RH rh = rhRepository.findById(id)</span>
+<span class="nc" id="L62">                .orElseThrow(() -&gt; new RuntimeException(&quot;RH not found with id: &quot; + id));</span>
+<span class="nc" id="L63">        return entityMapper.toDto(rh);</span>
+    }
+
+    @Override
+    public List&lt;RHDTO&gt; getAllRHs() {
+<span class="nc" id="L68">        return rhRepository.findAll()</span>
+<span class="nc" id="L69">                .stream()</span>
+<span class="nc" id="L70">                .map(entityMapper::toDto)</span>
+<span class="nc" id="L71">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public RHDTO updateRH(Long id, RHDTO rhDTO) {
+<span class="nc" id="L76">        RH rh = rhRepository.findById(id)</span>
+<span class="nc" id="L77">                .orElseThrow(() -&gt; new RuntimeException(&quot;RH not found with id: &quot; + id));</span>
+
+<span class="nc" id="L79">        rh.setNom(rhDTO.getNom());</span>
+<span class="nc" id="L80">        rh.setPrenom(rhDTO.getPrenom());</span>
+<span class="nc" id="L81">        rh.setEmail(rhDTO.getEmail());</span>
+<span class="nc" id="L82">        rh.setMotDePasse(rhDTO.getMotDePasse());</span>
+<span class="nc" id="L83">        rh.setTelephone(rhDTO.getTelephone());</span>
+
+
+        // Update User (email and password) if needed
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (rhDTO.getUserId() != null) {</span>
+<span class="nc" id="L88">            Utilisateur user = userrepository.findById(rhDTO.getUserId())</span>
+<span class="nc" id="L89">                    .orElseThrow(() -&gt; new RuntimeException(&quot;User not found with id: &quot; + rhDTO.getUserId()));</span>
+<span class="nc" id="L90">            user.setEmail(rhDTO.getEmail()); // Update email</span>
+<span class="nc bnc" id="L91" title="All 4 branches missed.">            if (rhDTO.getMotDePasse() != null &amp;&amp; !rhDTO.getMotDePasse().isEmpty()) {</span>
+<span class="nc" id="L92">                user.setPassword(passwordEncoder.encode(rhDTO.getMotDePasse())); // Update password</span>
+            }
+<span class="nc" id="L94">            userrepository.save(user); // Save updated User</span>
+        }
+
+<span class="nc" id="L97">        Entreprise entreprise = entrepriseRepository.findById(rhDTO.getEntrepriseId())</span>
+<span class="nc" id="L98">                .orElseThrow(() -&gt; new RuntimeException(&quot;Entreprise introuvable&quot;));</span>
+<span class="nc" id="L99">        rh.setEntreprise(entreprise);</span>
+
+<span class="nc" id="L101">        RH updatedRH = rhRepository.save(rh);</span>
+<span class="nc" id="L102">        return entityMapper.toDto(updatedRH);</span>
+    }
+
+    @Override
+    public void deleteRH(Long id) {
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (!rhRepository.existsById(id)) {</span>
+<span class="nc" id="L108">            throw new RuntimeException(&quot;RH not found with id: &quot; + id);</span>
+        }
+<span class="nc" id="L110">        rhRepository.deleteById(id);</span>
+<span class="nc" id="L111">    }</span>
+    @Override
+    public List&lt;RH&gt; getRHByEntreprise(Long entrepriseId) {
+<span class="nc" id="L114">        return rhRepository.findByEntrepriseIdEntreprise(entrepriseId); // Assurez-vous que la méthode existe dans le repository</span>
+    }
+
+    @Override
+    public Long getRHIdByUserId(Long userId) {
+<span class="nc" id="L119">        Optional&lt;RH&gt; rhOptional = rhRepository.findByUserId(userId);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (rhOptional.isPresent()) {</span>
+<span class="nc" id="L121">            return rhOptional.get().getIdRh();</span>
+        } else {
+<span class="nc" id="L123">            throw new IllegalArgumentException(&quot;RH with userId &quot; + userId + &quot; does not exist.&quot;);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthentificationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.controllers</a> &gt; <span class="el_source">AuthentificationController.java</span></div><h1>AuthentificationController.java</h1><pre class="source lang-java linenums">package STAGE.stage.controllers;
+
+import STAGE.stage.models.Utilisateur;
+import STAGE.stage.repositories.*;
+import STAGE.stage.payloadRequest.LoginRequest;
+import STAGE.stage.payloadRequest.SignupRequest;
+import STAGE.stage.payloadResponse.JwtResponse;
+import STAGE.stage.payloadResponse.MessageResponse;
+import STAGE.stage.security.UserDetailsImpl;
+import STAGE.stage.security.jwt.JwtUtils;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping(&quot;/api/auth&quot;)
+@CrossOrigin(&quot;*&quot;)
+
+<span class="fc" id="L29">public class AuthentificationController {</span>
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
+
+
+    @PostMapping(&quot;/signin&quot;)
+    public ResponseEntity&lt;?&gt; authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+<span class="nc" id="L47">        Authentication authentication = authenticationManager.authenticate(</span>
+<span class="nc" id="L48">                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())</span>
+        );
+<span class="nc" id="L50">        SecurityContextHolder.getContext().setAuthentication(authentication);</span>
+<span class="nc" id="L51">        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();</span>
+<span class="nc" id="L52">        String jwt = jwtUtils.generateJwtToken(userDetails);</span>
+
+<span class="nc" id="L54">        List&lt;String&gt; roles = userDetails.getAuthorities().stream()</span>
+<span class="nc" id="L55">                .map(item -&gt; item.getAuthority())</span>
+<span class="nc" id="L56">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L58">        return ResponseEntity.ok(new JwtResponse(jwt,</span>
+<span class="nc" id="L59">                userDetails.getId(),</span>
+                roles,
+<span class="nc" id="L61">                userDetails.getEmail()));</span>
+    }
+
+    @PostMapping(&quot;/signup&quot;)
+    public ResponseEntity&lt;?&gt; registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        try {
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            if (userRepository.findByEmail(signUpRequest.getEmail())!=null) {</span>
+<span class="nc" id="L68">                return ResponseEntity</span>
+<span class="nc" id="L69">                        .badRequest()</span>
+<span class="nc" id="L70">                        .body(new MessageResponse(&quot;Error: email exists already!&quot;));</span>
+            }
+
+            // Create new user's account
+<span class="nc" id="L74">            Utilisateur user = new Utilisateur();</span>
+<span class="nc" id="L75">            user.setPassword(encoder.encode(signUpRequest.getPassword()));</span>
+<span class="nc" id="L76">            user.setRole(signUpRequest.getRole());</span>
+<span class="nc" id="L77">            user.setEmail(signUpRequest.getEmail());</span>
+
+
+            // Save the user to the users table
+<span class="nc" id="L81">            userRepository.save(user);</span>
+
+<span class="nc" id="L83">            return ResponseEntity.ok(new MessageResponse(&quot;User registered successfully!&quot;));</span>
+<span class="nc" id="L84">        } catch (Exception e) {</span>
+<span class="nc" id="L85">            e.printStackTrace();</span>
+<span class="nc" id="L86">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse(&quot;An error occurred during registration.&quot;));</span>
+        }
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

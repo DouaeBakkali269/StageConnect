@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RHController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.controllers</a> &gt; <span class="el_source">RHController.java</span></div><h1>RHController.java</h1><pre class="source lang-java linenums">package STAGE.stage.controllers;
+
+import STAGE.stage.mappers.EntityMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import STAGE.stage.dtos.RHDTO;
+import STAGE.stage.models.RH;
+import STAGE.stage.services.RHService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/rh&quot;)
+<span class="fc" id="L16">public class RHController {</span>
+    @Autowired
+    private RHService rhService;
+    @Autowired
+    private EntityMapper entityMapper;
+
+    @PostMapping
+    public RHDTO createRH(@RequestBody RHDTO rhDTO) {
+<span class="nc" id="L24">        return rhService.createRH(rhDTO);</span>
+    }
+
+    // Récupérer un RH par son ID
+    @GetMapping(&quot;/{id}&quot;)
+    public RHDTO getRHById(@PathVariable Long id) {
+<span class="nc" id="L30">        return rhService.getRHById(id);</span>
+    }
+
+    // Récupérer tous les RH
+    @GetMapping
+    public List&lt;RHDTO&gt; getAllRHs() {
+<span class="nc" id="L36">        return rhService.getAllRHs();</span>
+    }
+
+    // Mettre à jour un RH existant
+    @PutMapping(&quot;/{id}&quot;)
+    public RHDTO updateRH(@PathVariable Long id, @RequestBody RHDTO rhDTO) {
+<span class="nc" id="L42">        return rhService.updateRH(id, rhDTO);</span>
+    }
+
+    // Supprimer un RH par son ID
+    @DeleteMapping(&quot;/{id}&quot;)
+    public void deleteRH(@PathVariable Long id) {
+<span class="nc" id="L48">        rhService.deleteRH(id);</span>
+<span class="nc" id="L49">    }</span>
+    @GetMapping(&quot;/entreprise/{entrepriseId}&quot;)
+    public List&lt;RHDTO&gt; getRHByEntreprise(@PathVariable Long entrepriseId) {
+<span class="nc" id="L52">        List&lt;RH&gt; rhs = rhService.getRHByEntreprise(entrepriseId);</span>
+<span class="nc" id="L53">        return rhs.stream().map(entityMapper::toDto).toList();</span>
+    }
+
+    @GetMapping(&quot;/user/{userId}&quot;)
+    public ResponseEntity&lt;Long&gt; getRHIdByUserId(@PathVariable Long userId) {
+        try {
+<span class="nc" id="L59">            Long rhId = rhService.getRHIdByUserId(userId);</span>
+<span class="nc" id="L60">            return ResponseEntity.ok(rhId);</span>
+<span class="nc" id="L61">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L62">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
+        }
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

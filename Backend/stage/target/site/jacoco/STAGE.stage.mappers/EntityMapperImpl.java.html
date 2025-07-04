@@ -1,0 +1,1541 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EntityMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.mappers</a> &gt; <span class="el_source">EntityMapperImpl.java</span></div><h1>EntityMapperImpl.java</h1><pre class="source lang-java linenums">package STAGE.stage.mappers;
+
+import STAGE.stage.dtos.AdminDTO;
+import STAGE.stage.dtos.ChefDeFiliereDTO;
+import STAGE.stage.dtos.CompteEcoleDTO;
+import STAGE.stage.dtos.CompteEntrepriseDTO;
+import STAGE.stage.dtos.CoordinateurDeStageDTO;
+import STAGE.stage.dtos.EcoleDTO;
+import STAGE.stage.dtos.EncadrantDTO;
+import STAGE.stage.dtos.EntrepriseDTO;
+import STAGE.stage.dtos.EntretienDTO;
+import STAGE.stage.dtos.EtudiantDTO;
+import STAGE.stage.dtos.EvaluationDTO;
+import STAGE.stage.dtos.FiliereDTO;
+import STAGE.stage.dtos.OffreDTO;
+import STAGE.stage.dtos.PostulationDTO;
+import STAGE.stage.dtos.RHDTO;
+import STAGE.stage.dtos.StageDTO;
+import STAGE.stage.models.Admin;
+import STAGE.stage.models.ChefDeFiliere;
+import STAGE.stage.models.CompteEcole;
+import STAGE.stage.models.CompteEntreprise;
+import STAGE.stage.models.CoordinateurDeStage;
+import STAGE.stage.models.Ecole;
+import STAGE.stage.models.Encadrant;
+import STAGE.stage.models.Entreprise;
+import STAGE.stage.models.Entretien;
+import STAGE.stage.models.Etudiant;
+import STAGE.stage.models.Evaluation;
+import STAGE.stage.models.Filiere;
+import STAGE.stage.models.Offre;
+import STAGE.stage.models.Postulation;
+import STAGE.stage.models.RH;
+import STAGE.stage.models.Stage;
+import STAGE.stage.models.Utilisateur;
+import java.util.Arrays;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2025-07-04T17:02:43+0100&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 22.0.2 (Amazon.com Inc.)&quot;
+)
+@Component
+<span class="fc" id="L46">public class EntityMapperImpl implements EntityMapper {</span>
+
+    @Override
+    public AdminDTO toDto(Admin admin) {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if ( admin == null ) {</span>
+<span class="nc" id="L51">            return null;</span>
+        }
+
+<span class="nc" id="L54">        AdminDTO adminDTO = new AdminDTO();</span>
+
+<span class="nc" id="L56">        adminDTO.setUserId( adminUserId( admin ) );</span>
+<span class="nc" id="L57">        adminDTO.setId( admin.getId() );</span>
+<span class="nc" id="L58">        adminDTO.setNomAd( admin.getNomAd() );</span>
+<span class="nc" id="L59">        adminDTO.setPrenomAd( admin.getPrenomAd() );</span>
+<span class="nc" id="L60">        adminDTO.setEmailAd( admin.getEmailAd() );</span>
+<span class="nc" id="L61">        adminDTO.setMotDePasse( admin.getMotDePasse() );</span>
+<span class="nc" id="L62">        adminDTO.setTelephone( admin.getTelephone() );</span>
+
+<span class="nc" id="L64">        return adminDTO;</span>
+    }
+
+    @Override
+    public Admin toEntity(AdminDTO adminDTO) {
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if ( adminDTO == null ) {</span>
+<span class="nc" id="L70">            return null;</span>
+        }
+
+<span class="nc" id="L73">        Admin admin = new Admin();</span>
+
+<span class="nc" id="L75">        admin.setUser( adminDTOToUtilisateur( adminDTO ) );</span>
+<span class="nc" id="L76">        admin.setId( adminDTO.getId() );</span>
+<span class="nc" id="L77">        admin.setNomAd( adminDTO.getNomAd() );</span>
+<span class="nc" id="L78">        admin.setPrenomAd( adminDTO.getPrenomAd() );</span>
+<span class="nc" id="L79">        admin.setEmailAd( adminDTO.getEmailAd() );</span>
+<span class="nc" id="L80">        admin.setMotDePasse( adminDTO.getMotDePasse() );</span>
+<span class="nc" id="L81">        admin.setTelephone( adminDTO.getTelephone() );</span>
+
+<span class="nc" id="L83">        return admin;</span>
+    }
+
+    @Override
+    public FiliereDTO toDto(Filiere filiere) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if ( filiere == null ) {</span>
+<span class="nc" id="L89">            return null;</span>
+        }
+
+<span class="nc" id="L92">        FiliereDTO filiereDTO = new FiliereDTO();</span>
+
+<span class="nc" id="L94">        filiereDTO.setEcoleId( filiereEcoleIdEcole( filiere ) );</span>
+<span class="nc" id="L95">        filiereDTO.setIdFiliere( filiere.getIdFiliere() );</span>
+<span class="nc" id="L96">        filiereDTO.setNomFiliere( filiere.getNomFiliere() );</span>
+<span class="nc" id="L97">        filiereDTO.setAbrvFiliere( filiere.getAbrvFiliere() );</span>
+
+<span class="nc" id="L99">        return filiereDTO;</span>
+    }
+
+    @Override
+    public Filiere toEntity(FiliereDTO filiereDTO) {
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if ( filiereDTO == null ) {</span>
+<span class="nc" id="L105">            return null;</span>
+        }
+
+<span class="nc" id="L108">        Filiere filiere = new Filiere();</span>
+
+<span class="nc" id="L110">        filiere.setEcole( filiereDTOToEcole( filiereDTO ) );</span>
+<span class="nc" id="L111">        filiere.setIdFiliere( filiereDTO.getIdFiliere() );</span>
+<span class="nc" id="L112">        filiere.setNomFiliere( filiereDTO.getNomFiliere() );</span>
+<span class="nc" id="L113">        filiere.setAbrvFiliere( filiereDTO.getAbrvFiliere() );</span>
+
+<span class="nc" id="L115">        return filiere;</span>
+    }
+
+    @Override
+    public EcoleDTO toDto(Ecole ecole) {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if ( ecole == null ) {</span>
+<span class="nc" id="L121">            return null;</span>
+        }
+
+<span class="nc" id="L124">        EcoleDTO ecoleDTO = new EcoleDTO();</span>
+
+<span class="nc" id="L126">        ecoleDTO.setIdEcole( ecole.getIdEcole() );</span>
+<span class="nc" id="L127">        ecoleDTO.setNomEcole( ecole.getNomEcole() );</span>
+<span class="nc" id="L128">        ecoleDTO.setVilleEcole( ecole.getVilleEcole() );</span>
+<span class="nc" id="L129">        ecoleDTO.setAdresseEcole( ecole.getAdresseEcole() );</span>
+<span class="nc" id="L130">        ecoleDTO.setDescription( ecole.getDescription() );</span>
+<span class="nc" id="L131">        byte[] logo = ecole.getLogo();</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if ( logo != null ) {</span>
+<span class="nc" id="L133">            ecoleDTO.setLogo( Arrays.copyOf( logo, logo.length ) );</span>
+        }
+<span class="nc" id="L135">        ecoleDTO.setTelephoneFix( ecole.getTelephoneFix() );</span>
+<span class="nc" id="L136">        ecoleDTO.setTypeEcole( ecole.getTypeEcole() );</span>
+<span class="nc" id="L137">        ecoleDTO.setDomaineEcole( ecole.getDomaineEcole() );</span>
+
+<span class="nc" id="L139">        return ecoleDTO;</span>
+    }
+
+    @Override
+    public Ecole toEntity(EcoleDTO ecoleDTO) {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if ( ecoleDTO == null ) {</span>
+<span class="nc" id="L145">            return null;</span>
+        }
+
+<span class="nc" id="L148">        Ecole ecole = new Ecole();</span>
+
+<span class="nc" id="L150">        ecole.setIdEcole( ecoleDTO.getIdEcole() );</span>
+<span class="nc" id="L151">        ecole.setNomEcole( ecoleDTO.getNomEcole() );</span>
+<span class="nc" id="L152">        ecole.setVilleEcole( ecoleDTO.getVilleEcole() );</span>
+<span class="nc" id="L153">        ecole.setAdresseEcole( ecoleDTO.getAdresseEcole() );</span>
+<span class="nc" id="L154">        byte[] logo = ecoleDTO.getLogo();</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if ( logo != null ) {</span>
+<span class="nc" id="L156">            ecole.setLogo( Arrays.copyOf( logo, logo.length ) );</span>
+        }
+<span class="nc" id="L158">        ecole.setDescription( ecoleDTO.getDescription() );</span>
+<span class="nc" id="L159">        ecole.setTelephoneFix( ecoleDTO.getTelephoneFix() );</span>
+<span class="nc" id="L160">        ecole.setTypeEcole( ecoleDTO.getTypeEcole() );</span>
+<span class="nc" id="L161">        ecole.setDomaineEcole( ecoleDTO.getDomaineEcole() );</span>
+
+<span class="nc" id="L163">        return ecole;</span>
+    }
+
+    @Override
+    public ChefDeFiliereDTO toDto(ChefDeFiliere chefDeFiliere) {
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if ( chefDeFiliere == null ) {</span>
+<span class="nc" id="L169">            return null;</span>
+        }
+
+<span class="nc" id="L172">        ChefDeFiliereDTO chefDeFiliereDTO = new ChefDeFiliereDTO();</span>
+
+<span class="nc" id="L174">        chefDeFiliereDTO.setEcoleId( chefDeFiliereEcoleIdEcole( chefDeFiliere ) );</span>
+<span class="nc" id="L175">        chefDeFiliereDTO.setFiliereId( chefDeFiliereFiliereIdFiliere( chefDeFiliere ) );</span>
+<span class="nc" id="L176">        chefDeFiliereDTO.setUserId( chefDeFiliereUserId( chefDeFiliere ) );</span>
+<span class="nc" id="L177">        chefDeFiliereDTO.setIdCf( chefDeFiliere.getIdCf() );</span>
+<span class="nc" id="L178">        chefDeFiliereDTO.setNom( chefDeFiliere.getNom() );</span>
+<span class="nc" id="L179">        chefDeFiliereDTO.setPrenom( chefDeFiliere.getPrenom() );</span>
+<span class="nc" id="L180">        chefDeFiliereDTO.setEmail( chefDeFiliere.getEmail() );</span>
+<span class="nc" id="L181">        chefDeFiliereDTO.setMotDePasse( chefDeFiliere.getMotDePasse() );</span>
+<span class="nc" id="L182">        chefDeFiliereDTO.setTelephone( chefDeFiliere.getTelephone() );</span>
+
+<span class="nc" id="L184">        return chefDeFiliereDTO;</span>
+    }
+
+    @Override
+    public ChefDeFiliere toEntity(ChefDeFiliereDTO chefDeFiliereDTO) {
+<span class="nc bnc" id="L189" title="All 2 branches missed.">        if ( chefDeFiliereDTO == null ) {</span>
+<span class="nc" id="L190">            return null;</span>
+        }
+
+<span class="nc" id="L193">        ChefDeFiliere chefDeFiliere = new ChefDeFiliere();</span>
+
+<span class="nc" id="L195">        chefDeFiliere.setEcole( chefDeFiliereDTOToEcole( chefDeFiliereDTO ) );</span>
+<span class="nc" id="L196">        chefDeFiliere.setFiliere( chefDeFiliereDTOToFiliere( chefDeFiliereDTO ) );</span>
+<span class="nc" id="L197">        chefDeFiliere.setUser( chefDeFiliereDTOToUtilisateur( chefDeFiliereDTO ) );</span>
+<span class="nc" id="L198">        chefDeFiliere.setIdCf( chefDeFiliereDTO.getIdCf() );</span>
+<span class="nc" id="L199">        chefDeFiliere.setNom( chefDeFiliereDTO.getNom() );</span>
+<span class="nc" id="L200">        chefDeFiliere.setPrenom( chefDeFiliereDTO.getPrenom() );</span>
+<span class="nc" id="L201">        chefDeFiliere.setEmail( chefDeFiliereDTO.getEmail() );</span>
+<span class="nc" id="L202">        chefDeFiliere.setMotDePasse( chefDeFiliereDTO.getMotDePasse() );</span>
+<span class="nc" id="L203">        chefDeFiliere.setTelephone( chefDeFiliereDTO.getTelephone() );</span>
+
+<span class="nc" id="L205">        return chefDeFiliere;</span>
+    }
+
+    @Override
+    public EtudiantDTO toDto(Etudiant etudiant) {
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L211">            return null;</span>
+        }
+
+<span class="nc" id="L214">        EtudiantDTO etudiantDTO = new EtudiantDTO();</span>
+
+<span class="nc" id="L216">        etudiantDTO.setEcoleId( etudiantEcoleIdEcole( etudiant ) );</span>
+<span class="nc" id="L217">        etudiantDTO.setFiliereId( etudiantFiliereIdFiliere( etudiant ) );</span>
+<span class="nc" id="L218">        etudiantDTO.setUserId( etudiantUserId( etudiant ) );</span>
+<span class="nc" id="L219">        etudiantDTO.setIdEtu( etudiant.getIdEtu() );</span>
+<span class="nc" id="L220">        etudiantDTO.setNom( etudiant.getNom() );</span>
+<span class="nc" id="L221">        etudiantDTO.setPrenom( etudiant.getPrenom() );</span>
+<span class="nc" id="L222">        etudiantDTO.setTel( etudiant.getTel() );</span>
+<span class="nc" id="L223">        etudiantDTO.setEmail( etudiant.getEmail() );</span>
+<span class="nc" id="L224">        etudiantDTO.setMotDePasse( etudiant.getMotDePasse() );</span>
+<span class="nc" id="L225">        etudiantDTO.setCodeEtu( etudiant.getCodeEtu() );</span>
+<span class="nc" id="L226">        byte[] photoProfil = etudiant.getPhotoProfil();</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        if ( photoProfil != null ) {</span>
+<span class="nc" id="L228">            etudiantDTO.setPhotoProfil( Arrays.copyOf( photoProfil, photoProfil.length ) );</span>
+        }
+<span class="nc" id="L230">        byte[] photoCouverture = etudiant.getPhotoCouverture();</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if ( photoCouverture != null ) {</span>
+<span class="nc" id="L232">            etudiantDTO.setPhotoCouverture( Arrays.copyOf( photoCouverture, photoCouverture.length ) );</span>
+        }
+<span class="nc" id="L234">        etudiantDTO.setStatutEtudiant( etudiant.getStatutEtudiant() );</span>
+
+<span class="nc" id="L236">        return etudiantDTO;</span>
+    }
+
+    @Override
+    public Etudiant toEntity(EtudiantDTO etudiantDTO) {
+<span class="nc bnc" id="L241" title="All 2 branches missed.">        if ( etudiantDTO == null ) {</span>
+<span class="nc" id="L242">            return null;</span>
+        }
+
+<span class="nc" id="L245">        Etudiant etudiant = new Etudiant();</span>
+
+<span class="nc" id="L247">        etudiant.setEcole( etudiantDTOToEcole( etudiantDTO ) );</span>
+<span class="nc" id="L248">        etudiant.setFiliere( etudiantDTOToFiliere( etudiantDTO ) );</span>
+<span class="nc" id="L249">        etudiant.setUser( etudiantDTOToUtilisateur( etudiantDTO ) );</span>
+<span class="nc" id="L250">        etudiant.setIdEtu( etudiantDTO.getIdEtu() );</span>
+<span class="nc" id="L251">        etudiant.setNom( etudiantDTO.getNom() );</span>
+<span class="nc" id="L252">        etudiant.setPrenom( etudiantDTO.getPrenom() );</span>
+<span class="nc" id="L253">        etudiant.setTel( etudiantDTO.getTel() );</span>
+<span class="nc" id="L254">        etudiant.setEmail( etudiantDTO.getEmail() );</span>
+<span class="nc" id="L255">        etudiant.setMotDePasse( etudiantDTO.getMotDePasse() );</span>
+<span class="nc" id="L256">        etudiant.setCodeEtu( etudiantDTO.getCodeEtu() );</span>
+<span class="nc" id="L257">        byte[] photoProfil = etudiantDTO.getPhotoProfil();</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">        if ( photoProfil != null ) {</span>
+<span class="nc" id="L259">            etudiant.setPhotoProfil( Arrays.copyOf( photoProfil, photoProfil.length ) );</span>
+        }
+<span class="nc" id="L261">        byte[] photoCouverture = etudiantDTO.getPhotoCouverture();</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">        if ( photoCouverture != null ) {</span>
+<span class="nc" id="L263">            etudiant.setPhotoCouverture( Arrays.copyOf( photoCouverture, photoCouverture.length ) );</span>
+        }
+<span class="nc" id="L265">        etudiant.setStatutEtudiant( etudiantDTO.getStatutEtudiant() );</span>
+
+<span class="nc" id="L267">        return etudiant;</span>
+    }
+
+    @Override
+    public StageDTO toDto(Stage stage) {
+<span class="nc bnc" id="L272" title="All 2 branches missed.">        if ( stage == null ) {</span>
+<span class="nc" id="L273">            return null;</span>
+        }
+
+<span class="nc" id="L276">        StageDTO stageDTO = new StageDTO();</span>
+
+<span class="nc" id="L278">        stageDTO.setEtudiantId( stageEtudiantIdEtu( stage ) );</span>
+<span class="nc" id="L279">        stageDTO.setOffreId( stageOffreIdOffre( stage ) );</span>
+<span class="nc" id="L280">        stageDTO.setEncadrantId( stageEncadrantIdEncadrant( stage ) );</span>
+<span class="nc" id="L281">        byte[] attestationDeStage = stage.getAttestationDeStage();</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">        if ( attestationDeStage != null ) {</span>
+<span class="nc" id="L283">            stageDTO.setAttestationDeStage( Arrays.copyOf( attestationDeStage, attestationDeStage.length ) );</span>
+        }
+<span class="nc" id="L285">        stageDTO.setIdStage( stage.getIdStage() );</span>
+<span class="nc" id="L286">        stageDTO.setTitre( stage.getTitre() );</span>
+<span class="nc" id="L287">        stageDTO.setDescription( stage.getDescription() );</span>
+<span class="nc" id="L288">        stageDTO.setDateDebut( stage.getDateDebut() );</span>
+<span class="nc" id="L289">        stageDTO.setDateFin( stage.getDateFin() );</span>
+<span class="nc" id="L290">        stageDTO.setDuree( stage.getDuree() );</span>
+<span class="nc" id="L291">        stageDTO.setLocalisation( stage.getLocalisation() );</span>
+<span class="nc" id="L292">        stageDTO.setMontantRemuneration( stage.getMontantRemuneration() );</span>
+<span class="nc" id="L293">        stageDTO.setStatut( stage.getStatut() );</span>
+<span class="nc" id="L294">        stageDTO.setType( stage.getType() );</span>
+<span class="nc" id="L295">        byte[] conventionDeStage = stage.getConventionDeStage();</span>
+<span class="nc bnc" id="L296" title="All 2 branches missed.">        if ( conventionDeStage != null ) {</span>
+<span class="nc" id="L297">            stageDTO.setConventionDeStage( Arrays.copyOf( conventionDeStage, conventionDeStage.length ) );</span>
+        }
+
+<span class="nc" id="L300">        return stageDTO;</span>
+    }
+
+    @Override
+    public Stage toEntity(StageDTO stageDTO) {
+<span class="nc bnc" id="L305" title="All 2 branches missed.">        if ( stageDTO == null ) {</span>
+<span class="nc" id="L306">            return null;</span>
+        }
+
+<span class="nc" id="L309">        Stage stage = new Stage();</span>
+
+<span class="nc" id="L311">        stage.setEtudiant( stageDTOToEtudiant( stageDTO ) );</span>
+<span class="nc" id="L312">        stage.setOffre( stageDTOToOffre( stageDTO ) );</span>
+<span class="nc" id="L313">        stage.setEncadrant( stageDTOToEncadrant( stageDTO ) );</span>
+<span class="nc" id="L314">        stage.setIdStage( stageDTO.getIdStage() );</span>
+<span class="nc" id="L315">        stage.setTitre( stageDTO.getTitre() );</span>
+<span class="nc" id="L316">        stage.setDescription( stageDTO.getDescription() );</span>
+<span class="nc" id="L317">        stage.setDateDebut( stageDTO.getDateDebut() );</span>
+<span class="nc" id="L318">        stage.setDateFin( stageDTO.getDateFin() );</span>
+<span class="nc" id="L319">        stage.setDuree( stageDTO.getDuree() );</span>
+<span class="nc" id="L320">        stage.setLocalisation( stageDTO.getLocalisation() );</span>
+<span class="nc" id="L321">        stage.setMontantRemuneration( stageDTO.getMontantRemuneration() );</span>
+<span class="nc" id="L322">        stage.setStatut( stageDTO.getStatut() );</span>
+<span class="nc" id="L323">        stage.setType( stageDTO.getType() );</span>
+<span class="nc" id="L324">        byte[] conventionDeStage = stageDTO.getConventionDeStage();</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">        if ( conventionDeStage != null ) {</span>
+<span class="nc" id="L326">            stage.setConventionDeStage( Arrays.copyOf( conventionDeStage, conventionDeStage.length ) );</span>
+        }
+<span class="nc" id="L328">        byte[] attestationDeStage = stageDTO.getAttestationDeStage();</span>
+<span class="nc bnc" id="L329" title="All 2 branches missed.">        if ( attestationDeStage != null ) {</span>
+<span class="nc" id="L330">            stage.setAttestationDeStage( Arrays.copyOf( attestationDeStage, attestationDeStage.length ) );</span>
+        }
+
+<span class="nc" id="L333">        return stage;</span>
+    }
+
+    @Override
+    public OffreDTO toDto(Offre offre) {
+<span class="nc bnc" id="L338" title="All 2 branches missed.">        if ( offre == null ) {</span>
+<span class="nc" id="L339">            return null;</span>
+        }
+
+<span class="nc" id="L342">        OffreDTO offreDTO = new OffreDTO();</span>
+
+<span class="nc" id="L344">        offreDTO.setEntrepriseId( offreEntrepriseIdEntreprise( offre ) );</span>
+<span class="nc" id="L345">        offreDTO.setRhId( offreRhIdRh( offre ) );</span>
+<span class="nc" id="L346">        offreDTO.setIdOffre( offre.getIdOffre() );</span>
+<span class="nc" id="L347">        offreDTO.setObjetOffre( offre.getObjetOffre() );</span>
+<span class="nc" id="L348">        offreDTO.setDescriptionOffre( offre.getDescriptionOffre() );</span>
+<span class="nc" id="L349">        offreDTO.setDateLancement( offre.getDateLancement() );</span>
+<span class="nc" id="L350">        offreDTO.setDateLimite( offre.getDateLimite() );</span>
+<span class="nc" id="L351">        offreDTO.setPosteOffre( offre.getPosteOffre() );</span>
+<span class="nc" id="L352">        offreDTO.setDureeStage( offre.getDureeStage() );</span>
+<span class="nc" id="L353">        offreDTO.setModeOffre( offre.getModeOffre() );</span>
+<span class="nc" id="L354">        offreDTO.setRemuneration( offre.getRemuneration() );</span>
+<span class="nc" id="L355">        offreDTO.setTypeStageOffre( offre.getTypeStageOffre() );</span>
+<span class="nc" id="L356">        offreDTO.setNiveauRequisOffre( offre.getNiveauRequisOffre() );</span>
+
+<span class="nc" id="L358">        return offreDTO;</span>
+    }
+
+    @Override
+    public Offre toEntity(OffreDTO offreDTO) {
+<span class="nc bnc" id="L363" title="All 2 branches missed.">        if ( offreDTO == null ) {</span>
+<span class="nc" id="L364">            return null;</span>
+        }
+
+<span class="nc" id="L367">        Offre offre = new Offre();</span>
+
+<span class="nc" id="L369">        offre.setEntreprise( offreDTOToEntreprise( offreDTO ) );</span>
+<span class="nc" id="L370">        offre.setRh( offreDTOToRH( offreDTO ) );</span>
+<span class="nc" id="L371">        offre.setIdOffre( offreDTO.getIdOffre() );</span>
+<span class="nc" id="L372">        offre.setObjetOffre( offreDTO.getObjetOffre() );</span>
+<span class="nc" id="L373">        offre.setDescriptionOffre( offreDTO.getDescriptionOffre() );</span>
+<span class="nc" id="L374">        offre.setDateLancement( offreDTO.getDateLancement() );</span>
+<span class="nc" id="L375">        offre.setDateLimite( offreDTO.getDateLimite() );</span>
+<span class="nc" id="L376">        offre.setPosteOffre( offreDTO.getPosteOffre() );</span>
+<span class="nc" id="L377">        offre.setDureeStage( offreDTO.getDureeStage() );</span>
+<span class="nc" id="L378">        offre.setModeOffre( offreDTO.getModeOffre() );</span>
+<span class="nc" id="L379">        offre.setRemuneration( offreDTO.getRemuneration() );</span>
+<span class="nc" id="L380">        offre.setTypeStageOffre( offreDTO.getTypeStageOffre() );</span>
+<span class="nc" id="L381">        offre.setNiveauRequisOffre( offreDTO.getNiveauRequisOffre() );</span>
+
+<span class="nc" id="L383">        return offre;</span>
+    }
+
+    @Override
+    public PostulationDTO toDto(Postulation postulation) {
+<span class="nc bnc" id="L388" title="All 2 branches missed.">        if ( postulation == null ) {</span>
+<span class="nc" id="L389">            return null;</span>
+        }
+
+<span class="nc" id="L392">        PostulationDTO postulationDTO = new PostulationDTO();</span>
+
+<span class="nc" id="L394">        postulationDTO.setEtudiantId( postulationEtudiantIdEtu( postulation ) );</span>
+<span class="nc" id="L395">        postulationDTO.setOffreId( postulationOffreIdOffre( postulation ) );</span>
+<span class="nc" id="L396">        postulationDTO.setId( postulation.getId() );</span>
+<span class="nc" id="L397">        postulationDTO.setEtatPostulation( postulation.getEtatPostulation() );</span>
+<span class="nc" id="L398">        byte[] cv = postulation.getCv();</span>
+<span class="nc bnc" id="L399" title="All 2 branches missed.">        if ( cv != null ) {</span>
+<span class="nc" id="L400">            postulationDTO.setCv( Arrays.copyOf( cv, cv.length ) );</span>
+        }
+<span class="nc" id="L402">        byte[] lettreMotivation = postulation.getLettreMotivation();</span>
+<span class="nc bnc" id="L403" title="All 2 branches missed.">        if ( lettreMotivation != null ) {</span>
+<span class="nc" id="L404">            postulationDTO.setLettreMotivation( Arrays.copyOf( lettreMotivation, lettreMotivation.length ) );</span>
+        }
+
+<span class="nc" id="L407">        return postulationDTO;</span>
+    }
+
+    @Override
+    public Postulation toEntity(PostulationDTO postulationDTO) {
+<span class="nc bnc" id="L412" title="All 2 branches missed.">        if ( postulationDTO == null ) {</span>
+<span class="nc" id="L413">            return null;</span>
+        }
+
+<span class="nc" id="L416">        Postulation postulation = new Postulation();</span>
+
+<span class="nc" id="L418">        postulation.setEtudiant( postulationDTOToEtudiant( postulationDTO ) );</span>
+<span class="nc" id="L419">        postulation.setOffre( postulationDTOToOffre( postulationDTO ) );</span>
+<span class="nc" id="L420">        postulation.setId( postulationDTO.getId() );</span>
+<span class="nc" id="L421">        byte[] cv = postulationDTO.getCv();</span>
+<span class="nc bnc" id="L422" title="All 2 branches missed.">        if ( cv != null ) {</span>
+<span class="nc" id="L423">            postulation.setCv( Arrays.copyOf( cv, cv.length ) );</span>
+        }
+<span class="nc" id="L425">        byte[] lettreMotivation = postulationDTO.getLettreMotivation();</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">        if ( lettreMotivation != null ) {</span>
+<span class="nc" id="L427">            postulation.setLettreMotivation( Arrays.copyOf( lettreMotivation, lettreMotivation.length ) );</span>
+        }
+<span class="nc" id="L429">        postulation.setEtatPostulation( postulationDTO.getEtatPostulation() );</span>
+
+<span class="nc" id="L431">        return postulation;</span>
+    }
+
+    @Override
+    public RHDTO toDto(RH rh) {
+<span class="nc bnc" id="L436" title="All 2 branches missed.">        if ( rh == null ) {</span>
+<span class="nc" id="L437">            return null;</span>
+        }
+
+<span class="nc" id="L440">        RHDTO rHDTO = new RHDTO();</span>
+
+<span class="nc" id="L442">        rHDTO.setEntrepriseId( rhEntrepriseIdEntreprise( rh ) );</span>
+<span class="nc" id="L443">        rHDTO.setUserId( rhUserId( rh ) );</span>
+<span class="nc" id="L444">        rHDTO.setIdRh( rh.getIdRh() );</span>
+<span class="nc" id="L445">        rHDTO.setNom( rh.getNom() );</span>
+<span class="nc" id="L446">        rHDTO.setPrenom( rh.getPrenom() );</span>
+<span class="nc" id="L447">        rHDTO.setEmail( rh.getEmail() );</span>
+<span class="nc" id="L448">        rHDTO.setMotDePasse( rh.getMotDePasse() );</span>
+<span class="nc" id="L449">        rHDTO.setTelephone( rh.getTelephone() );</span>
+
+<span class="nc" id="L451">        return rHDTO;</span>
+    }
+
+    @Override
+    public RH toEntity(RHDTO rhDTO) {
+<span class="nc bnc" id="L456" title="All 2 branches missed.">        if ( rhDTO == null ) {</span>
+<span class="nc" id="L457">            return null;</span>
+        }
+
+<span class="nc" id="L460">        RH rH = new RH();</span>
+
+<span class="nc" id="L462">        rH.setEntreprise( rHDTOToEntreprise( rhDTO ) );</span>
+<span class="nc" id="L463">        rH.setUser( rHDTOToUtilisateur( rhDTO ) );</span>
+<span class="nc" id="L464">        rH.setIdRh( rhDTO.getIdRh() );</span>
+<span class="nc" id="L465">        rH.setNom( rhDTO.getNom() );</span>
+<span class="nc" id="L466">        rH.setPrenom( rhDTO.getPrenom() );</span>
+<span class="nc" id="L467">        rH.setEmail( rhDTO.getEmail() );</span>
+<span class="nc" id="L468">        rH.setMotDePasse( rhDTO.getMotDePasse() );</span>
+<span class="nc" id="L469">        rH.setTelephone( rhDTO.getTelephone() );</span>
+
+<span class="nc" id="L471">        return rH;</span>
+    }
+
+    @Override
+    public CoordinateurDeStageDTO toDto(CoordinateurDeStage coordinateurDeStage) {
+<span class="nc bnc" id="L476" title="All 2 branches missed.">        if ( coordinateurDeStage == null ) {</span>
+<span class="nc" id="L477">            return null;</span>
+        }
+
+<span class="nc" id="L480">        CoordinateurDeStageDTO coordinateurDeStageDTO = new CoordinateurDeStageDTO();</span>
+
+<span class="nc" id="L482">        coordinateurDeStageDTO.setUserId( coordinateurDeStageUserId( coordinateurDeStage ) );</span>
+<span class="nc" id="L483">        coordinateurDeStageDTO.setEcoleId( coordinateurDeStageEcoleIdEcole( coordinateurDeStage ) );</span>
+<span class="nc" id="L484">        coordinateurDeStageDTO.setIdCs( coordinateurDeStage.getIdCs() );</span>
+<span class="nc" id="L485">        coordinateurDeStageDTO.setNom( coordinateurDeStage.getNom() );</span>
+<span class="nc" id="L486">        coordinateurDeStageDTO.setPrenom( coordinateurDeStage.getPrenom() );</span>
+<span class="nc" id="L487">        coordinateurDeStageDTO.setEmail( coordinateurDeStage.getEmail() );</span>
+<span class="nc" id="L488">        coordinateurDeStageDTO.setMotDePasse( coordinateurDeStage.getMotDePasse() );</span>
+<span class="nc" id="L489">        coordinateurDeStageDTO.setTelephone( coordinateurDeStage.getTelephone() );</span>
+
+<span class="nc" id="L491">        return coordinateurDeStageDTO;</span>
+    }
+
+    @Override
+    public CoordinateurDeStage toEntity(CoordinateurDeStageDTO coordinateurDeStageDTO) {
+<span class="nc bnc" id="L496" title="All 2 branches missed.">        if ( coordinateurDeStageDTO == null ) {</span>
+<span class="nc" id="L497">            return null;</span>
+        }
+
+<span class="nc" id="L500">        CoordinateurDeStage coordinateurDeStage = new CoordinateurDeStage();</span>
+
+<span class="nc" id="L502">        coordinateurDeStage.setEcole( coordinateurDeStageDTOToEcole( coordinateurDeStageDTO ) );</span>
+<span class="nc" id="L503">        coordinateurDeStage.setUser( coordinateurDeStageDTOToUtilisateur( coordinateurDeStageDTO ) );</span>
+<span class="nc" id="L504">        coordinateurDeStage.setIdCs( coordinateurDeStageDTO.getIdCs() );</span>
+<span class="nc" id="L505">        coordinateurDeStage.setNom( coordinateurDeStageDTO.getNom() );</span>
+<span class="nc" id="L506">        coordinateurDeStage.setPrenom( coordinateurDeStageDTO.getPrenom() );</span>
+<span class="nc" id="L507">        coordinateurDeStage.setEmail( coordinateurDeStageDTO.getEmail() );</span>
+<span class="nc" id="L508">        coordinateurDeStage.setMotDePasse( coordinateurDeStageDTO.getMotDePasse() );</span>
+<span class="nc" id="L509">        coordinateurDeStage.setTelephone( coordinateurDeStageDTO.getTelephone() );</span>
+
+<span class="nc" id="L511">        return coordinateurDeStage;</span>
+    }
+
+    @Override
+    public EncadrantDTO toDto(Encadrant encadrant) {
+<span class="nc bnc" id="L516" title="All 2 branches missed.">        if ( encadrant == null ) {</span>
+<span class="nc" id="L517">            return null;</span>
+        }
+
+<span class="nc" id="L520">        EncadrantDTO encadrantDTO = new EncadrantDTO();</span>
+
+<span class="nc" id="L522">        encadrantDTO.setEntrepriseId( encadrantEntrepriseIdEntreprise( encadrant ) );</span>
+<span class="nc" id="L523">        encadrantDTO.setUserId( encadrantUserId( encadrant ) );</span>
+<span class="nc" id="L524">        encadrantDTO.setIdEncadrant( encadrant.getIdEncadrant() );</span>
+<span class="nc" id="L525">        encadrantDTO.setNom( encadrant.getNom() );</span>
+<span class="nc" id="L526">        encadrantDTO.setPrenom( encadrant.getPrenom() );</span>
+<span class="nc" id="L527">        encadrantDTO.setEmail( encadrant.getEmail() );</span>
+<span class="nc" id="L528">        encadrantDTO.setMotDePasse( encadrant.getMotDePasse() );</span>
+<span class="nc" id="L529">        encadrantDTO.setTelephone( encadrant.getTelephone() );</span>
+
+<span class="nc" id="L531">        return encadrantDTO;</span>
+    }
+
+    @Override
+    public Encadrant toEntity(EncadrantDTO encadrantDTO) {
+<span class="nc bnc" id="L536" title="All 2 branches missed.">        if ( encadrantDTO == null ) {</span>
+<span class="nc" id="L537">            return null;</span>
+        }
+
+<span class="nc" id="L540">        Encadrant encadrant = new Encadrant();</span>
+
+<span class="nc" id="L542">        encadrant.setEntreprise( encadrantDTOToEntreprise( encadrantDTO ) );</span>
+<span class="nc" id="L543">        encadrant.setUser( encadrantDTOToUtilisateur( encadrantDTO ) );</span>
+<span class="nc" id="L544">        encadrant.setIdEncadrant( encadrantDTO.getIdEncadrant() );</span>
+<span class="nc" id="L545">        encadrant.setNom( encadrantDTO.getNom() );</span>
+<span class="nc" id="L546">        encadrant.setPrenom( encadrantDTO.getPrenom() );</span>
+<span class="nc" id="L547">        encadrant.setEmail( encadrantDTO.getEmail() );</span>
+<span class="nc" id="L548">        encadrant.setMotDePasse( encadrantDTO.getMotDePasse() );</span>
+<span class="nc" id="L549">        encadrant.setTelephone( encadrantDTO.getTelephone() );</span>
+
+<span class="nc" id="L551">        return encadrant;</span>
+    }
+
+    @Override
+    public EntrepriseDTO toDto(Entreprise entreprise) {
+<span class="nc bnc" id="L556" title="All 2 branches missed.">        if ( entreprise == null ) {</span>
+<span class="nc" id="L557">            return null;</span>
+        }
+
+<span class="nc" id="L560">        EntrepriseDTO entrepriseDTO = new EntrepriseDTO();</span>
+
+<span class="nc" id="L562">        entrepriseDTO.setIdEntreprise( entreprise.getIdEntreprise() );</span>
+<span class="nc" id="L563">        entrepriseDTO.setNomEntreprise( entreprise.getNomEntreprise() );</span>
+<span class="nc" id="L564">        entrepriseDTO.setDescription( entreprise.getDescription() );</span>
+<span class="nc" id="L565">        entrepriseDTO.setVilleEntreprise( entreprise.getVilleEntreprise() );</span>
+<span class="nc" id="L566">        entrepriseDTO.setAdresseEntreprise( entreprise.getAdresseEntreprise() );</span>
+<span class="nc" id="L567">        entrepriseDTO.setTelephoneFix( entreprise.getTelephoneFix() );</span>
+<span class="nc" id="L568">        entrepriseDTO.setDomaineEntreprise( entreprise.getDomaineEntreprise() );</span>
+<span class="nc" id="L569">        byte[] logo = entreprise.getLogo();</span>
+<span class="nc bnc" id="L570" title="All 2 branches missed.">        if ( logo != null ) {</span>
+<span class="nc" id="L571">            entrepriseDTO.setLogo( Arrays.copyOf( logo, logo.length ) );</span>
+        }
+
+<span class="nc" id="L574">        return entrepriseDTO;</span>
+    }
+
+    @Override
+    public Entreprise toEntity(EntrepriseDTO entrepriseDTO) {
+<span class="nc bnc" id="L579" title="All 2 branches missed.">        if ( entrepriseDTO == null ) {</span>
+<span class="nc" id="L580">            return null;</span>
+        }
+
+<span class="nc" id="L583">        Entreprise entreprise = new Entreprise();</span>
+
+<span class="nc" id="L585">        entreprise.setIdEntreprise( entrepriseDTO.getIdEntreprise() );</span>
+<span class="nc" id="L586">        entreprise.setNomEntreprise( entrepriseDTO.getNomEntreprise() );</span>
+<span class="nc" id="L587">        entreprise.setDescription( entrepriseDTO.getDescription() );</span>
+<span class="nc" id="L588">        byte[] logo = entrepriseDTO.getLogo();</span>
+<span class="nc bnc" id="L589" title="All 2 branches missed.">        if ( logo != null ) {</span>
+<span class="nc" id="L590">            entreprise.setLogo( Arrays.copyOf( logo, logo.length ) );</span>
+        }
+<span class="nc" id="L592">        entreprise.setVilleEntreprise( entrepriseDTO.getVilleEntreprise() );</span>
+<span class="nc" id="L593">        entreprise.setAdresseEntreprise( entrepriseDTO.getAdresseEntreprise() );</span>
+<span class="nc" id="L594">        entreprise.setTelephoneFix( entrepriseDTO.getTelephoneFix() );</span>
+<span class="nc" id="L595">        entreprise.setDomaineEntreprise( entrepriseDTO.getDomaineEntreprise() );</span>
+
+<span class="nc" id="L597">        return entreprise;</span>
+    }
+
+    @Override
+    public CompteEcoleDTO toDto(CompteEcole compteEcole) {
+<span class="nc bnc" id="L602" title="All 2 branches missed.">        if ( compteEcole == null ) {</span>
+<span class="nc" id="L603">            return null;</span>
+        }
+
+<span class="nc" id="L606">        CompteEcoleDTO compteEcoleDTO = new CompteEcoleDTO();</span>
+
+<span class="nc" id="L608">        compteEcoleDTO.setEcoleId( compteEcoleEcoleIdEcole( compteEcole ) );</span>
+<span class="nc" id="L609">        compteEcoleDTO.setUserId( compteEcoleUserId( compteEcole ) );</span>
+<span class="nc" id="L610">        compteEcoleDTO.setIdCompte( compteEcole.getIdCompte() );</span>
+<span class="nc" id="L611">        compteEcoleDTO.setNom( compteEcole.getNom() );</span>
+<span class="nc" id="L612">        compteEcoleDTO.setPrenom( compteEcole.getPrenom() );</span>
+<span class="nc" id="L613">        compteEcoleDTO.setEmail( compteEcole.getEmail() );</span>
+<span class="nc" id="L614">        compteEcoleDTO.setMotDePasse( compteEcole.getMotDePasse() );</span>
+<span class="nc" id="L615">        compteEcoleDTO.setTelephone( compteEcole.getTelephone() );</span>
+
+<span class="nc" id="L617">        return compteEcoleDTO;</span>
+    }
+
+    @Override
+    public CompteEcole toEntity(CompteEcoleDTO compteEcoleDTO) {
+<span class="nc bnc" id="L622" title="All 2 branches missed.">        if ( compteEcoleDTO == null ) {</span>
+<span class="nc" id="L623">            return null;</span>
+        }
+
+<span class="nc" id="L626">        CompteEcole compteEcole = new CompteEcole();</span>
+
+<span class="nc" id="L628">        compteEcole.setEcole( compteEcoleDTOToEcole( compteEcoleDTO ) );</span>
+<span class="nc" id="L629">        compteEcole.setUser( compteEcoleDTOToUtilisateur( compteEcoleDTO ) );</span>
+<span class="nc" id="L630">        compteEcole.setIdCompte( compteEcoleDTO.getIdCompte() );</span>
+<span class="nc" id="L631">        compteEcole.setNom( compteEcoleDTO.getNom() );</span>
+<span class="nc" id="L632">        compteEcole.setPrenom( compteEcoleDTO.getPrenom() );</span>
+<span class="nc" id="L633">        compteEcole.setEmail( compteEcoleDTO.getEmail() );</span>
+<span class="nc" id="L634">        compteEcole.setMotDePasse( compteEcoleDTO.getMotDePasse() );</span>
+<span class="nc" id="L635">        compteEcole.setTelephone( compteEcoleDTO.getTelephone() );</span>
+
+<span class="nc" id="L637">        return compteEcole;</span>
+    }
+
+    @Override
+    public CompteEntrepriseDTO toDto(CompteEntreprise compteEntreprise) {
+<span class="nc bnc" id="L642" title="All 2 branches missed.">        if ( compteEntreprise == null ) {</span>
+<span class="nc" id="L643">            return null;</span>
+        }
+
+<span class="nc" id="L646">        CompteEntrepriseDTO compteEntrepriseDTO = new CompteEntrepriseDTO();</span>
+
+<span class="nc" id="L648">        compteEntrepriseDTO.setEntrepriseId( compteEntrepriseEntrepriseIdEntreprise( compteEntreprise ) );</span>
+<span class="nc" id="L649">        compteEntrepriseDTO.setUserId( compteEntrepriseUserId( compteEntreprise ) );</span>
+<span class="nc" id="L650">        compteEntrepriseDTO.setIdCompte( compteEntreprise.getIdCompte() );</span>
+<span class="nc" id="L651">        compteEntrepriseDTO.setNom( compteEntreprise.getNom() );</span>
+<span class="nc" id="L652">        compteEntrepriseDTO.setPrenom( compteEntreprise.getPrenom() );</span>
+<span class="nc" id="L653">        compteEntrepriseDTO.setEmail( compteEntreprise.getEmail() );</span>
+<span class="nc" id="L654">        compteEntrepriseDTO.setMotDePasse( compteEntreprise.getMotDePasse() );</span>
+<span class="nc" id="L655">        compteEntrepriseDTO.setTelephone( compteEntreprise.getTelephone() );</span>
+
+<span class="nc" id="L657">        return compteEntrepriseDTO;</span>
+    }
+
+    @Override
+    public CompteEntreprise toEntity(CompteEntrepriseDTO compteEntrepriseDTO) {
+<span class="nc bnc" id="L662" title="All 2 branches missed.">        if ( compteEntrepriseDTO == null ) {</span>
+<span class="nc" id="L663">            return null;</span>
+        }
+
+<span class="nc" id="L666">        CompteEntreprise compteEntreprise = new CompteEntreprise();</span>
+
+<span class="nc" id="L668">        compteEntreprise.setEntreprise( compteEntrepriseDTOToEntreprise( compteEntrepriseDTO ) );</span>
+<span class="nc" id="L669">        compteEntreprise.setUser( compteEntrepriseDTOToUtilisateur( compteEntrepriseDTO ) );</span>
+<span class="nc" id="L670">        compteEntreprise.setIdCompte( compteEntrepriseDTO.getIdCompte() );</span>
+<span class="nc" id="L671">        compteEntreprise.setNom( compteEntrepriseDTO.getNom() );</span>
+<span class="nc" id="L672">        compteEntreprise.setPrenom( compteEntrepriseDTO.getPrenom() );</span>
+<span class="nc" id="L673">        compteEntreprise.setEmail( compteEntrepriseDTO.getEmail() );</span>
+<span class="nc" id="L674">        compteEntreprise.setMotDePasse( compteEntrepriseDTO.getMotDePasse() );</span>
+<span class="nc" id="L675">        compteEntreprise.setTelephone( compteEntrepriseDTO.getTelephone() );</span>
+
+<span class="nc" id="L677">        return compteEntreprise;</span>
+    }
+
+    @Override
+    public EntretienDTO toDto(Entretien entretien) {
+<span class="nc bnc" id="L682" title="All 2 branches missed.">        if ( entretien == null ) {</span>
+<span class="nc" id="L683">            return null;</span>
+        }
+
+<span class="nc" id="L686">        EntretienDTO entretienDTO = new EntretienDTO();</span>
+
+<span class="nc" id="L688">        entretienDTO.setOffreId( entretienOffreIdOffre( entretien ) );</span>
+<span class="nc" id="L689">        entretienDTO.setEtudiantId( entretienEtudiantIdEtu( entretien ) );</span>
+<span class="nc" id="L690">        entretienDTO.setIdEntretien( entretien.getIdEntretien() );</span>
+<span class="nc" id="L691">        entretienDTO.setDateEntretien( entretien.getDateEntretien() );</span>
+<span class="nc" id="L692">        entretienDTO.setAdresse( entretien.getAdresse() );</span>
+<span class="nc" id="L693">        entretienDTO.setDuree( entretien.getDuree() );</span>
+<span class="nc" id="L694">        entretienDTO.setEtat( entretien.getEtat() );</span>
+<span class="nc" id="L695">        entretienDTO.setResultat( entretien.getResultat() );</span>
+<span class="nc" id="L696">        entretienDTO.setLien( entretien.getLien() );</span>
+
+<span class="nc" id="L698">        return entretienDTO;</span>
+    }
+
+    @Override
+    public Entretien toEntity(EntretienDTO entretienDTO) {
+<span class="nc bnc" id="L703" title="All 2 branches missed.">        if ( entretienDTO == null ) {</span>
+<span class="nc" id="L704">            return null;</span>
+        }
+
+<span class="nc" id="L707">        Entretien entretien = new Entretien();</span>
+
+<span class="nc" id="L709">        entretien.setOffre( entretienDTOToOffre( entretienDTO ) );</span>
+<span class="nc" id="L710">        entretien.setEtudiant( entretienDTOToEtudiant( entretienDTO ) );</span>
+<span class="nc" id="L711">        entretien.setIdEntretien( entretienDTO.getIdEntretien() );</span>
+<span class="nc" id="L712">        entretien.setDateEntretien( entretienDTO.getDateEntretien() );</span>
+<span class="nc" id="L713">        entretien.setAdresse( entretienDTO.getAdresse() );</span>
+<span class="nc" id="L714">        entretien.setDuree( entretienDTO.getDuree() );</span>
+<span class="nc" id="L715">        entretien.setEtat( entretienDTO.getEtat() );</span>
+<span class="nc" id="L716">        entretien.setResultat( entretienDTO.getResultat() );</span>
+<span class="nc" id="L717">        entretien.setLien( entretienDTO.getLien() );</span>
+
+<span class="nc" id="L719">        return entretien;</span>
+    }
+
+    @Override
+    public EvaluationDTO toDto(Evaluation evaluation) {
+<span class="nc bnc" id="L724" title="All 2 branches missed.">        if ( evaluation == null ) {</span>
+<span class="nc" id="L725">            return null;</span>
+        }
+
+<span class="nc" id="L728">        EvaluationDTO evaluationDTO = new EvaluationDTO();</span>
+
+<span class="nc" id="L730">        evaluationDTO.setEncadrantId( evaluationEncadrantIdEncadrant( evaluation ) );</span>
+<span class="nc" id="L731">        evaluationDTO.setStageId( evaluationStageIdStage( evaluation ) );</span>
+<span class="nc" id="L732">        evaluationDTO.setIdEvaluation( evaluation.getIdEvaluation() );</span>
+<span class="nc" id="L733">        evaluationDTO.setNote( evaluation.getNote() );</span>
+<span class="nc" id="L734">        evaluationDTO.setCompetances( evaluation.getCompetances() );</span>
+<span class="nc" id="L735">        evaluationDTO.setCommentaire( evaluation.getCommentaire() );</span>
+
+<span class="nc" id="L737">        return evaluationDTO;</span>
+    }
+
+    @Override
+    public Evaluation toEntity(EvaluationDTO evaluationDTO) {
+<span class="nc bnc" id="L742" title="All 2 branches missed.">        if ( evaluationDTO == null ) {</span>
+<span class="nc" id="L743">            return null;</span>
+        }
+
+<span class="nc" id="L746">        Evaluation evaluation = new Evaluation();</span>
+
+<span class="nc" id="L748">        evaluation.setEncadrant( evaluationDTOToEncadrant( evaluationDTO ) );</span>
+<span class="nc" id="L749">        evaluation.setStage( evaluationDTOToStage( evaluationDTO ) );</span>
+<span class="nc" id="L750">        evaluation.setIdEvaluation( evaluationDTO.getIdEvaluation() );</span>
+<span class="nc" id="L751">        evaluation.setNote( evaluationDTO.getNote() );</span>
+<span class="nc" id="L752">        evaluation.setCompetances( evaluationDTO.getCompetances() );</span>
+<span class="nc" id="L753">        evaluation.setCommentaire( evaluationDTO.getCommentaire() );</span>
+
+<span class="nc" id="L755">        return evaluation;</span>
+    }
+
+    private Long adminUserId(Admin admin) {
+<span class="nc bnc" id="L759" title="All 2 branches missed.">        if ( admin == null ) {</span>
+<span class="nc" id="L760">            return null;</span>
+        }
+<span class="nc" id="L762">        Utilisateur user = admin.getUser();</span>
+<span class="nc bnc" id="L763" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L764">            return null;</span>
+        }
+<span class="nc" id="L766">        Long id = user.getId();</span>
+<span class="nc bnc" id="L767" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L768">            return null;</span>
+        }
+<span class="nc" id="L770">        return id;</span>
+    }
+
+    protected Utilisateur adminDTOToUtilisateur(AdminDTO adminDTO) {
+<span class="nc bnc" id="L774" title="All 2 branches missed.">        if ( adminDTO == null ) {</span>
+<span class="nc" id="L775">            return null;</span>
+        }
+
+<span class="nc" id="L778">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L780">        utilisateur.setId( adminDTO.getUserId() );</span>
+
+<span class="nc" id="L782">        return utilisateur;</span>
+    }
+
+    private Long filiereEcoleIdEcole(Filiere filiere) {
+<span class="nc bnc" id="L786" title="All 2 branches missed.">        if ( filiere == null ) {</span>
+<span class="nc" id="L787">            return null;</span>
+        }
+<span class="nc" id="L789">        Ecole ecole = filiere.getEcole();</span>
+<span class="nc bnc" id="L790" title="All 2 branches missed.">        if ( ecole == null ) {</span>
+<span class="nc" id="L791">            return null;</span>
+        }
+<span class="nc" id="L793">        Long idEcole = ecole.getIdEcole();</span>
+<span class="nc bnc" id="L794" title="All 2 branches missed.">        if ( idEcole == null ) {</span>
+<span class="nc" id="L795">            return null;</span>
+        }
+<span class="nc" id="L797">        return idEcole;</span>
+    }
+
+    protected Ecole filiereDTOToEcole(FiliereDTO filiereDTO) {
+<span class="nc bnc" id="L801" title="All 2 branches missed.">        if ( filiereDTO == null ) {</span>
+<span class="nc" id="L802">            return null;</span>
+        }
+
+<span class="nc" id="L805">        Ecole ecole = new Ecole();</span>
+
+<span class="nc" id="L807">        ecole.setIdEcole( filiereDTO.getEcoleId() );</span>
+
+<span class="nc" id="L809">        return ecole;</span>
+    }
+
+    private Long chefDeFiliereEcoleIdEcole(ChefDeFiliere chefDeFiliere) {
+<span class="nc bnc" id="L813" title="All 2 branches missed.">        if ( chefDeFiliere == null ) {</span>
+<span class="nc" id="L814">            return null;</span>
+        }
+<span class="nc" id="L816">        Ecole ecole = chefDeFiliere.getEcole();</span>
+<span class="nc bnc" id="L817" title="All 2 branches missed.">        if ( ecole == null ) {</span>
+<span class="nc" id="L818">            return null;</span>
+        }
+<span class="nc" id="L820">        Long idEcole = ecole.getIdEcole();</span>
+<span class="nc bnc" id="L821" title="All 2 branches missed.">        if ( idEcole == null ) {</span>
+<span class="nc" id="L822">            return null;</span>
+        }
+<span class="nc" id="L824">        return idEcole;</span>
+    }
+
+    private Long chefDeFiliereFiliereIdFiliere(ChefDeFiliere chefDeFiliere) {
+<span class="nc bnc" id="L828" title="All 2 branches missed.">        if ( chefDeFiliere == null ) {</span>
+<span class="nc" id="L829">            return null;</span>
+        }
+<span class="nc" id="L831">        Filiere filiere = chefDeFiliere.getFiliere();</span>
+<span class="nc bnc" id="L832" title="All 2 branches missed.">        if ( filiere == null ) {</span>
+<span class="nc" id="L833">            return null;</span>
+        }
+<span class="nc" id="L835">        Long idFiliere = filiere.getIdFiliere();</span>
+<span class="nc bnc" id="L836" title="All 2 branches missed.">        if ( idFiliere == null ) {</span>
+<span class="nc" id="L837">            return null;</span>
+        }
+<span class="nc" id="L839">        return idFiliere;</span>
+    }
+
+    private Long chefDeFiliereUserId(ChefDeFiliere chefDeFiliere) {
+<span class="nc bnc" id="L843" title="All 2 branches missed.">        if ( chefDeFiliere == null ) {</span>
+<span class="nc" id="L844">            return null;</span>
+        }
+<span class="nc" id="L846">        Utilisateur user = chefDeFiliere.getUser();</span>
+<span class="nc bnc" id="L847" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L848">            return null;</span>
+        }
+<span class="nc" id="L850">        Long id = user.getId();</span>
+<span class="nc bnc" id="L851" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L852">            return null;</span>
+        }
+<span class="nc" id="L854">        return id;</span>
+    }
+
+    protected Ecole chefDeFiliereDTOToEcole(ChefDeFiliereDTO chefDeFiliereDTO) {
+<span class="nc bnc" id="L858" title="All 2 branches missed.">        if ( chefDeFiliereDTO == null ) {</span>
+<span class="nc" id="L859">            return null;</span>
+        }
+
+<span class="nc" id="L862">        Ecole ecole = new Ecole();</span>
+
+<span class="nc" id="L864">        ecole.setIdEcole( chefDeFiliereDTO.getEcoleId() );</span>
+
+<span class="nc" id="L866">        return ecole;</span>
+    }
+
+    protected Filiere chefDeFiliereDTOToFiliere(ChefDeFiliereDTO chefDeFiliereDTO) {
+<span class="nc bnc" id="L870" title="All 2 branches missed.">        if ( chefDeFiliereDTO == null ) {</span>
+<span class="nc" id="L871">            return null;</span>
+        }
+
+<span class="nc" id="L874">        Filiere filiere = new Filiere();</span>
+
+<span class="nc" id="L876">        filiere.setIdFiliere( chefDeFiliereDTO.getFiliereId() );</span>
+
+<span class="nc" id="L878">        return filiere;</span>
+    }
+
+    protected Utilisateur chefDeFiliereDTOToUtilisateur(ChefDeFiliereDTO chefDeFiliereDTO) {
+<span class="nc bnc" id="L882" title="All 2 branches missed.">        if ( chefDeFiliereDTO == null ) {</span>
+<span class="nc" id="L883">            return null;</span>
+        }
+
+<span class="nc" id="L886">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L888">        utilisateur.setId( chefDeFiliereDTO.getUserId() );</span>
+
+<span class="nc" id="L890">        return utilisateur;</span>
+    }
+
+    private Long etudiantEcoleIdEcole(Etudiant etudiant) {
+<span class="nc bnc" id="L894" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L895">            return null;</span>
+        }
+<span class="nc" id="L897">        Ecole ecole = etudiant.getEcole();</span>
+<span class="nc bnc" id="L898" title="All 2 branches missed.">        if ( ecole == null ) {</span>
+<span class="nc" id="L899">            return null;</span>
+        }
+<span class="nc" id="L901">        Long idEcole = ecole.getIdEcole();</span>
+<span class="nc bnc" id="L902" title="All 2 branches missed.">        if ( idEcole == null ) {</span>
+<span class="nc" id="L903">            return null;</span>
+        }
+<span class="nc" id="L905">        return idEcole;</span>
+    }
+
+    private Long etudiantFiliereIdFiliere(Etudiant etudiant) {
+<span class="nc bnc" id="L909" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L910">            return null;</span>
+        }
+<span class="nc" id="L912">        Filiere filiere = etudiant.getFiliere();</span>
+<span class="nc bnc" id="L913" title="All 2 branches missed.">        if ( filiere == null ) {</span>
+<span class="nc" id="L914">            return null;</span>
+        }
+<span class="nc" id="L916">        Long idFiliere = filiere.getIdFiliere();</span>
+<span class="nc bnc" id="L917" title="All 2 branches missed.">        if ( idFiliere == null ) {</span>
+<span class="nc" id="L918">            return null;</span>
+        }
+<span class="nc" id="L920">        return idFiliere;</span>
+    }
+
+    private Long etudiantUserId(Etudiant etudiant) {
+<span class="nc bnc" id="L924" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L925">            return null;</span>
+        }
+<span class="nc" id="L927">        Utilisateur user = etudiant.getUser();</span>
+<span class="nc bnc" id="L928" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L929">            return null;</span>
+        }
+<span class="nc" id="L931">        Long id = user.getId();</span>
+<span class="nc bnc" id="L932" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L933">            return null;</span>
+        }
+<span class="nc" id="L935">        return id;</span>
+    }
+
+    protected Ecole etudiantDTOToEcole(EtudiantDTO etudiantDTO) {
+<span class="nc bnc" id="L939" title="All 2 branches missed.">        if ( etudiantDTO == null ) {</span>
+<span class="nc" id="L940">            return null;</span>
+        }
+
+<span class="nc" id="L943">        Ecole ecole = new Ecole();</span>
+
+<span class="nc" id="L945">        ecole.setIdEcole( etudiantDTO.getEcoleId() );</span>
+
+<span class="nc" id="L947">        return ecole;</span>
+    }
+
+    protected Filiere etudiantDTOToFiliere(EtudiantDTO etudiantDTO) {
+<span class="nc bnc" id="L951" title="All 2 branches missed.">        if ( etudiantDTO == null ) {</span>
+<span class="nc" id="L952">            return null;</span>
+        }
+
+<span class="nc" id="L955">        Filiere filiere = new Filiere();</span>
+
+<span class="nc" id="L957">        filiere.setIdFiliere( etudiantDTO.getFiliereId() );</span>
+
+<span class="nc" id="L959">        return filiere;</span>
+    }
+
+    protected Utilisateur etudiantDTOToUtilisateur(EtudiantDTO etudiantDTO) {
+<span class="nc bnc" id="L963" title="All 2 branches missed.">        if ( etudiantDTO == null ) {</span>
+<span class="nc" id="L964">            return null;</span>
+        }
+
+<span class="nc" id="L967">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L969">        utilisateur.setId( etudiantDTO.getUserId() );</span>
+
+<span class="nc" id="L971">        return utilisateur;</span>
+    }
+
+    private Long stageEtudiantIdEtu(Stage stage) {
+<span class="nc bnc" id="L975" title="All 2 branches missed.">        if ( stage == null ) {</span>
+<span class="nc" id="L976">            return null;</span>
+        }
+<span class="nc" id="L978">        Etudiant etudiant = stage.getEtudiant();</span>
+<span class="nc bnc" id="L979" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L980">            return null;</span>
+        }
+<span class="nc" id="L982">        Long idEtu = etudiant.getIdEtu();</span>
+<span class="nc bnc" id="L983" title="All 2 branches missed.">        if ( idEtu == null ) {</span>
+<span class="nc" id="L984">            return null;</span>
+        }
+<span class="nc" id="L986">        return idEtu;</span>
+    }
+
+    private Long stageOffreIdOffre(Stage stage) {
+<span class="nc bnc" id="L990" title="All 2 branches missed.">        if ( stage == null ) {</span>
+<span class="nc" id="L991">            return null;</span>
+        }
+<span class="nc" id="L993">        Offre offre = stage.getOffre();</span>
+<span class="nc bnc" id="L994" title="All 2 branches missed.">        if ( offre == null ) {</span>
+<span class="nc" id="L995">            return null;</span>
+        }
+<span class="nc" id="L997">        Long idOffre = offre.getIdOffre();</span>
+<span class="nc bnc" id="L998" title="All 2 branches missed.">        if ( idOffre == null ) {</span>
+<span class="nc" id="L999">            return null;</span>
+        }
+<span class="nc" id="L1001">        return idOffre;</span>
+    }
+
+    private Long stageEncadrantIdEncadrant(Stage stage) {
+<span class="nc bnc" id="L1005" title="All 2 branches missed.">        if ( stage == null ) {</span>
+<span class="nc" id="L1006">            return null;</span>
+        }
+<span class="nc" id="L1008">        Encadrant encadrant = stage.getEncadrant();</span>
+<span class="nc bnc" id="L1009" title="All 2 branches missed.">        if ( encadrant == null ) {</span>
+<span class="nc" id="L1010">            return null;</span>
+        }
+<span class="nc" id="L1012">        Long idEncadrant = encadrant.getIdEncadrant();</span>
+<span class="nc bnc" id="L1013" title="All 2 branches missed.">        if ( idEncadrant == null ) {</span>
+<span class="nc" id="L1014">            return null;</span>
+        }
+<span class="nc" id="L1016">        return idEncadrant;</span>
+    }
+
+    protected Etudiant stageDTOToEtudiant(StageDTO stageDTO) {
+<span class="nc bnc" id="L1020" title="All 2 branches missed.">        if ( stageDTO == null ) {</span>
+<span class="nc" id="L1021">            return null;</span>
+        }
+
+<span class="nc" id="L1024">        Etudiant etudiant = new Etudiant();</span>
+
+<span class="nc" id="L1026">        etudiant.setIdEtu( stageDTO.getEtudiantId() );</span>
+
+<span class="nc" id="L1028">        return etudiant;</span>
+    }
+
+    protected Offre stageDTOToOffre(StageDTO stageDTO) {
+<span class="nc bnc" id="L1032" title="All 2 branches missed.">        if ( stageDTO == null ) {</span>
+<span class="nc" id="L1033">            return null;</span>
+        }
+
+<span class="nc" id="L1036">        Offre offre = new Offre();</span>
+
+<span class="nc" id="L1038">        offre.setIdOffre( stageDTO.getOffreId() );</span>
+
+<span class="nc" id="L1040">        return offre;</span>
+    }
+
+    protected Encadrant stageDTOToEncadrant(StageDTO stageDTO) {
+<span class="nc bnc" id="L1044" title="All 2 branches missed.">        if ( stageDTO == null ) {</span>
+<span class="nc" id="L1045">            return null;</span>
+        }
+
+<span class="nc" id="L1048">        Encadrant encadrant = new Encadrant();</span>
+
+<span class="nc" id="L1050">        encadrant.setIdEncadrant( stageDTO.getEncadrantId() );</span>
+
+<span class="nc" id="L1052">        return encadrant;</span>
+    }
+
+    private Long offreEntrepriseIdEntreprise(Offre offre) {
+<span class="nc bnc" id="L1056" title="All 2 branches missed.">        if ( offre == null ) {</span>
+<span class="nc" id="L1057">            return null;</span>
+        }
+<span class="nc" id="L1059">        Entreprise entreprise = offre.getEntreprise();</span>
+<span class="nc bnc" id="L1060" title="All 2 branches missed.">        if ( entreprise == null ) {</span>
+<span class="nc" id="L1061">            return null;</span>
+        }
+<span class="nc" id="L1063">        Long idEntreprise = entreprise.getIdEntreprise();</span>
+<span class="nc bnc" id="L1064" title="All 2 branches missed.">        if ( idEntreprise == null ) {</span>
+<span class="nc" id="L1065">            return null;</span>
+        }
+<span class="nc" id="L1067">        return idEntreprise;</span>
+    }
+
+    private Long offreRhIdRh(Offre offre) {
+<span class="nc bnc" id="L1071" title="All 2 branches missed.">        if ( offre == null ) {</span>
+<span class="nc" id="L1072">            return null;</span>
+        }
+<span class="nc" id="L1074">        RH rh = offre.getRh();</span>
+<span class="nc bnc" id="L1075" title="All 2 branches missed.">        if ( rh == null ) {</span>
+<span class="nc" id="L1076">            return null;</span>
+        }
+<span class="nc" id="L1078">        Long idRh = rh.getIdRh();</span>
+<span class="nc bnc" id="L1079" title="All 2 branches missed.">        if ( idRh == null ) {</span>
+<span class="nc" id="L1080">            return null;</span>
+        }
+<span class="nc" id="L1082">        return idRh;</span>
+    }
+
+    protected Entreprise offreDTOToEntreprise(OffreDTO offreDTO) {
+<span class="nc bnc" id="L1086" title="All 2 branches missed.">        if ( offreDTO == null ) {</span>
+<span class="nc" id="L1087">            return null;</span>
+        }
+
+<span class="nc" id="L1090">        Entreprise entreprise = new Entreprise();</span>
+
+<span class="nc" id="L1092">        entreprise.setIdEntreprise( offreDTO.getEntrepriseId() );</span>
+
+<span class="nc" id="L1094">        return entreprise;</span>
+    }
+
+    protected RH offreDTOToRH(OffreDTO offreDTO) {
+<span class="nc bnc" id="L1098" title="All 2 branches missed.">        if ( offreDTO == null ) {</span>
+<span class="nc" id="L1099">            return null;</span>
+        }
+
+<span class="nc" id="L1102">        RH rH = new RH();</span>
+
+<span class="nc" id="L1104">        rH.setIdRh( offreDTO.getRhId() );</span>
+
+<span class="nc" id="L1106">        return rH;</span>
+    }
+
+    private Long postulationEtudiantIdEtu(Postulation postulation) {
+<span class="nc bnc" id="L1110" title="All 2 branches missed.">        if ( postulation == null ) {</span>
+<span class="nc" id="L1111">            return null;</span>
+        }
+<span class="nc" id="L1113">        Etudiant etudiant = postulation.getEtudiant();</span>
+<span class="nc bnc" id="L1114" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L1115">            return null;</span>
+        }
+<span class="nc" id="L1117">        Long idEtu = etudiant.getIdEtu();</span>
+<span class="nc bnc" id="L1118" title="All 2 branches missed.">        if ( idEtu == null ) {</span>
+<span class="nc" id="L1119">            return null;</span>
+        }
+<span class="nc" id="L1121">        return idEtu;</span>
+    }
+
+    private Long postulationOffreIdOffre(Postulation postulation) {
+<span class="nc bnc" id="L1125" title="All 2 branches missed.">        if ( postulation == null ) {</span>
+<span class="nc" id="L1126">            return null;</span>
+        }
+<span class="nc" id="L1128">        Offre offre = postulation.getOffre();</span>
+<span class="nc bnc" id="L1129" title="All 2 branches missed.">        if ( offre == null ) {</span>
+<span class="nc" id="L1130">            return null;</span>
+        }
+<span class="nc" id="L1132">        Long idOffre = offre.getIdOffre();</span>
+<span class="nc bnc" id="L1133" title="All 2 branches missed.">        if ( idOffre == null ) {</span>
+<span class="nc" id="L1134">            return null;</span>
+        }
+<span class="nc" id="L1136">        return idOffre;</span>
+    }
+
+    protected Etudiant postulationDTOToEtudiant(PostulationDTO postulationDTO) {
+<span class="nc bnc" id="L1140" title="All 2 branches missed.">        if ( postulationDTO == null ) {</span>
+<span class="nc" id="L1141">            return null;</span>
+        }
+
+<span class="nc" id="L1144">        Etudiant etudiant = new Etudiant();</span>
+
+<span class="nc" id="L1146">        etudiant.setIdEtu( postulationDTO.getEtudiantId() );</span>
+
+<span class="nc" id="L1148">        return etudiant;</span>
+    }
+
+    protected Offre postulationDTOToOffre(PostulationDTO postulationDTO) {
+<span class="nc bnc" id="L1152" title="All 2 branches missed.">        if ( postulationDTO == null ) {</span>
+<span class="nc" id="L1153">            return null;</span>
+        }
+
+<span class="nc" id="L1156">        Offre offre = new Offre();</span>
+
+<span class="nc" id="L1158">        offre.setIdOffre( postulationDTO.getOffreId() );</span>
+
+<span class="nc" id="L1160">        return offre;</span>
+    }
+
+    private Long rhEntrepriseIdEntreprise(RH rH) {
+<span class="nc bnc" id="L1164" title="All 2 branches missed.">        if ( rH == null ) {</span>
+<span class="nc" id="L1165">            return null;</span>
+        }
+<span class="nc" id="L1167">        Entreprise entreprise = rH.getEntreprise();</span>
+<span class="nc bnc" id="L1168" title="All 2 branches missed.">        if ( entreprise == null ) {</span>
+<span class="nc" id="L1169">            return null;</span>
+        }
+<span class="nc" id="L1171">        Long idEntreprise = entreprise.getIdEntreprise();</span>
+<span class="nc bnc" id="L1172" title="All 2 branches missed.">        if ( idEntreprise == null ) {</span>
+<span class="nc" id="L1173">            return null;</span>
+        }
+<span class="nc" id="L1175">        return idEntreprise;</span>
+    }
+
+    private Long rhUserId(RH rH) {
+<span class="nc bnc" id="L1179" title="All 2 branches missed.">        if ( rH == null ) {</span>
+<span class="nc" id="L1180">            return null;</span>
+        }
+<span class="nc" id="L1182">        Utilisateur user = rH.getUser();</span>
+<span class="nc bnc" id="L1183" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L1184">            return null;</span>
+        }
+<span class="nc" id="L1186">        Long id = user.getId();</span>
+<span class="nc bnc" id="L1187" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L1188">            return null;</span>
+        }
+<span class="nc" id="L1190">        return id;</span>
+    }
+
+    protected Entreprise rHDTOToEntreprise(RHDTO rHDTO) {
+<span class="nc bnc" id="L1194" title="All 2 branches missed.">        if ( rHDTO == null ) {</span>
+<span class="nc" id="L1195">            return null;</span>
+        }
+
+<span class="nc" id="L1198">        Entreprise entreprise = new Entreprise();</span>
+
+<span class="nc" id="L1200">        entreprise.setIdEntreprise( rHDTO.getEntrepriseId() );</span>
+
+<span class="nc" id="L1202">        return entreprise;</span>
+    }
+
+    protected Utilisateur rHDTOToUtilisateur(RHDTO rHDTO) {
+<span class="nc bnc" id="L1206" title="All 2 branches missed.">        if ( rHDTO == null ) {</span>
+<span class="nc" id="L1207">            return null;</span>
+        }
+
+<span class="nc" id="L1210">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L1212">        utilisateur.setId( rHDTO.getUserId() );</span>
+
+<span class="nc" id="L1214">        return utilisateur;</span>
+    }
+
+    private Long coordinateurDeStageUserId(CoordinateurDeStage coordinateurDeStage) {
+<span class="nc bnc" id="L1218" title="All 2 branches missed.">        if ( coordinateurDeStage == null ) {</span>
+<span class="nc" id="L1219">            return null;</span>
+        }
+<span class="nc" id="L1221">        Utilisateur user = coordinateurDeStage.getUser();</span>
+<span class="nc bnc" id="L1222" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L1223">            return null;</span>
+        }
+<span class="nc" id="L1225">        Long id = user.getId();</span>
+<span class="nc bnc" id="L1226" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L1227">            return null;</span>
+        }
+<span class="nc" id="L1229">        return id;</span>
+    }
+
+    private Long coordinateurDeStageEcoleIdEcole(CoordinateurDeStage coordinateurDeStage) {
+<span class="nc bnc" id="L1233" title="All 2 branches missed.">        if ( coordinateurDeStage == null ) {</span>
+<span class="nc" id="L1234">            return null;</span>
+        }
+<span class="nc" id="L1236">        Ecole ecole = coordinateurDeStage.getEcole();</span>
+<span class="nc bnc" id="L1237" title="All 2 branches missed.">        if ( ecole == null ) {</span>
+<span class="nc" id="L1238">            return null;</span>
+        }
+<span class="nc" id="L1240">        Long idEcole = ecole.getIdEcole();</span>
+<span class="nc bnc" id="L1241" title="All 2 branches missed.">        if ( idEcole == null ) {</span>
+<span class="nc" id="L1242">            return null;</span>
+        }
+<span class="nc" id="L1244">        return idEcole;</span>
+    }
+
+    protected Ecole coordinateurDeStageDTOToEcole(CoordinateurDeStageDTO coordinateurDeStageDTO) {
+<span class="nc bnc" id="L1248" title="All 2 branches missed.">        if ( coordinateurDeStageDTO == null ) {</span>
+<span class="nc" id="L1249">            return null;</span>
+        }
+
+<span class="nc" id="L1252">        Ecole ecole = new Ecole();</span>
+
+<span class="nc" id="L1254">        ecole.setIdEcole( coordinateurDeStageDTO.getEcoleId() );</span>
+
+<span class="nc" id="L1256">        return ecole;</span>
+    }
+
+    protected Utilisateur coordinateurDeStageDTOToUtilisateur(CoordinateurDeStageDTO coordinateurDeStageDTO) {
+<span class="nc bnc" id="L1260" title="All 2 branches missed.">        if ( coordinateurDeStageDTO == null ) {</span>
+<span class="nc" id="L1261">            return null;</span>
+        }
+
+<span class="nc" id="L1264">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L1266">        utilisateur.setId( coordinateurDeStageDTO.getUserId() );</span>
+
+<span class="nc" id="L1268">        return utilisateur;</span>
+    }
+
+    private Long encadrantEntrepriseIdEntreprise(Encadrant encadrant) {
+<span class="nc bnc" id="L1272" title="All 2 branches missed.">        if ( encadrant == null ) {</span>
+<span class="nc" id="L1273">            return null;</span>
+        }
+<span class="nc" id="L1275">        Entreprise entreprise = encadrant.getEntreprise();</span>
+<span class="nc bnc" id="L1276" title="All 2 branches missed.">        if ( entreprise == null ) {</span>
+<span class="nc" id="L1277">            return null;</span>
+        }
+<span class="nc" id="L1279">        Long idEntreprise = entreprise.getIdEntreprise();</span>
+<span class="nc bnc" id="L1280" title="All 2 branches missed.">        if ( idEntreprise == null ) {</span>
+<span class="nc" id="L1281">            return null;</span>
+        }
+<span class="nc" id="L1283">        return idEntreprise;</span>
+    }
+
+    private Long encadrantUserId(Encadrant encadrant) {
+<span class="nc bnc" id="L1287" title="All 2 branches missed.">        if ( encadrant == null ) {</span>
+<span class="nc" id="L1288">            return null;</span>
+        }
+<span class="nc" id="L1290">        Utilisateur user = encadrant.getUser();</span>
+<span class="nc bnc" id="L1291" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L1292">            return null;</span>
+        }
+<span class="nc" id="L1294">        Long id = user.getId();</span>
+<span class="nc bnc" id="L1295" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L1296">            return null;</span>
+        }
+<span class="nc" id="L1298">        return id;</span>
+    }
+
+    protected Entreprise encadrantDTOToEntreprise(EncadrantDTO encadrantDTO) {
+<span class="nc bnc" id="L1302" title="All 2 branches missed.">        if ( encadrantDTO == null ) {</span>
+<span class="nc" id="L1303">            return null;</span>
+        }
+
+<span class="nc" id="L1306">        Entreprise entreprise = new Entreprise();</span>
+
+<span class="nc" id="L1308">        entreprise.setIdEntreprise( encadrantDTO.getEntrepriseId() );</span>
+
+<span class="nc" id="L1310">        return entreprise;</span>
+    }
+
+    protected Utilisateur encadrantDTOToUtilisateur(EncadrantDTO encadrantDTO) {
+<span class="nc bnc" id="L1314" title="All 2 branches missed.">        if ( encadrantDTO == null ) {</span>
+<span class="nc" id="L1315">            return null;</span>
+        }
+
+<span class="nc" id="L1318">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L1320">        utilisateur.setId( encadrantDTO.getUserId() );</span>
+
+<span class="nc" id="L1322">        return utilisateur;</span>
+    }
+
+    private Long compteEcoleEcoleIdEcole(CompteEcole compteEcole) {
+<span class="nc bnc" id="L1326" title="All 2 branches missed.">        if ( compteEcole == null ) {</span>
+<span class="nc" id="L1327">            return null;</span>
+        }
+<span class="nc" id="L1329">        Ecole ecole = compteEcole.getEcole();</span>
+<span class="nc bnc" id="L1330" title="All 2 branches missed.">        if ( ecole == null ) {</span>
+<span class="nc" id="L1331">            return null;</span>
+        }
+<span class="nc" id="L1333">        Long idEcole = ecole.getIdEcole();</span>
+<span class="nc bnc" id="L1334" title="All 2 branches missed.">        if ( idEcole == null ) {</span>
+<span class="nc" id="L1335">            return null;</span>
+        }
+<span class="nc" id="L1337">        return idEcole;</span>
+    }
+
+    private Long compteEcoleUserId(CompteEcole compteEcole) {
+<span class="nc bnc" id="L1341" title="All 2 branches missed.">        if ( compteEcole == null ) {</span>
+<span class="nc" id="L1342">            return null;</span>
+        }
+<span class="nc" id="L1344">        Utilisateur user = compteEcole.getUser();</span>
+<span class="nc bnc" id="L1345" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L1346">            return null;</span>
+        }
+<span class="nc" id="L1348">        Long id = user.getId();</span>
+<span class="nc bnc" id="L1349" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L1350">            return null;</span>
+        }
+<span class="nc" id="L1352">        return id;</span>
+    }
+
+    protected Ecole compteEcoleDTOToEcole(CompteEcoleDTO compteEcoleDTO) {
+<span class="nc bnc" id="L1356" title="All 2 branches missed.">        if ( compteEcoleDTO == null ) {</span>
+<span class="nc" id="L1357">            return null;</span>
+        }
+
+<span class="nc" id="L1360">        Ecole ecole = new Ecole();</span>
+
+<span class="nc" id="L1362">        ecole.setIdEcole( compteEcoleDTO.getEcoleId() );</span>
+
+<span class="nc" id="L1364">        return ecole;</span>
+    }
+
+    protected Utilisateur compteEcoleDTOToUtilisateur(CompteEcoleDTO compteEcoleDTO) {
+<span class="nc bnc" id="L1368" title="All 2 branches missed.">        if ( compteEcoleDTO == null ) {</span>
+<span class="nc" id="L1369">            return null;</span>
+        }
+
+<span class="nc" id="L1372">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L1374">        utilisateur.setId( compteEcoleDTO.getUserId() );</span>
+
+<span class="nc" id="L1376">        return utilisateur;</span>
+    }
+
+    private Long compteEntrepriseEntrepriseIdEntreprise(CompteEntreprise compteEntreprise) {
+<span class="nc bnc" id="L1380" title="All 2 branches missed.">        if ( compteEntreprise == null ) {</span>
+<span class="nc" id="L1381">            return null;</span>
+        }
+<span class="nc" id="L1383">        Entreprise entreprise = compteEntreprise.getEntreprise();</span>
+<span class="nc bnc" id="L1384" title="All 2 branches missed.">        if ( entreprise == null ) {</span>
+<span class="nc" id="L1385">            return null;</span>
+        }
+<span class="nc" id="L1387">        Long idEntreprise = entreprise.getIdEntreprise();</span>
+<span class="nc bnc" id="L1388" title="All 2 branches missed.">        if ( idEntreprise == null ) {</span>
+<span class="nc" id="L1389">            return null;</span>
+        }
+<span class="nc" id="L1391">        return idEntreprise;</span>
+    }
+
+    private Long compteEntrepriseUserId(CompteEntreprise compteEntreprise) {
+<span class="nc bnc" id="L1395" title="All 2 branches missed.">        if ( compteEntreprise == null ) {</span>
+<span class="nc" id="L1396">            return null;</span>
+        }
+<span class="nc" id="L1398">        Utilisateur user = compteEntreprise.getUser();</span>
+<span class="nc bnc" id="L1399" title="All 2 branches missed.">        if ( user == null ) {</span>
+<span class="nc" id="L1400">            return null;</span>
+        }
+<span class="nc" id="L1402">        Long id = user.getId();</span>
+<span class="nc bnc" id="L1403" title="All 2 branches missed.">        if ( id == null ) {</span>
+<span class="nc" id="L1404">            return null;</span>
+        }
+<span class="nc" id="L1406">        return id;</span>
+    }
+
+    protected Entreprise compteEntrepriseDTOToEntreprise(CompteEntrepriseDTO compteEntrepriseDTO) {
+<span class="nc bnc" id="L1410" title="All 2 branches missed.">        if ( compteEntrepriseDTO == null ) {</span>
+<span class="nc" id="L1411">            return null;</span>
+        }
+
+<span class="nc" id="L1414">        Entreprise entreprise = new Entreprise();</span>
+
+<span class="nc" id="L1416">        entreprise.setIdEntreprise( compteEntrepriseDTO.getEntrepriseId() );</span>
+
+<span class="nc" id="L1418">        return entreprise;</span>
+    }
+
+    protected Utilisateur compteEntrepriseDTOToUtilisateur(CompteEntrepriseDTO compteEntrepriseDTO) {
+<span class="nc bnc" id="L1422" title="All 2 branches missed.">        if ( compteEntrepriseDTO == null ) {</span>
+<span class="nc" id="L1423">            return null;</span>
+        }
+
+<span class="nc" id="L1426">        Utilisateur utilisateur = new Utilisateur();</span>
+
+<span class="nc" id="L1428">        utilisateur.setId( compteEntrepriseDTO.getUserId() );</span>
+
+<span class="nc" id="L1430">        return utilisateur;</span>
+    }
+
+    private Long entretienOffreIdOffre(Entretien entretien) {
+<span class="nc bnc" id="L1434" title="All 2 branches missed.">        if ( entretien == null ) {</span>
+<span class="nc" id="L1435">            return null;</span>
+        }
+<span class="nc" id="L1437">        Offre offre = entretien.getOffre();</span>
+<span class="nc bnc" id="L1438" title="All 2 branches missed.">        if ( offre == null ) {</span>
+<span class="nc" id="L1439">            return null;</span>
+        }
+<span class="nc" id="L1441">        Long idOffre = offre.getIdOffre();</span>
+<span class="nc bnc" id="L1442" title="All 2 branches missed.">        if ( idOffre == null ) {</span>
+<span class="nc" id="L1443">            return null;</span>
+        }
+<span class="nc" id="L1445">        return idOffre;</span>
+    }
+
+    private Long entretienEtudiantIdEtu(Entretien entretien) {
+<span class="nc bnc" id="L1449" title="All 2 branches missed.">        if ( entretien == null ) {</span>
+<span class="nc" id="L1450">            return null;</span>
+        }
+<span class="nc" id="L1452">        Etudiant etudiant = entretien.getEtudiant();</span>
+<span class="nc bnc" id="L1453" title="All 2 branches missed.">        if ( etudiant == null ) {</span>
+<span class="nc" id="L1454">            return null;</span>
+        }
+<span class="nc" id="L1456">        Long idEtu = etudiant.getIdEtu();</span>
+<span class="nc bnc" id="L1457" title="All 2 branches missed.">        if ( idEtu == null ) {</span>
+<span class="nc" id="L1458">            return null;</span>
+        }
+<span class="nc" id="L1460">        return idEtu;</span>
+    }
+
+    protected Offre entretienDTOToOffre(EntretienDTO entretienDTO) {
+<span class="nc bnc" id="L1464" title="All 2 branches missed.">        if ( entretienDTO == null ) {</span>
+<span class="nc" id="L1465">            return null;</span>
+        }
+
+<span class="nc" id="L1468">        Offre offre = new Offre();</span>
+
+<span class="nc" id="L1470">        offre.setIdOffre( entretienDTO.getOffreId() );</span>
+
+<span class="nc" id="L1472">        return offre;</span>
+    }
+
+    protected Etudiant entretienDTOToEtudiant(EntretienDTO entretienDTO) {
+<span class="nc bnc" id="L1476" title="All 2 branches missed.">        if ( entretienDTO == null ) {</span>
+<span class="nc" id="L1477">            return null;</span>
+        }
+
+<span class="nc" id="L1480">        Etudiant etudiant = new Etudiant();</span>
+
+<span class="nc" id="L1482">        etudiant.setIdEtu( entretienDTO.getEtudiantId() );</span>
+
+<span class="nc" id="L1484">        return etudiant;</span>
+    }
+
+    private Long evaluationEncadrantIdEncadrant(Evaluation evaluation) {
+<span class="nc bnc" id="L1488" title="All 2 branches missed.">        if ( evaluation == null ) {</span>
+<span class="nc" id="L1489">            return null;</span>
+        }
+<span class="nc" id="L1491">        Encadrant encadrant = evaluation.getEncadrant();</span>
+<span class="nc bnc" id="L1492" title="All 2 branches missed.">        if ( encadrant == null ) {</span>
+<span class="nc" id="L1493">            return null;</span>
+        }
+<span class="nc" id="L1495">        Long idEncadrant = encadrant.getIdEncadrant();</span>
+<span class="nc bnc" id="L1496" title="All 2 branches missed.">        if ( idEncadrant == null ) {</span>
+<span class="nc" id="L1497">            return null;</span>
+        }
+<span class="nc" id="L1499">        return idEncadrant;</span>
+    }
+
+    private Long evaluationStageIdStage(Evaluation evaluation) {
+<span class="nc bnc" id="L1503" title="All 2 branches missed.">        if ( evaluation == null ) {</span>
+<span class="nc" id="L1504">            return null;</span>
+        }
+<span class="nc" id="L1506">        Stage stage = evaluation.getStage();</span>
+<span class="nc bnc" id="L1507" title="All 2 branches missed.">        if ( stage == null ) {</span>
+<span class="nc" id="L1508">            return null;</span>
+        }
+<span class="nc" id="L1510">        Long idStage = stage.getIdStage();</span>
+<span class="nc bnc" id="L1511" title="All 2 branches missed.">        if ( idStage == null ) {</span>
+<span class="nc" id="L1512">            return null;</span>
+        }
+<span class="nc" id="L1514">        return idStage;</span>
+    }
+
+    protected Encadrant evaluationDTOToEncadrant(EvaluationDTO evaluationDTO) {
+<span class="nc bnc" id="L1518" title="All 2 branches missed.">        if ( evaluationDTO == null ) {</span>
+<span class="nc" id="L1519">            return null;</span>
+        }
+
+<span class="nc" id="L1522">        Encadrant encadrant = new Encadrant();</span>
+
+<span class="nc" id="L1524">        encadrant.setIdEncadrant( evaluationDTO.getEncadrantId() );</span>
+
+<span class="nc" id="L1526">        return encadrant;</span>
+    }
+
+    protected Stage evaluationDTOToStage(EvaluationDTO evaluationDTO) {
+<span class="nc bnc" id="L1530" title="All 2 branches missed.">        if ( evaluationDTO == null ) {</span>
+<span class="nc" id="L1531">            return null;</span>
+        }
+
+<span class="nc" id="L1534">        Stage stage = new Stage();</span>
+
+<span class="nc" id="L1536">        stage.setIdStage( evaluationDTO.getStageId() );</span>
+
+<span class="nc" id="L1538">        return stage;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

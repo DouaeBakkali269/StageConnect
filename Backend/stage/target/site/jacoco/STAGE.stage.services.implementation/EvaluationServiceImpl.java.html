@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EvaluationServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.services.implementation</a> &gt; <span class="el_source">EvaluationServiceImpl.java</span></div><h1>EvaluationServiceImpl.java</h1><pre class="source lang-java linenums">package STAGE.stage.services.implementation;
+
+import STAGE.stage.dtos.EvaluationDTO;
+import STAGE.stage.mappers.EntityMapper;
+import STAGE.stage.models.Evaluation;
+import STAGE.stage.models.Encadrant;
+import STAGE.stage.models.Stage;
+import STAGE.stage.repositories.EvaluationRepository;
+import STAGE.stage.repositories.EncadrantRepository;
+import STAGE.stage.repositories.StageRepository;
+import STAGE.stage.services.EvaluationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class EvaluationServiceImpl implements EvaluationService {
+
+    private final EvaluationRepository evaluationRepository;
+    private final EncadrantRepository encadrantRepository;
+    private final StageRepository stageRepository;
+    private final EntityMapper mapper;
+
+    @Override
+    public EvaluationDTO createEvaluation(EvaluationDTO evaluationDTO) {
+<span class="nc" id="L29">        Encadrant encadrant = encadrantRepository.findById(evaluationDTO.getEncadrantId())</span>
+<span class="nc" id="L30">                .orElseThrow(() -&gt; new RuntimeException(&quot;Encadrant introuvable&quot;));</span>
+<span class="nc" id="L31">        Stage stage = stageRepository.findById(evaluationDTO.getStageId())</span>
+<span class="nc" id="L32">                .orElseThrow(() -&gt; new RuntimeException(&quot;Stage introuvable&quot;));</span>
+
+<span class="nc" id="L34">        Evaluation evaluation = mapper.toEntity(evaluationDTO);</span>
+<span class="nc" id="L35">        evaluation.setEncadrant(encadrant);</span>
+<span class="nc" id="L36">        evaluation.setStage(stage);</span>
+
+<span class="nc" id="L38">        return mapper.toDto(evaluationRepository.save(evaluation));</span>
+    }
+
+    @Override
+    public EvaluationDTO updateEvaluation(Long id, EvaluationDTO evaluationDTO) {
+<span class="nc" id="L43">        Evaluation evaluation = evaluationRepository.findById(id)</span>
+<span class="nc" id="L44">                .orElseThrow(() -&gt; new RuntimeException(&quot;Évaluation introuvable&quot;));</span>
+
+<span class="nc" id="L46">        evaluation.setNote(evaluationDTO.getNote());</span>
+<span class="nc" id="L47">        evaluation.setCompetances(evaluationDTO.getCompetances());</span>
+<span class="nc" id="L48">        evaluation.setCommentaire(evaluationDTO.getCommentaire());</span>
+
+<span class="nc" id="L50">        return mapper.toDto(evaluationRepository.save(evaluation));</span>
+    }
+
+    @Override
+    public EvaluationDTO getEvaluationById(Long id) {
+<span class="nc" id="L55">        Evaluation evaluation = evaluationRepository.findById(id)</span>
+<span class="nc" id="L56">                .orElseThrow(() -&gt; new RuntimeException(&quot;Évaluation introuvable&quot;));</span>
+<span class="nc" id="L57">        return mapper.toDto(evaluation);</span>
+    }
+
+    @Override
+    public List&lt;EvaluationDTO&gt; getAllEvaluations() {
+<span class="nc" id="L62">        return evaluationRepository.findAll()</span>
+<span class="nc" id="L63">                .stream()</span>
+<span class="nc" id="L64">                .map(mapper::toDto)</span>
+<span class="nc" id="L65">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public void deleteEvaluation(Long id) {
+<span class="nc" id="L70">        evaluationRepository.deleteById(id);</span>
+<span class="nc" id="L71">    }</span>
+
+    @Override
+    public List&lt;EvaluationDTO&gt; getEvaluationsByEncadrantId(Long encadrantId) {
+<span class="nc" id="L75">        return evaluationRepository.findByEncadrant_IdEncadrant(encadrantId)</span>
+<span class="nc" id="L76">                .stream()</span>
+<span class="nc" id="L77">                .map(mapper::toDto)</span>
+<span class="nc" id="L78">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;EvaluationDTO&gt; getEvaluationsByStageId(Long stageId) {
+<span class="nc" id="L83">        return evaluationRepository.findByStage_IdStage(stageId).stream()</span>
+<span class="nc" id="L84">                .map(mapper::toDto)</span>
+<span class="nc" id="L85">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;EvaluationDTO&gt; getEvaluationsByEtudiantId(Long etudiantId) {
+<span class="nc" id="L90">        return evaluationRepository.findByStage_Etudiant_IdEtu(etudiantId).stream()</span>
+<span class="nc" id="L91">                .map(mapper::toDto)</span>
+<span class="nc" id="L92">                .collect(Collectors.toList());</span>
+    }
+     @Override
+     public List&lt;EvaluationDTO&gt; getEvaluationsByEcoleId(Long ecoleId) {
+<span class="nc" id="L96">         return evaluationRepository.findByEcoleId(ecoleId).stream()</span>
+<span class="nc" id="L97">                 .map(mapper::toDto)</span>
+<span class="nc" id="L98">                 .collect(Collectors.toList());</span>
+     }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

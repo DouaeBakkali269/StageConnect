@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EncadrantController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.controllers</a> &gt; <span class="el_source">EncadrantController.java</span></div><h1>EncadrantController.java</h1><pre class="source lang-java linenums">package STAGE.stage.controllers;
+
+import STAGE.stage.dtos.EncadrantDTO;
+import STAGE.stage.services.EncadrantService;
+import STAGE.stage.services.StatisticsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/encadrants&quot;)
+@RequiredArgsConstructor
+public class EncadrantController {
+
+    private final EncadrantService encadrantService;
+    private final StatisticsService statisticsService;
+
+    // Create a new Encadrant
+    @PostMapping
+    public ResponseEntity&lt;EncadrantDTO&gt; createEncadrant(@RequestBody EncadrantDTO dto) {
+<span class="nc" id="L24">        EncadrantDTO created = encadrantService.createEncadrant(dto);</span>
+<span class="nc" id="L25">        return ResponseEntity.ok(created);</span>
+    }
+
+    // Update an existing Encadrant
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;EncadrantDTO&gt; updateEncadrant(
+            @PathVariable Long id,
+            @RequestBody EncadrantDTO dto) {
+<span class="nc" id="L33">        EncadrantDTO updated = encadrantService.updateEncadrant(id, dto);</span>
+<span class="nc" id="L34">        return ResponseEntity.ok(updated);</span>
+    }
+
+    // Get Encadrant by ID
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;EncadrantDTO&gt; getEncadrantById(@PathVariable Long id) {
+<span class="nc" id="L40">        EncadrantDTO encadrant = encadrantService.getEncadrantById(id);</span>
+<span class="nc" id="L41">        return ResponseEntity.ok(encadrant);</span>
+    }
+
+    // Get All Encadrants
+    @GetMapping
+    public ResponseEntity&lt;List&lt;EncadrantDTO&gt;&gt; getAllEncadrants() {
+<span class="nc" id="L47">        List&lt;EncadrantDTO&gt; encadrants = encadrantService.getAllEncadrants();</span>
+<span class="nc" id="L48">        return ResponseEntity.ok(encadrants);</span>
+    }
+
+    // Delete Encadrant by ID
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteEncadrant(@PathVariable Long id) {
+<span class="nc" id="L54">        encadrantService.deleteEncadrant(id);</span>
+<span class="nc" id="L55">        return ResponseEntity.noContent().build();</span>
+    }
+    // Encadrant Statistics
+    @GetMapping(&quot;/{supervisorId}/ongoing-internships&quot;)
+    public long countOngoingInternshipsBySupervisor(@PathVariable Long supervisorId) {
+<span class="nc" id="L60">        return statisticsService.countOngoingInternshipsBySupervisor(supervisorId);</span>
+    }
+
+    @GetMapping(&quot;/{supervisorId}/total-internships&quot;)
+    public long countTotalInternshipsBySupervisor(@PathVariable Long supervisorId) {
+<span class="nc" id="L65">        return statisticsService.countTotalInternshipsBySupervisor(supervisorId);</span>
+    }
+
+    @GetMapping(&quot;/company/{companyId}/active-internships&quot;)
+    public long getActiveInternshipsByCompany(@PathVariable Long companyId) {
+<span class="nc" id="L70">        return statisticsService.countActiveInternshipsByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/user/{userId}&quot;)
+    public ResponseEntity&lt;Long&gt; getEncadrantIdByUserId(@PathVariable Long userId) {
+        try {
+<span class="nc" id="L76">            Long encadrantId = encadrantService.getEncadrantIdByUserId(userId);</span>
+<span class="nc" id="L77">            return ResponseEntity.ok(encadrantId);</span>
+<span class="nc" id="L78">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L79">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
+        }
+    }
+
+    @GetMapping(&quot;/by-entreprise/{entrepriseId}&quot;)
+    public ResponseEntity&lt;List&lt;EncadrantDTO&gt;&gt; getEncadrantsByEntrepriseId(@PathVariable Long entrepriseId) {
+<span class="nc" id="L85">        List&lt;EncadrantDTO&gt; encadrants = encadrantService.getEncadrantsByEntrepriseId(entrepriseId);</span>
+<span class="nc" id="L86">        return ResponseEntity.ok(encadrants);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

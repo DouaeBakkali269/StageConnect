@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EvaluationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.controllers</a> &gt; <span class="el_source">EvaluationController.java</span></div><h1>EvaluationController.java</h1><pre class="source lang-java linenums">package STAGE.stage.controllers;
+
+import STAGE.stage.dtos.EvaluationDTO;
+import STAGE.stage.services.EvaluationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/evaluations&quot;)
+<span class="fc" id="L12">public class EvaluationController {</span>
+
+    @Autowired
+    private EvaluationService evaluationService;
+
+    @PostMapping
+    public EvaluationDTO createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {
+<span class="nc" id="L19">        return evaluationService.createEvaluation(evaluationDTO);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public EvaluationDTO updateEvaluation(@PathVariable Long id, @RequestBody EvaluationDTO evaluationDTO) {
+<span class="nc" id="L24">        return evaluationService.updateEvaluation(id, evaluationDTO);</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public EvaluationDTO getEvaluationById(@PathVariable Long id) {
+<span class="nc" id="L29">        return evaluationService.getEvaluationById(id);</span>
+    }
+
+    @GetMapping
+    public List&lt;EvaluationDTO&gt; getAllEvaluations() {
+<span class="nc" id="L34">        return evaluationService.getAllEvaluations();</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public void deleteEvaluation(@PathVariable Long id) {
+<span class="nc" id="L39">        evaluationService.deleteEvaluation(id);</span>
+<span class="nc" id="L40">    }</span>
+
+    @GetMapping(&quot;/by-encadrant/{encadrantId}&quot;)
+    public List&lt;EvaluationDTO&gt; getEvaluationsByEncadrantId(@PathVariable Long encadrantId) {
+<span class="nc" id="L44">        return evaluationService.getEvaluationsByEncadrantId(encadrantId);</span>
+    }
+    @GetMapping(&quot;/by-stage/{stageId}&quot;)
+    public List&lt;EvaluationDTO&gt; getEvaluationsByStageId(@PathVariable Long stageId) {
+<span class="nc" id="L48">        return evaluationService.getEvaluationsByStageId(stageId);</span>
+    }
+
+    @GetMapping(&quot;/by-etudiant/{etudiantId}&quot;)
+    public List&lt;EvaluationDTO&gt; getEvaluationsByEtudiantId(@PathVariable Long etudiantId) {
+<span class="nc" id="L53">        return evaluationService.getEvaluationsByEtudiantId(etudiantId);</span>
+    }
+    @GetMapping(&quot;/by-ecole/{ecoleId}&quot;)
+    public List&lt;EvaluationDTO&gt; getEvaluationsByEcoleId(@PathVariable Long ecoleId) {
+<span class="nc" id="L57">        return evaluationService.getEvaluationsByEcoleId(ecoleId);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

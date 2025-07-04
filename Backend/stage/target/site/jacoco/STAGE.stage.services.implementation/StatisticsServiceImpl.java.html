@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatisticsServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.services.implementation</a> &gt; <span class="el_source">StatisticsServiceImpl.java</span></div><h1>StatisticsServiceImpl.java</h1><pre class="source lang-java linenums">package STAGE.stage.services.implementation;
+
+import STAGE.stage.controllers.DateConversionUtil;
+import STAGE.stage.models.Stage;
+import STAGE.stage.repositories.*;
+import STAGE.stage.services.StatisticsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class StatisticsServiceImpl implements StatisticsService {
+
+    // Repositories Declaration
+    private final EntrepriseRepository entrepriseRepository;
+    private final EcoleRepository ecoleRepository;
+    private final EtudiantRepository etudiantRepository;
+    private final OffreRepository offreRepository;
+    private final EntretienRepository entretienRepository;
+    private final StageRepository stageRepository;
+    private final RHRepository rhRepository;
+    private final EncadrantRepository encadrantRepository;
+    private final PostulationRepository postulationRepository;
+    private final UserRepository userRepository;
+    private final CompteEntrepriseRepository compteEntrepriseRepository;
+    private final CompteEcoleRepository compteEcoleRepository;
+    // Admin Statistics
+    @Override
+    public long countEntreprises() {
+<span class="nc" id="L34">        return compteEntrepriseRepository.count();</span>
+    }
+
+    @Override
+    public long countEcoles() {
+<span class="nc" id="L39">        return compteEcoleRepository.count();</span>
+    }
+
+    @Override
+    public long countEtudiants() {
+<span class="nc" id="L44">        return etudiantRepository.count();</span>
+    }
+
+    @Override
+    public long countTotalOffers() {
+<span class="nc" id="L49">        return offreRepository.count();</span>
+    }
+
+    @Override
+    public long countEntretiens() {
+<span class="nc" id="L54">        return entretienRepository.count();</span>
+    }
+
+    @Override
+    public long countOngoingStages(Date currentDate) {
+<span class="nc" id="L59">        return stageRepository.countByDateFinBefore(currentDate);</span>
+    }
+
+    @Override
+    public long countTotalOpenOffers() {
+<span class="nc" id="L64">        LocalDate localDate = LocalDate.now();</span>
+<span class="nc" id="L65">        Date date = DateConversionUtil.convertToDate(localDate);</span>
+<span class="nc" id="L66">        return offreRepository.countOpenOffers(date);</span>
+    }
+
+
+    // Ecole Statistics
+    @Override
+    public long countStudentsByEcole(Long idEcole) {
+<span class="nc" id="L73">        return etudiantRepository.countByEcole_IdEcole(idEcole);</span>
+    }
+
+    @Override
+    public long countStudentsWithoutInternship(Long idEcole) {
+<span class="nc" id="L78">        return stageRepository.countStudentsWithoutInternship(idEcole);</span>
+    }
+
+    @Override
+    public long countStudentsWithInternshipByFiliere(Long filiereId) {
+<span class="nc" id="L83">        return stageRepository.countStudentsWithInternshipByFiliere(filiereId);</span>
+    }
+
+    @Override
+    public long countTotalStudentsByFiliere(Long filiereId) {
+<span class="nc" id="L88">        return etudiantRepository.countByFiliere_IdFiliere(filiereId);</span>
+    }
+
+    @Override
+    public long countWithInternshipFoundByFiliere(Long filiereId) {
+<span class="nc" id="L93">        return stageRepository.countWithInternshipFoundByFiliere(filiereId);</span>
+    }
+
+
+
+    // Entreprise Statistics
+    //Offre repo
+    @Override
+    public long countTotalOffersByCompanyId(Long companyId) {
+<span class="nc" id="L102">        return offreRepository.countOffersByCompanyId(companyId);</span>
+    }
+
+    @Override
+    public long countOpenOffersByCompanyId(Long companyId) {
+<span class="nc" id="L107">        return offreRepository.countOpenOffersByCompanyId(companyId);</span>
+    }
+
+    @Override
+    public long countVisibleOffersByFiliere(Long filiereId) {
+<span class="nc" id="L112">        return offreRepository.countVisibleOffersByFiliere(filiereId);</span>
+    }
+
+    @Override
+    public long countTotalInterviewsByCompanyId(Long companyId) {
+<span class="nc" id="L117">        return entretienRepository.countByEntrepriseIdEntreprise(companyId);</span>
+    }
+
+    @Override
+    public long countTotalInternshipsByCompanyId(Long companyId) {
+        // Use the new repository method
+<span class="nc" id="L123">        return stageRepository.countValidInternshipsByCompanyId(companyId);</span>
+    }
+
+    @Override
+    public long countRhByCompanyId(Long companyId) {
+<span class="nc" id="L128">        return rhRepository.countByEntrepriseIdEntreprise(companyId);</span>
+    }
+
+    @Override
+    public long countSupervisorsByCompanyId(Long companyId) {
+<span class="nc" id="L133">        return encadrantRepository.countByEntrepriseIdEntreprise(companyId);</span>
+    }
+
+    @Override
+    public long countApplicantsPerOffer(Long offerId) {
+<span class="nc" id="L138">        return postulationRepository.countByOffreIdOffre(offerId);</span>
+    }
+
+    // Encadrant Statistics
+    @Override
+    public long countOngoingInternshipsBySupervisor(Long supervisorId) {
+<span class="nc" id="L144">        return stageRepository.countOngoingInternshipsBySupervisor(supervisorId);</span>
+    }
+
+    @Override
+    public long countTotalInternshipsBySupervisor(Long supervisorId) {
+<span class="nc" id="L149">        return stageRepository.countByEncadrantIdEncadrant(supervisorId);</span>
+    }
+
+    @Override
+    public long countActiveInternshipsByCompanyId(Long companyId) {
+<span class="nc" id="L154">        return stageRepository.countActiveInternshipsByCompanyId(companyId);</span>
+    }
+
+    @Override
+    public double getInternshipPercentageByFiliere(Long filiereId) {
+        // Use the existing repository method to count students with internships
+<span class="nc" id="L160">        long studentsWithInternships = this.countStudentsWithInternshipByFiliere(filiereId);</span>
+
+        // Use the second repository method to count total students in the filière
+<span class="nc" id="L163">        long totalStudents = this.countTotalStudentsByFiliere(filiereId);</span>
+
+        // Handle cases where total students is 0 to avoid division by zero
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (totalStudents == 0) {</span>
+<span class="nc" id="L167">            return 0.0;</span>
+        }
+
+        // Compute and return the percentage
+<span class="nc" id="L171">        return ((double) studentsWithInternships / totalStudents) * 100;</span>
+    }
+
+
+
+    @Override
+    public long countApplicationsByStudentId(Long studentId) {
+<span class="nc" id="L178">        return postulationRepository.countApplicationsByStudentId(studentId);</span>
+    }
+    @Override
+    public long countInterviewsByStudentId(Long studentId) {
+<span class="nc" id="L182">        LocalDate localDate = LocalDate.now();</span>
+<span class="nc" id="L183">        Date date = DateConversionUtil.convertToDate(localDate);</span>
+<span class="nc" id="L184">        return entretienRepository.countUpcomingEntretiensByEtudiantId(studentId,date);</span>
+    }
+
+    @Override
+    public List&lt;Stage&gt; findInternshipsByFiliereId(Long filiereId) {
+<span class="nc" id="L189">        return stageRepository.findInternshipsByFiliereId(filiereId);</span>
+    }
+
+    //count total stages by entrepriseId
+    @Override
+    public long countStagesByEntrepriseId(Long entrepriseId) {
+<span class="nc" id="L195">        return stageRepository.countAllByEntrepriseId(entrepriseId);</span>
+    }
+
+    //count internships offers
+    @Override
+    public long countTotalInterns() {
+<span class="nc" id="L201">        return stageRepository.countTotalInterns();</span>
+    }
+
+    //count total users
+    @Override
+    public long countTotalPlatformUsers() {
+<span class="nc" id="L207">        return userRepository.countTotalUsers();</span>
+    }
+
+    // etudiant statistics
+    // Count Postulations by Student ID
+    @Override
+    public long countPostulationsByEtudiantId(Long idEtu) {
+<span class="nc" id="L214">        return postulationRepository.countPostulationsByEtudiantId(idEtu);</span>
+    }
+
+    // Count Internships by Student ID
+    @Override
+    public long countInternshipsByEtudiantId(Long idEtu) {
+<span class="nc" id="L220">        return stageRepository.countInternshipsByEtudiantId(idEtu);</span>
+    }
+
+    // count postulations per entreprise
+    @Override
+    public long countPostulationsByEntrepriseId(Long entrepriseId) {
+<span class="nc" id="L226">        return postulationRepository.countPostulationsByEntrepriseId(entrepriseId);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -139,7 +139,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>git add 
+            </plugin>
         </plugins>
     </build>
 </project>

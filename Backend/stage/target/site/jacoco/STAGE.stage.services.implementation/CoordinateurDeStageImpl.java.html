@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CoordinateurDeStageImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.services.implementation</a> &gt; <span class="el_source">CoordinateurDeStageImpl.java</span></div><h1>CoordinateurDeStageImpl.java</h1><pre class="source lang-java linenums">package STAGE.stage.services.implementation;
+
+import STAGE.stage.dtos.CoordinateurDeStageDTO;
+import STAGE.stage.mappers.EntityMapper;
+import STAGE.stage.models.CoordinateurDeStage;
+import STAGE.stage.models.Ecole;
+import STAGE.stage.models.Utilisateur;
+import STAGE.stage.repositories.CoordinateurDeStageRepository;
+import STAGE.stage.repositories.EcoleRepository;
+import STAGE.stage.repositories.UserRepository;
+import STAGE.stage.services.CoordinateurDeDStageService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class CoordinateurDeStageImpl implements CoordinateurDeDStageService {
+
+    private final CoordinateurDeStageRepository coordinateurDeStageRepository;
+    private final EntityMapper mapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userrepository;
+
+    @Autowired
+    private EcoleRepository ecoleRepository;
+
+    @Override
+    public CoordinateurDeStageDTO createCoordinateurDeStage(CoordinateurDeStageDTO dto) {
+<span class="nc bnc" id="L37" title="All 4 branches missed.">        if (dto.getMotDePasse() == null || dto.getMotDePasse().isEmpty()) {</span>
+<span class="nc" id="L38">            throw new IllegalArgumentException(&quot;Password cannot be null or empty.&quot;);</span>
+        }
+<span class="nc" id="L40">        Ecole ecole = ecoleRepository.findById(dto.getEcoleId())</span>
+<span class="nc" id="L41">                .orElseThrow(() -&gt; new RuntimeException(&quot;Ecole not found&quot;));</span>
+
+
+<span class="nc" id="L44">        Utilisateur user = new Utilisateur();</span>
+<span class="nc" id="L45">        user.setRole(&quot;COORDINATEUR_DE_STAGE&quot;);</span>
+<span class="nc" id="L46">        user.setEmail(dto.getEmail());</span>
+<span class="nc" id="L47">        user.setPassword(passwordEncoder.encode(dto.getMotDePasse()));</span>
+<span class="nc" id="L48">        userrepository.save(user);</span>
+
+<span class="nc" id="L50">        CoordinateurDeStage coordinateur = new CoordinateurDeStage();</span>
+<span class="nc" id="L51">        coordinateur.setNom(dto.getNom());</span>
+<span class="nc" id="L52">        coordinateur.setPrenom(dto.getPrenom());</span>
+<span class="nc" id="L53">        coordinateur.setEmail(dto.getEmail());</span>
+<span class="nc" id="L54">        coordinateur.setTelephone(dto.getTelephone());</span>
+<span class="nc" id="L55">        coordinateur.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));</span>
+<span class="nc" id="L56">        coordinateur.setUser(user); // Associate User</span>
+<span class="nc" id="L57">        coordinateur.setEcole(ecole);</span>
+
+<span class="nc" id="L59">        return mapper.toDto(coordinateurDeStageRepository.save(coordinateur));</span>
+    }
+
+    @Override
+    public CoordinateurDeStageDTO updateCoordinateurDeStage(Long id, CoordinateurDeStageDTO dto) {
+<span class="nc" id="L64">        CoordinateurDeStage existing = coordinateurDeStageRepository.findById(id)</span>
+<span class="nc" id="L65">                .orElseThrow(() -&gt; new RuntimeException(&quot;Coordinateur de Stage not found&quot;));</span>
+
+<span class="nc" id="L67">        existing.setNom(dto.getNom());</span>
+<span class="nc" id="L68">        existing.setPrenom(dto.getPrenom());</span>
+<span class="nc" id="L69">        existing.setEmail(dto.getEmail());</span>
+<span class="nc" id="L70">        existing.setTelephone(dto.getTelephone());</span>
+
+        // Update User (email and password) if needed
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (dto.getUserId() != null) {</span>
+<span class="nc" id="L74">            Utilisateur user = userrepository.findById(dto.getUserId())</span>
+<span class="nc" id="L75">                    .orElseThrow(() -&gt; new RuntimeException(&quot;User not found with id: &quot; + dto.getUserId()));</span>
+<span class="nc" id="L76">            user.setEmail(dto.getEmail()); // Update email</span>
+<span class="nc bnc" id="L77" title="All 4 branches missed.">            if (dto.getMotDePasse() != null &amp;&amp; !dto.getMotDePasse().isEmpty()) {</span>
+<span class="nc" id="L78">                user.setPassword(passwordEncoder.encode(dto.getMotDePasse())); // Update password</span>
+            }
+<span class="nc" id="L80">            userrepository.save(user); // Save updated User</span>
+        }
+
+<span class="nc bnc" id="L83" title="All 4 branches missed.">        if (dto.getMotDePasse() != null &amp;&amp; !dto.getMotDePasse().isEmpty()) {</span>
+<span class="nc" id="L84">            existing.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse()));</span>
+        }
+
+<span class="nc" id="L87">        return mapper.toDto(coordinateurDeStageRepository.save(existing));</span>
+    }
+
+    @Override
+    public CoordinateurDeStageDTO getCoordinateurDeStageById(Long id) {
+<span class="nc" id="L92">        CoordinateurDeStage coordinateur = coordinateurDeStageRepository.findById(id)</span>
+<span class="nc" id="L93">                .orElseThrow(() -&gt; new RuntimeException(&quot;Coordinateur de Stage not found&quot;));</span>
+<span class="nc" id="L94">        return mapper.toDto(coordinateur);</span>
+    }
+
+    @Override
+    public List&lt;CoordinateurDeStageDTO&gt; getAllCoordinateursDeStage() {
+<span class="nc" id="L99">        return coordinateurDeStageRepository.findAll().stream()</span>
+<span class="nc" id="L100">                .map(mapper::toDto)</span>
+<span class="nc" id="L101">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public void deleteCoordinateurDeStage(Long id) {
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (!coordinateurDeStageRepository.existsById(id)) {</span>
+<span class="nc" id="L107">            throw new RuntimeException(&quot;Coordinateur de Stage not found&quot;);</span>
+        }
+<span class="nc" id="L109">        coordinateurDeStageRepository.deleteById(id);</span>
+<span class="nc" id="L110">    }</span>
+
+    @Override
+    public Long getCoordinateurDeStageIdIdByUserId(Long userId) {
+<span class="nc" id="L114">        Optional&lt;CoordinateurDeStage&gt; coordinateurDeStageOptional = coordinateurDeStageRepository.findByUserId(userId);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (coordinateurDeStageOptional.isPresent()) {</span>
+<span class="nc" id="L116">            return coordinateurDeStageOptional.get().getIdCs();</span>
+        } else {
+<span class="nc" id="L118">            throw new IllegalArgumentException(&quot;CompteEntreprise with userId &quot; + userId + &quot; does not exist.&quot;);</span>
+        }
+    }
+
+    @Override
+    public List&lt;CoordinateurDeStageDTO&gt; getCoordinateursByEcoleId(Long ecoleId) {
+<span class="nc" id="L124">        return coordinateurDeStageRepository.findByEcoleIdEcole(ecoleId)</span>
+<span class="nc" id="L125">                .stream()</span>
+<span class="nc" id="L126">                .map(mapper::toDto) // Assuming a mapper is used to convert entities to DTOs</span>
+<span class="nc" id="L127">                .collect(Collectors.toList());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

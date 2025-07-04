@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CompteEntrepriseController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">stage</a> &gt; <a href="index.source.html" class="el_package">STAGE.stage.controllers</a> &gt; <span class="el_source">CompteEntrepriseController.java</span></div><h1>CompteEntrepriseController.java</h1><pre class="source lang-java linenums">package STAGE.stage.controllers;
+
+import STAGE.stage.dtos.CompteEntrepriseDTO;
+import STAGE.stage.services.CompteEntrepriseService;
+import STAGE.stage.services.StatisticsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/compte-entreprises&quot;)
+@RequiredArgsConstructor
+public class CompteEntrepriseController {
+
+    @Autowired
+    private CompteEntrepriseService compteEntrepriseService;
+
+    @Autowired
+    private final StatisticsService statisticsService;
+    @PostMapping
+    public CompteEntrepriseDTO createCompteEntreprise(@RequestBody CompteEntrepriseDTO dto) {
+<span class="nc" id="L26">        return compteEntrepriseService.createCompteEntreprise(dto);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public CompteEntrepriseDTO updateCompteEntreprise(@PathVariable Long id, @RequestBody CompteEntrepriseDTO dto) {
+<span class="nc" id="L31">        return compteEntrepriseService.updateCompteEntreprise(id, dto);</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public CompteEntrepriseDTO getCompteEntrepriseById(@PathVariable Long id) {
+<span class="nc" id="L36">        return compteEntrepriseService.getCompteEntrepriseById(id);</span>
+    }
+
+    @GetMapping
+    public List&lt;CompteEntrepriseDTO&gt; getAllComptesEntreprise() {
+<span class="nc" id="L41">        return compteEntrepriseService.getAllComptesEntreprise();</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public void deleteCompteEntreprise(@PathVariable Long id) {
+<span class="nc" id="L46">        compteEntrepriseService.deleteCompteEntreprise(id);</span>
+<span class="nc" id="L47">    }</span>
+
+    @GetMapping(&quot;/by-entreprise/{entrepriseId}&quot;)
+    public CompteEntrepriseDTO getCompteEntrepriseByEntrepriseId(@PathVariable Long entrepriseId) {
+<span class="nc" id="L51">        return compteEntrepriseService.getCompteEntrepriseByEntrepriseId(entrepriseId);</span>
+    }
+
+    // Entreprise Statistics
+    @GetMapping(&quot;/{companyId}/open-offers&quot;)
+    public long countOpenOffersByCompanyId(@PathVariable Long companyId) {
+<span class="nc" id="L57">        return statisticsService.countOpenOffersByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/{companyId}/total-offers&quot;)
+    public long countTotalOffersByCompanyId(@PathVariable Long companyId) {
+<span class="nc" id="L62">        return statisticsService.countTotalOffersByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/{companyId}/total-interviews&quot;)
+    public long countTotalInterviewsByCompanyId(@PathVariable Long companyId) {
+<span class="nc" id="L67">        return statisticsService.countTotalInterviewsByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/{companyId}/total-internships-confirmed&quot;)
+    public long countTotalInternshipsByCompanyId(@PathVariable Long companyId) {
+<span class="nc" id="L72">        return statisticsService.countTotalInternshipsByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/{companyId}/rh&quot;)
+    public long countRhByCompanyId(@PathVariable Long companyId) {
+<span class="nc" id="L77">        return statisticsService.countRhByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/{companyId}/supervisors&quot;)
+    public long countSupervisorsByCompanyId(@PathVariable Long companyId) {
+<span class="nc" id="L82">        return statisticsService.countSupervisorsByCompanyId(companyId);</span>
+    }
+
+    @GetMapping(&quot;/{entrepriseId}/total-internships&quot;)
+    public long countStagesByEntrepriseId(@PathVariable Long entrepriseId) {
+<span class="nc" id="L87">        return statisticsService.countStagesByEntrepriseId(entrepriseId);</span>
+    }
+    @GetMapping(&quot;/countByEntreprise/{entrepriseId}&quot;)
+    public ResponseEntity&lt;Long&gt; countPostulationsByEntreprise(@PathVariable Long entrepriseId) {
+<span class="nc" id="L91">        long count = statisticsService.countPostulationsByEntrepriseId(entrepriseId);</span>
+<span class="nc" id="L92">        return ResponseEntity.ok(count);</span>
+    }
+
+
+//    @GetMapping(&quot;/offers/{offerId}/applicants&quot;)
+//    public long countApplicantsPerOffer(@PathVariable Long offerId) {
+//        return statisticsService.countApplicantsPerOffer(offerId);
+//    }
+
+    // Disable compte entreprise
+    @PutMapping(&quot;/{id}/disable&quot;)
+    public ResponseEntity&lt;String&gt; disableCompteEntreprise(@PathVariable Long id, @RequestBody String newPassword) {
+        try {
+<span class="nc" id="L105">            compteEntrepriseService.disableCompteEntreprise(id, newPassword);</span>
+<span class="nc" id="L106">            return ResponseEntity.ok(&quot;CompteEntreprise with ID &quot; + id + &quot; has been disabled and its password updated successfully.&quot;);</span>
+<span class="nc" id="L107">        } catch (Exception e) {</span>
+<span class="nc" id="L108">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    // get by userId
+    @GetMapping(&quot;/user/{userId}&quot;)
+    public ResponseEntity&lt;Long&gt; getCompteEntrepriseIdByUserId(@PathVariable Long userId) {
+        try {
+<span class="nc" id="L116">            Long compteEntrepriseId = compteEntrepriseService.getCompteEntrepriseIdByUserId(userId);</span>
+<span class="nc" id="L117">            return ResponseEntity.ok(compteEntrepriseId);</span>
+<span class="nc" id="L118">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L119">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
