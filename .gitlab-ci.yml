@@ -42,7 +42,7 @@ backend-test:
     SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres_db:5432/myapp"
     SPRING_DATASOURCE_USERNAME: "myuser"
     SPRING_DATASOURCE_PASSWORD: "mypassword"
-    POSTGRES_DB: "myapp" # Variables for the postgres service itself
+    POSTGRES_DB: "myapp"
     POSTGRES_USER: "myuser"
     POSTGRES_PASSWORD: "mypassword"
   script:
@@ -59,11 +59,11 @@ backend-test:
 frontend-lint:
   stage: test
   extends: .frontend-base
-  image: node:20-alpine # Use a Node.js image
+  image: node:20-alpine 
   script:
     - npm install
     - npm run lint # Run the lint command defined in package.json
-  cache: # Cache node_modules to speed up subsequent runs
+  cache:
     key: 
       files:
         - Frontend/package-lock.json
