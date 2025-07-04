@@ -143,7 +143,7 @@ backend-build:
 
 frontend-build:
   extends: .build-kaniko-template
-  needs: [fontend-test]
+  needs: [frontend-test]
   variables:
     CONTEXT_DIR: "$CI_PROJECT_DIR/Frontend"
     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Frontend/Dockerfile"
