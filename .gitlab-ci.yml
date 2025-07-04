@@ -57,8 +57,10 @@ backend-test:
       - Backend/stage/target/checkstyle-result.xml # Checkstyle report
       - Backend/stage/target/*.jar
     reports:
-      junit: Backend/stage/target/surefire-reports/*.xml # JUnit test reports
-      junit: Backend/stage/target/failsafe-reports/*.xml # Integration test reports
+      junit:
+        - Backend/stage/target/surefire-reports/*.xml
+        - Backend/stage/target/failsafe-reports/*.xml
+
     expire_in: 1 week   
   cache: # Cache Maven dependencies to speed up subsequent runs
     key: 
@@ -88,7 +90,7 @@ frontend-lint:
 
 # Frontend Unit Tests
 # This job runs the Frontend unit tests using Vitest
-frontendtest:
+frontend-test:
   stage: test
   extends: .frontend-base
   image: node:18-alpine 
@@ -104,7 +106,7 @@ frontendtest:
       junit: Frontend/test-results.xml # JUnit test report for CI visibility
       coverage_report: 
         coverage_format: cobertura # Specify the format of the coverage report
-        paths: Frontend/coverage/cobertura-coverage.xml # Path to the Cobertura coverage report
+        path: Frontend/coverage/cobertura-coverage.xml # Path to the Cobertura coverage report
     expire_in: 1 week   
   cache:
     key: 
