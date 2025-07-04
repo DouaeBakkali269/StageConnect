@@ -27,10 +27,8 @@ public class EtudiantServiceImpl implements EtudiantService {
     private final EcoleRepository ecoleRepository;  // Repository pour l'école
     private final FiliereRepository filiereRepository;  // Repository pour la filière
     private final EntityMapper mapper;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userrepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userrepository;
 
     @Override
     public EtudiantDTO createEtudiant(EtudiantDTO dto) {
