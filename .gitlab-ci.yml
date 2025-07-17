@@ -28,47 +28,99 @@ default:
   after_script:
     - cd ..
 
-
-backend-test:
+# Test Stage
+# Unit Tests Job - Fast execution, no external dependencies
+backend-unit-test:
   stage: test
   extends: .backend-base
-  image: eclipse-temurin:17-jdk-jammy 
-  services:
-    # This starts a temporary PostgreSQL database just for this job.
-    - name: postgres:15-alpine
-      alias: postgres_db
+  image: eclipse-temurin:17-jdk-jammy
   variables:
-    # These variables are passed to the Spring Boot application during the test run.
-    SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres_db:5432/myapp"
-    SPRING_DATASOURCE_USERNAME: "myuser"
-    SPRING_DATASOURCE_PASSWORD: "mypassword"
-    POSTGRES_DB: "myapp"
-    POSTGRES_USER: "myuser"
-    POSTGRES_PASSWORD: "mypassword"
+    SPRING_PROFILES_ACTIVE: "test"
   script:
-    - ./mvnw verify # Verify the project and run tests
-    - ./mvnw jacoco:report # Generate JaCoCo test coverage report
+    - ./mvnw clean test # Clean → compile → test-compile → unit tests (Surefire)
+    - ./mvnw jacoco:report 
+    - ./mvnw checkstyle:check # Run checkstyle analysis
   artifacts:
     when: always
     paths:
-      - Backend/stage/target/surefire-reports/ # Unit Test reports
-      - Backend/stage/target/failsafe-reports/ # Integration Test reports
-      - Backend/stage/target/site/jacoco/ # JaCoCo coverage report
-      - Backend/stage/target/checkstyle-result.xml # Checkstyle report
-      - Backend/stage/target/*.jar
+      - Backend/stage/target/surefire-reports/ # Unit test reports (XML + TXT)
+      - Backend/stage/target/site/jacoco/ # JaCoCo coverage HTML report
+      - Backend/stage/target/checkstyle-result.xml # Checkstyle XML report
+      - Backend/stage/target/checkstyle-result.txt # Checkstyle human-readable report
     reports:
       junit:
         - Backend/stage/target/surefire-reports/*.xml
-        - Backend/stage/target/failsafe-reports/*.xml
-
-    expire_in: 1 week   
-  cache: # Cache Maven dependencies to speed up subsequent runs
-    key: 
-      files:
-        - Backend/stage/pom.xml
+    expire_in: 1 week
+  cache:
+    key: "unit-tests-${CI_COMMIT_REF_SLUG}"
     paths:
       - Backend/stage/.m2/repository
-    policy: pull-push 
+    policy: pull-push
+
+# Integration Tests Job - Requires external services like PostgreSQL
+backend-integration-test:
+  stage: test
+  extends: .backend-base
+  image: eclipse-temurin:17-jdk-jammy
+  services:
+    # PostgreSQL service for integration tests
+    - name: postgres:15-alpine
+      alias: postgres_db
+  variables:
+    # PostgreSQL connection for integration tests
+    SPRING_PROFILES_ACTIVE: "integration"
+    SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres_db:5432/myapp"
+    SPRING_DATASOURCE_USERNAME: "myuser"
+    SPRING_DATASOURCE_PASSWORD: "mypassword"
+    SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
+    SPRING_JPA_HIBERNATE_DDL_AUTO: "create-drop"
+    # PostgreSQL service configuration
+    POSTGRES_DB: "myapp"
+    POSTGRES_USER: "myuser"
+    POSTGRES_PASSWORD: "mypassword"
+    POSTGRES_HOST_AUTH_METHOD: "trust"
+  script:
+    - ./mvnw clean verify -DskipUnitTests # Clean → compile → package → integration tests (Failsafe) only
+    - ./mvnw jacoco:report # Generate JaCoCo coverage report for integration tests
+  artifacts:
+    when: always
+    paths:
+      - Backend/stage/target/failsafe-reports/ # Integration test reports (XML + TXT)
+      - Backend/stage/target/site/jacoco/ # JaCoCo coverage HTML report for integration tests
+      - Backend/stage/target/*.jar # Built artifacts
+    reports:
+      junit:
+        - Backend/stage/target/failsafe-reports/*.xml
+    expire_in: 1 week
+  cache:
+    key: "integration-tests-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - Backend/stage/.m2/repository
+    policy: pull
+  # Integration tests typically take longer, so allow more time
+  timeout: 15m
+
+# Optional: Combined coverage report job that depends on both test jobs
+backend-coverage-report:
+  stage: test
+  extends: .backend-base
+  image: eclipse-temurin:17-jdk-jammy
+  needs:
+    - backend-unit-test
+    - backend-integration-test
+  script:
+    - ./mvnw jacoco:report-aggregate # Generate combined coverage report
+  artifacts:
+    when: always
+    paths:
+      - Backend/stage/target/site/jacoco-aggregate/ # Combined coverage HTML report
+      - Backend/stage/target/site/jacoco/ # Individual coverage reports
+    expire_in: 1 week
+  cache:
+    key: "coverage-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - Backend/stage/.m2/repository
+    policy: pull
 
 # Frontend linting job
 # This job runs ESLint to check for code quality and style issues in the Frontend code
