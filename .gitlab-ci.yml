@@ -187,7 +187,9 @@ frontend-test:
 
 backend-build:
   extends: .build-kaniko-template
-  needs: [backend-test]
+  needs:
+    - backend-unit-test
+    - backend-integration-test
   variables:
     CONTEXT_DIR: "$CI_PROJECT_DIR/Backend/stage"
     DOCKERFILE_PATH: "$CI_PROJECT_DIR/Backend/stage/Dockerfile"
