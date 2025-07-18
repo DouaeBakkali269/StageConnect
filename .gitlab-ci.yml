@@ -205,23 +205,30 @@ frontend-build:
     IMAGE_NAME: "frontend"
 
 # --- PUBLISH STAGE ---
-# Template for publishing Docker images to GitLab registry
+# CORRECTED PUBLISH TEMPLATE - Method 1: Use Docker to load and push
 .publish-template:
   stage: publish
-  image:
-    name: gcr.io/kaniko-project/executor:v1.9.0-debug
-    entrypoint: [""]
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
     - |
-      # Load the Docker image from the tar file and push to registry
-      DESTINATIONS="--destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+      # Load the Docker image from tar file
+      docker load -i "${IMAGE_NAME}.tar"
+      
+      # Get the image ID from the loaded tar
+      IMAGE_ID=$(docker images --format "table {{.Repository}}:{{.Tag}}" | grep -v "REPOSITORY" | head -1)
+      
+      # Tag and push the image
+      docker tag "$IMAGE_ID" "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+      docker push "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+      
+      # Also tag as latest if on default branch
       if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
-        DESTINATIONS="${DESTINATIONS} --destination ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
+        docker tag "$IMAGE_ID" "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
+        docker push "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:latest"
       fi
-      echo "Publishing to GitLab registry: ${DESTINATIONS}"
-    # Push the pre-built image to GitLab registry
-    - /kaniko/executor --tarPath "${IMAGE_NAME}.tar" ${DESTINATIONS}
 
 backend-publish:
   extends: .publish-template
