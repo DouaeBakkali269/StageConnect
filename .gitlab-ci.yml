@@ -56,7 +56,7 @@ backend-unit-test:
       - Backend/stage/.m2/repository
     policy: pull-push
 
-# Integration Tests Job - Requires external services like PostgreSQL
+# Integration Tests Job
 backend-integration-test:
   stage: test
   extends: .backend-base
@@ -88,7 +88,6 @@ backend-integration-test:
       - Backend/stage/target/site/             # <-- ADD THIS LINE FOR HTML REPORTS
       - Backend/stage/target/site/surefire-report.html # Surefire HTML report
       - Backend/stage/target/site/jacoco/ # JaCoCo coverage HTML report for integration tests
-      - Backend/stage/target/*.jar # Built artifacts
     reports:
       junit:
         - Backend/stage/target/failsafe-reports/*.xml
@@ -100,28 +99,6 @@ backend-integration-test:
     policy: pull
   # Integration tests typically take longer, so allow more time
   timeout: 15m
-
-# Optional: Combined coverage report job that depends on both test jobs
-backend-coverage-report:
-  stage: test
-  extends: .backend-base
-  image: eclipse-temurin:17-jdk-jammy
-  needs:
-    - backend-unit-test
-    - backend-integration-test
-  script:
-    - ./mvnw jacoco:report-aggregate # Generate combined coverage report
-  artifacts:
-    when: always
-    paths:
-      - Backend/stage/target/site/jacoco-aggregate/ # Combined coverage HTML report
-      - Backend/stage/target/site/jacoco/ # Individual coverage reports
-    expire_in: 1 week
-  cache:
-    key: "coverage-${CI_COMMIT_REF_SLUG}"
-    paths:
-      - Backend/stage/.m2/repository
-    policy: pull
 
 # Frontend linting job
 # This job runs ESLint to check for code quality and style issues in the Frontend code
