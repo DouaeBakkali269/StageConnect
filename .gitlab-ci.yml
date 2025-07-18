@@ -180,7 +180,7 @@ frontend-test:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - |
       echo "Building Docker image: ${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
-    - /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}" --no-push --tarPath "${IMAGE_NAME}.tar"     # ONLY BUILD the Docker image - DON'T push to registry yet!
+    - /kaniko/executor --context "${CONTEXT_DIR}" --dockerfile "${DOCKERFILE_PATH}"  --destination "${CI_REGISTRY_IMAGE}/${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" --no-push --tarPath "${IMAGE_NAME}.tar"     # ONLY BUILD the Docker image - DON'T push to registry yet!
   artifacts:
     paths:
       - "*.tar"  # Save the Docker image as a file
