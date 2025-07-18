@@ -137,6 +137,14 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
+                    <!-- Combined coverage -->
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -187,20 +195,8 @@
                 </executions>
             </plugin>
 
-            <!-- Failsafe Report Plugin for Integration Test HTML Reports -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-report-plugin</artifactId>
-                <version>3.0.0-M7</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report-only</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
+
         </plugins>
     </build>
 </project>
