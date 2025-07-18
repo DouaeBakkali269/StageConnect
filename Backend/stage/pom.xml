@@ -137,7 +137,7 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-                    <!-- Combined coverage -->
+                    <!-- Note: report-aggregate is for multi-module projects. It's fine here, but 'report' is usually sufficient for a single module. -->
                     <execution>
                         <id>report-aggregate</id>
                         <phase>verify</phase>
@@ -148,11 +148,11 @@
                 </executions>
             </plugin>
 
-            <!-- Surefire Plugin for Unit Tests -->
+            <!-- Surefire Plugin for Unit Tests (version updated) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M7</version>
+                <version>3.3.1</version> <!-- UPDATED -->
                 <configuration>
                     <excludes>
                         <exclude>**/*IT.java</exclude>
@@ -160,11 +160,11 @@
                 </configuration>
             </plugin>
 
-            <!-- Failsafe Plugin for Integration Tests -->
+            <!-- Failsafe Plugin for Integration Tests (version updated) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M7</version>
+                <version>3.3.1</version> <!-- UPDATED -->
                 <configuration>
                     <includes>
                         <include>**/*IT.java</include>
@@ -180,11 +180,11 @@
                 </executions>
             </plugin>
 
-            <!-- Surefire Report Plugin for HTML Test Reports -->
+            <!-- Surefire Report Plugin for HTML Test Reports (version updated) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M7</version>
+                <version>3.3.1</version> <!-- UPDATED to match others -->
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -194,9 +194,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-
         </plugins>
     </build>
 </project>
