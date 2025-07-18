@@ -45,7 +45,6 @@ backend-unit-test:
     paths:
       - Backend/stage/target/surefire-reports/ # Unit test reports (XML + TXT)
       - Backend/stage/target/site/jacoco/ # JaCoCo coverage HTML report
-      - Backend/stage/target/site/surefire-report.html # Surefire HTML report
       #- Backend/stage/target/checkstyle-result.xml # Checkstyle XML report
       #- Backend/stage/target/checkstyle-result.txt # Checkstyle human-readable report
     reports:
@@ -88,6 +87,7 @@ backend-integration-test:
     paths:
       - Backend/stage/target/failsafe-reports/ # Integration test reports (XML + TXT)
       - Backend/stage/target/site/             # <-- ADD THIS LINE FOR HTML REPORTS
+      - Backend/stage/target/site/surefire-report.html # Surefire HTML report
       - Backend/stage/target/site/jacoco/ # JaCoCo coverage HTML report for integration tests
       - Backend/stage/target/*.jar # Built artifacts
     reports:
