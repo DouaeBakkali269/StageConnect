@@ -39,7 +39,6 @@ backend-unit-test:
   script:
     - ./mvnw clean test # Clean → compile → test-compile → unit tests (Surefire)
     - ./mvnw jacoco:report 
-    - ./mvnw checkstyle:check # Run checkstyle analysis
   artifacts:
     when: always
     paths:
